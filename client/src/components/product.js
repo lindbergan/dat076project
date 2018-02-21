@@ -12,7 +12,7 @@ export class Product extends Component {
     this.setState({ product });
   }
 
-render(){
+  render(){
     const { product } = this.state;
     if(product !== undefined) {
       return(
@@ -22,9 +22,11 @@ render(){
           { <p>Price: { product.price }</p> }
           <style jsx="true">{`
           .product {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             background-color: yellow;
+            float: left;
+            margin: 10px;
           }
           `}</style>
         </div>

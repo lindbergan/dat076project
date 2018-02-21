@@ -2,30 +2,44 @@ import React, { Component } from 'react';
 import './App.css';
 import { Header } from './components/Header.js';
 import { Sidebar } from './components/sidebar.js';
-import { Product } from "./components/product";
+import {GridView} from "./components/gridview";
 
 class App extends Component {
-  state = {products: []};
+  constructor() {
+    super();
+    this.state = {
+      products: null
+    }
+  }
 
-  componentDidMount() {
+  async componentDidMount() {
     fetch('/products')
       .then(res => res.json())
       .then(products => this.setState({ products }))
   }
 
   render() {
-
     const { products } = this.state;
 
-    return (
-      <div className="App">
-        <Header/>
-        <h1>Products</h1>
-        {products.map(product =>
-          <Product key={ product.id } id={ product.id } product={ product }/>)}
-        <Sidebar/>
-      </div>
-    );
+    if (products) {
+      return (
+        <div className="App">
+          <Header/>
+          <h1>Products</h1>
+          <GridView products={products}/>
+          <Sidebar/>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <Header/>
+          <h1>Products</h1>
+          <h3>Loading grid view...</h3>
+          <Sidebar/>
+        </div>
+      );
+    }
   }
 }
 
