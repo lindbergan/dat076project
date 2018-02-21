@@ -1,4 +1,4 @@
-    .App {
+.App {
   text-align: center;
   background-color: red;
 }
@@ -28,10 +28,11 @@
   to { transform: rotate(360deg); }
 }
 
-#logo {
-  margin-left:-1500px;
+.headertest {
+  background-color: green;
+  text-align:;
 }
 
-#headertest {
-  background-color: green;
+.headerlogo {
+
 }
