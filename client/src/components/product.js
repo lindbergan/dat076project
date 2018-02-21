@@ -1,0 +1,11 @@
+import React, { Component } from 'react';
+
+export class Product extends Component {
+  render(){
+    return(
+      <div>
+        This is a product
+      </div>
+    )
+  }
+}

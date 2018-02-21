@@ -4,22 +4,21 @@ import { Header } from './components/header.js';
 import { Sidebar } from './components/sidebar.js';
 
 class App extends Component {
-  state = {users: []}
+  state = {products: []};
 
   componentDidMount() {
-    fetch('/users')
+    fetch('/products')
       .then(res => res.json())
-      .then(users => this.setState({ users }));
+      .then(products => this.setState({ products }))
   }
 
   render() {
     return (
       <div className="App">
         <Header/>
-        <h1>Users</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
-        )}
+        <h1>Products</h1>
+        {this.state.products.map(product =>
+          <div>{product.name}</div>)}
         <Sidebar/>
       </div>
     );
