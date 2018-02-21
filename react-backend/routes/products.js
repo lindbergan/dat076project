@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
-
   res.json([{
   	id: 1,
   	name: "Product 1",
@@ -20,7 +19,14 @@ router.get('/', function(req, res, next) {
     name: "Product 4",
     price: 400
   }]);
+});
 
+router.get('/:id', function(req, res, next) {
+  res.json({
+    id: 1,
+    name: "Product 1",
+    price: 100
+  });
 });
 
 module.exports = router;
