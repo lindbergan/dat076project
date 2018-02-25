@@ -24,12 +24,11 @@ export class GridView extends Component {
           <style jsx="true">{`
 
             .gridView {
-              width: 100%;
+              width: 80%;
               height: 100%;
               align-content: center;
-              padding: 5%;
+              padding: 2% 5%;
               position: fixed;
-              overflow-x: hidden;
               overflow-y: scroll;
             }
 

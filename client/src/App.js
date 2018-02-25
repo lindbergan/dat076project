@@ -27,17 +27,21 @@ class App extends Component {
           <div className="grid-header">
             <Header/>
           </div>
+          <div className="grid-sidebar">
+            <Sidebar/>
+          </div>
           <div className="grid-main">
             <GridView products={products}/>
           </div>
+
           <style jsx="true">{`
             .grid-container{
               display:grid;
               grid-template-rows: 150px auto;
-              grid-template-columns: 30% 70%;
+              grid-template-columns: 20% 80%;
               grid-template-areas:
                 "grid-header grid-header"
-                "grid-main grid-main"
+                "grid-sidebar grid-main"
             }
             .grid-header{
               display:grid;
@@ -47,6 +51,12 @@ class App extends Component {
               background-color: #B5C7CB;
             }
 
+            .grid-sidebar{
+              display: grid;
+              grid-area: grid-sidebar;
+              background-color: #EAEAEA;
+            }
+
             .grid-main{
               display: grid;
               grid-area: grid-main;
@@ -54,6 +64,7 @@ class App extends Component {
               height: 100%;
               width: 100%;
             }
+
 
           `}</style>
 
