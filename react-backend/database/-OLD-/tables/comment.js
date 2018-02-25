@@ -4,7 +4,8 @@
 var db = require('../config/database').database;
 var Sequelize = require('sequelize');
 
-var shoppingCart = db.define('comment', {
+
+var comment = db.define('comment', {
   text:       Sequelize.TEXT,
   user_id:{
     type:     Sequelize.INTEGER,
