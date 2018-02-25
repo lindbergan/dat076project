@@ -32,12 +32,7 @@ class App extends Component {
       );
     } else {
       return (
-        <div className="App">
-          <Header/>
-          <h1>Products</h1>
-          <h3>Loading grid view...</h3>
-          <Sidebar/>
-        </div>
+        <div>{/* Placeholder div */}</div>
       );
     }
   }
