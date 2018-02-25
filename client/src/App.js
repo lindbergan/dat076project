@@ -25,18 +25,12 @@ class App extends Component {
       return (
         <div className="App">
           <Header/>
-          <h1>Products</h1>
-          <GridView products={products}/>
-          <Sidebar/>
         </div>
       );
     } else {
       return (
-        <div className="App">
-          <Header/>
-          <h1>Products</h1>
-          <h3>Loading grid view...</h3>
-          <Sidebar/>
+        <div className="App-no-products">
+
         </div>
       );
     }
