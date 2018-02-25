@@ -33,15 +33,8 @@ export class GridView extends Component {
       )
     } else {
       return(
-        <div className="gridView">
-          <style jsx="true">{`
-
-            .gridView {
-              width: 100%;
-              height: 1000px;
-            }
-
-          `}</style>
+        <div>
+          <h3>Grid view is loading...</h3>
         </div>
       )
     }
