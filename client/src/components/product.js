@@ -24,9 +24,10 @@ export class Product extends Component {
           .product {
             width: 200px;
             height: 200px;
-            background-color: yellow;
+            background-color: #F5FFE1;
             float: left;
             margin: 10px;
+            cursor: pointer;
           }
           `}</style>
         </div>

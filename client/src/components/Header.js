@@ -47,7 +47,6 @@ export class Header extends React.Component {
         </FormGroup>
       </form>
           <style jsx="true">{`
-
             .webshop-title {
               color: white;
             }
@@ -55,7 +54,6 @@ export class Header extends React.Component {
               width: 25%;
               margin:auto;
             }
-
 
           `}</style>
         </div>

@@ -23,14 +23,47 @@ class App extends Component {
 
     if (products) {
       return (
-        <div className="App">
-          <Header/>
+        <div className="App grid-container">
+          <div className="grid-header">
+            <Header/>
+          </div>
+          <div className="grid-main">
+            <GridView products={products}/>
+          </div>
+          <style jsx="true">{`
+            .grid-container{
+              display:grid;
+              grid-template-rows: 150px auto;
+              grid-template-columns: 30% 70%;
+              grid-template-areas:
+                "grid-header grid-header"
+                "grid-main grid-main"
+            }
+            .grid-header{
+              display:grid;
+              grid-area: grid-header;
+              height: 100%;
+              width:100%;
+              background-color: #B5C7CB;
+            }
+
+            .grid-main{
+              display: grid;
+              grid-area: grid-main;
+              background-color: #EAEAEA;
+              height: 100%;
+              width: 100%;
+            }
+
+          `}</style>
+
         </div>
       );
     } else {
       return (
         <div className="App-no-products">
-
+          <Header/>
+          <h2>PRODUCTS LOADING..</h2>
         </div>
       );
     }
