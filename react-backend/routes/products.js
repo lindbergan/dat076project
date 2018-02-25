@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   res.json(products);
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:product_id', function(req, res, next) {
   res.json({
     id: 1,
     name: "Product 1",
