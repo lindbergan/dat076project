@@ -25,11 +25,11 @@ export class GridView extends Component {
 
             .gridView {
               width: 80%;
-              height: 100%;
+              height: inherit;
               align-content: center;
-              padding: 2% 5%;
               position: fixed;
               overflow-y: scroll;
+              padding: 2% 5%;
             }
 
           `}</style>
