@@ -24,8 +24,12 @@ export class GridView extends Component {
           <style jsx="true">{`
 
             .gridView {
-              width: 100%;
-              height: 1000px;
+              width: 80%;
+              height: inherit;
+              align-content: center;
+              position: fixed;
+              overflow-y: scroll;
+              padding: 2% 5%;
             }
 
           `}</style>
@@ -33,8 +37,15 @@ export class GridView extends Component {
       )
     } else {
       return(
-        <div>
-          <h3>Grid view is loading...</h3>
+        <div className="gridView">
+          <style jsx="true">{`
+
+            .gridView {
+              width: 100%;
+              height: 100%;
+            }
+
+          `}</style>
         </div>
       )
     }
