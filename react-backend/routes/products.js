@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   const products = [];
 
   const amount = 101;
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   res.json(products);
 });
 
-router.get('/:product_id', function(req, res, next) {
+router.get('/:product_id', (req, res, next) => {
   res.json({
     id: 1,
     name: "Product 1",
@@ -32,7 +32,7 @@ router.get('/:product_id', function(req, res, next) {
   });
 });
 
-router.get('/:product_id/review', function(req, res, next) {
+router.get('/:product_id/review', (req, res, next) => {
   res.json({
     reviews: [{
       id: 1,
@@ -51,7 +51,7 @@ router.get('/:product_id/review', function(req, res, next) {
   });
 });
 
-router.get('/:product_id/review/:review_id', function(req, res, next) {
+router.get('/:product_id/review/:review_id', (req, res, next) => {
   res.json({
     id: 1,
     title: "This product rocked!",
