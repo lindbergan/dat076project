@@ -11,6 +11,5 @@ echo "Starting client!"
 cd ../client
 echo "Press Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 npm start
-CLIENT=$!
 
-kill $BACKEND
+kill ${BACKEND}
