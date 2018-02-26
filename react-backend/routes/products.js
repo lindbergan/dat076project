@@ -38,18 +38,20 @@ router.get('/:product_id/review', function(req, res, next) {
       id: 1,
       title: "This product rocked!",
       rating: 3,
+      author: "Adrian",
       comment: "Lorem ipsum dolor sit amet...."
     },
       {
         id: 2,
         title: "This product was not good",
         rating: 1,
+        author: "Adrian",
         comment: "Lorem ipsum dolor sit amet...."
       }]
   });
 });
 
-router.get('/:product_id/review/review_id', function(req, res, next) {
+router.get('/:product_id/review/:review_id', function(req, res, next) {
   res.json({
     id: 1,
     title: "This product rocked!",
