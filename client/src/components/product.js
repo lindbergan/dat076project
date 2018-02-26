@@ -31,7 +31,8 @@ export class Product extends Component {
               </div>
             </div>
             <div className="grid-button">
-              <Button bsStyle="success"
+              <Button className="buy-button"
+                      bsStyle="success"
                       bsSize="xsmall">Add</Button>
             </div>
           <style jsx="true">{`
