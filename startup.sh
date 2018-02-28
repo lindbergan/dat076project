@@ -4,10 +4,12 @@
 echo "Starting react-backend!"
 cd react-backend
 npm start &
+BACKEND=$!
 
 # Starting client
 echo "Starting client!"
 cd ../client
 echo "Press Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 npm start
-echo "Done! go to localhost:3001"
+
+kill ${BACKEND}
