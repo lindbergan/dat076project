@@ -2,26 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import { Header } from './components/Header.js';
 import { Sidebar } from './components/sidebar.js';
-import {GridView} from "./components/gridview";
+import { GridView } from "./components/gridview";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      products: null
-    }
-  }
+  constructor() { super(); }
 
-  async componentDidMount() {
-    fetch('/products')
-      .then(res => res.json())
-      .then(products => this.setState({ products }))
-  }
+  async componentDidMount() {}
 
   render() {
-    const { products } = this.state;
-
-    if (products) {
       return (
         <div className="App grid-container">
           <div className="grid-header">
@@ -31,9 +19,8 @@ class App extends Component {
             <Sidebar/>
           </div>
           <div className="grid-main">
-            <GridView products={products}/>
+            <GridView />
           </div>
-
           <style jsx="true">{`
             .grid-container{
               display:grid;
@@ -64,20 +51,9 @@ class App extends Component {
               height: 100%;
               width: 100%;
             }
-
-
           `}</style>
-
         </div>
       );
-    } else {
-      return (
-        <div className="App-no-products">
-          <Header/>
-          <h2>PRODUCTS LOADING..</h2>
-        </div>
-      );
-    }
   }
 }
 
