@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
 
 
-class Cart extends Component{
+export class Cart extends Component{
 
   constructor(props, context){
     super(props, context);
     this.state = {
-      products = [];
-
-    }
+      cart: [],
+    };
   }
 
-  componentDidMount(){
+  async componentDidMount(){
+    console.log("mounting successful");
+    fetch('cart/1')
+      .then(res => res.json())
+      .then(cart => this.setState({cart}));
+  }
+  render(){
+
+    const total_price = this.state.cart.total_price;
+    console.log(total_price);
+    if(total_price === 0){
+      return(
+
+        <div>Cart is empty</div>
+
+    );
+    }else{
+      return(
+
+        <div>Products exists</div>
+
+      );
+    }
 
   }
 
 }
-
-
-
-export default Cart;
