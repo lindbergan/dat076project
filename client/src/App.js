@@ -9,7 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      authenticated: false
+      authenticated: sessionStorage.getItem('authenticated')
     }
   }
 
@@ -17,7 +17,12 @@ class App extends Component {
 
   render() {
     if (!this.state.authenticated) {
-      return <Authentication authFunc={() => this.setState({ authenticated: true })}/>
+      return <Authentication authFunc={
+        () => {
+          this.setState({ authenticated: true });
+          sessionStorage.setItem('authenticated', this.state.authenticated);
+        }
+      }/>
     }
     return (
       <div className="App grid-container">
