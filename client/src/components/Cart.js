@@ -23,13 +23,40 @@ export class Cart extends Component{
     if(total_price === 0){
       return(
 
-        <div>Cart is empty</div>
+        <div className="cart-container">Cart is empty
+
+
+        <style jsx="true">{`
+
+          .cart-container {
+            background-color: steelblue;
+          }
+
+        `}</style>
+        </div>
 
     );
     }else{
       return(
 
-        <div>Products exists</div>
+        <div className="cart-container">
+          Products exists
+          <div className="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+        <style jsx="true">{`
+
+          .cart-container {
+            background-color: steelblue;
+          }
+          .cart-icon{
+            font-size:3em;
+            color:white;
+          }
+
+        `}</style>
+
+        </div>
 
       );
     }
