@@ -17,7 +17,7 @@ class App extends Component {
 
   render() {
     if (!this.state.authenticated) {
-      return <Authentication auth={() => this.setState({ authenticated: true })}/>
+      return <Authentication authFunc={() => this.setState({ authenticated: true })}/>
     }
     return (
       <div className="App grid-container">
