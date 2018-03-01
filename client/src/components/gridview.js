@@ -5,18 +5,21 @@ export class GridView extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      products: null
+    };
   }
 
   async componentDidMount() {
-    const { products } = this.props;
-    this.setState({ products });
+    fetch('/products')
+      .then(res => res.json())
+      .then(products => this.setState({ products }))
   }
 
   render(){
     const { products } = this.state;
 
-    if (products !== undefined) {
+    if (products !== null) {
       return(
         <div className="gridView">
           {products.map(product =>
