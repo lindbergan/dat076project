@@ -18,9 +18,9 @@ export class Cart extends Component{
   }
   render(){
 
-    const total_price = this.state.cart.total_price;
-    console.log(total_price);
-    if(total_price === 0){
+    const cart = this.state.cart;
+    console.log(cart);
+    if(!cart){
       return(
 
         <div className="cart-container">Cart is empty
@@ -30,6 +30,13 @@ export class Cart extends Component{
 
           .cart-container {
             background-color: steelblue;
+            display:grid;
+            grid-template-columns: 50% 50%;
+            grid-template-rows: 15% 60% 15%;
+            grid-template-areas:
+              ". . ."
+              "grid-icon grid-cart-info"
+              ". . ."
           }
 
         `}</style>
@@ -37,21 +44,55 @@ export class Cart extends Component{
 
     );
     }else{
+      const total_amount = cart.total_amount;
+      const total_price = cart.total_price;
+      console.log("total amount: " + total_amount + "total price: " + total_price );
       return(
 
         <div className="cart-container">
-          Products exists
-          <div className="cart-icon">
-            <i class="fas fa-shopping-cart"></i>
+          <div className="grid-icon">
+            <div className="cart-icon">
+              <i className="fas fa-shopping-cart"></i>
+            </div>
           </div>
+          <div className="grid-cart-info">
+            <div>Number of products: {total_amount}</div>
+            <div>Total cost: {total_price}</div>
+            <div className="purchase-btn">Go to cashier</div>
+          </div>
+
         <style jsx="true">{`
 
+
           .cart-container {
+            color: white;
             background-color: steelblue;
+            display:grid;
+            grid-template-columns: 50% 50%;
+            grid-template-rows: 15% 60% 15%;
+            grid-template-areas:
+              ". . "
+              "grid-icon grid-cart-info"
+              ". ."
+          }
+          .grid-icon{
+            display: grid;
+            grid-area: grid-icon;
+            text-align: center;
+            content-align:center;
           }
           .cart-icon{
-            font-size:3em;
+            font-size:4em;
             color:white;
+          }
+          .grid-cart-info{
+            display: grid;
+            grid-area: grid-cart-info;
+            margin-left: 0;
+            text-align: left;
+          }
+          .purchase-btn{
+            cursor: pointer;
           }
 
         `}</style>
