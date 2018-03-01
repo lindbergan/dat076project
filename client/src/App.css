@@ -1,6 +1,7 @@
 .App {
   text-align: center;
-  background-color: red;
+  background-color: steelblue;
+  height: 100%;
 }
 
 .App-logo {
@@ -30,7 +31,7 @@
 
 .headertest {
   background-color: green;
-  text-align:;
+  text-align: center;
 }
 
 .headerlogo {

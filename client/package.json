@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",
+    "react-google-login": "^3.0.4",
     "react-scripts": "1.1.1"
   },
   "proxy": "http://127.0.0.1:3000",

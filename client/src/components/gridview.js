@@ -5,18 +5,21 @@ export class GridView extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      products: null
+    };
   }
 
   async componentDidMount() {
-    const { products } = this.props;
-    this.setState({ products });
+    fetch('/products')
+      .then(res => res.json())
+      .then(products => this.setState({ products }))
   }
 
   render(){
     const { products } = this.state;
 
-    if (products !== undefined) {
+    if (products !== null) {
       return(
         <div className="gridView">
           {products.map(product =>
@@ -24,8 +27,12 @@ export class GridView extends Component {
           <style jsx="true">{`
 
             .gridView {
-              width: 100%;
-              height: 1000px;
+              width: 80%;
+              height: inherit;
+              align-content: center;
+              position: fixed;
+              overflow-y: scroll;
+              padding: 2% 5%;
             }
 
           `}</style>
@@ -38,7 +45,7 @@ export class GridView extends Component {
 
             .gridView {
               width: 100%;
-              height: 1000px;
+              height: 100%;
             }
 
           `}</style>
