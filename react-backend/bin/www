@@ -21,6 +21,7 @@ app.set('port', port);
 var server = http.createServer(app);
 
 models.sequelize.sync().then(function() {
+
   /**
    * Listen on provided port, on all network interfaces.
    */
@@ -30,6 +31,7 @@ models.sequelize.sync().then(function() {
   server.on('error', onError);
   server.on('listening', onListening);
 });
+
 
 /**
  * Normalize a port into a number, string, or false.
@@ -56,6 +58,7 @@ function normalizePort(val) {
  */
 
 function onError(error) {
+
   if (error.syscall !== 'listen') {
     throw error;
   }

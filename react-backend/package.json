@@ -16,6 +16,7 @@
     "mysql2": "^1.5.2",
     "path": "^0.12.7",
     "sequelize": "^4.34.0",
+    "sequelize-router": "^1.0.6",
     "serve-favicon": "^2.4.5"
   }
 }

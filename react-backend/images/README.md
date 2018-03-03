@@ -1,0 +1,1 @@
+/*We should place the generic pictures here, ie the profile_pic, product_pic etc*/

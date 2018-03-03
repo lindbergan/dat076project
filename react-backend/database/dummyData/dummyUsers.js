@@ -1,16 +1,23 @@
 
 //Create dummy users to populate the DB
-const userTable = require('../models/user');
 
-module.exports = {
+var dummyUsers = [];
 
-   populate: function(){
-    userTable.create({
-      user_id: 10
-      firstName:  'John',
-      lastName:   'Lennon',
-      email:      'john@lennon.com',
-      role:       'admin'
-    });
-  }
+const amount = 10;
+for (var i = 1; i <= amount; i++) {
+    dummyUsers.push(
+        {
+            user_id:        i,
+            firstName:      ('User' + i).toString(),
+            lastName:       '***',
+            email:          ('user' + i + '@gmail.com').toString(),
+            role:           'admin',
+            userimgurl:     '../images/profileDummy.img'
+        }
+    )
 }
+
+module.exports = dummyUsers;
+
+
+//{ user_id: 1, firstName: 'foo', lastName: 'bar', email:'foo@bar', role: 'admin'})

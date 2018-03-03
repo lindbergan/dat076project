@@ -1,0 +1,67 @@
+const express = require('express');
+const router = express.Router();
+const sequelize = require('sequelize'); //?
+var models = require('../database/models');
+var Users = models.user;
+
+//GET ALL USERS
+router.get('/', (req, res, next) => {
+
+    return Users.findAll().then(users => {
+        if (!users) {
+    return res.status(404).send({
+        message: 'No users found',
+    });
+}
+return res.status(200).send(users);
+})
+.catch(error => res.status(400).send(error));
+});
+
+//GET USER BY ID
+router.get('/:user_id', (req, res, next) => {
+
+    return Users.findById(req.params.user_id).then(user => {
+        if (!user) {
+    return res.status(404).send({
+        message: 'User Not Found',
+    });
+}
+return res.status(200).send(user);
+})
+.catch(error => res.status(400).send(error));
+});
+
+//POST USER
+router.post('/', (req, res, next) => {
+
+    var newUser = new Users(req.body);
+newUser.save(req.body).then(respons => {
+    res.send("item saved to database");
+})
+.catch(err => {
+    res.status(400).send("unable to save user");
+});
+});
+
+//DELETE USER
+router.delete('/:user_id', (req, res, next) => {
+    Users.destroy({
+    where: {
+        user_id: req.params.user_id,
+    }
+}).then(respons => {
+    res.send("User deleted");
+})
+.catch(err => { //A bit strange that it isn't considered an error when trying to delete something that doesn't exist...
+    res.status(400).send("unable to delete users");
+});
+});
+
+/*****************************TODOs*********************************************/
+//UPDATE USER
+
+
+
+
+module.exports = router;
