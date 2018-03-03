@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
   function handleClick(e){
+    console.log("add button clicked, push to cart");
   }
 
 export class Product extends Component {
@@ -39,7 +40,6 @@ export class Product extends Component {
             </div>
 
             <div className="grid-button">
-             <Link to="/product">
               <Button className="buy-button"
                       bsStyle="success"
                       bsSize="xsmall"
