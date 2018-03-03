@@ -5,6 +5,8 @@ import { Header } from './components/header.js';
 import { Sidebar } from './components/sidebar.js';
 import { GridView } from "./components/gridview";
 import { Authentication } from "./components/authentication-view";
+import { Route } from 'react-router-dom';
+import Checkout from './components/checkout.js';
 
 class App extends Component {
   constructor() {
@@ -27,7 +29,8 @@ class App extends Component {
     }
     return (
       <Layout>
-        <GridView />
+        <Route path="/" exact component={GridView} />
+        <Route path="/checkout" exact component={Checkout} />
       </Layout>
     );
   }
