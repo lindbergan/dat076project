@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl } from 'react-bootstrap';
+import { Cart } from './cart.js'
 
 export class Header extends Component {
 

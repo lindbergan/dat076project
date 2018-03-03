@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
+function handleClick(e){
+  e.preventDefault();
+  console.log("link clicked");
+}
 
 export class Cart extends Component{
 
@@ -16,6 +21,8 @@ export class Cart extends Component{
       .then(res => res.json())
       .then(cart => this.setState({cart}));
   }
+
+
   render(){
 
     const cart = this.state.cart;
@@ -58,7 +65,9 @@ export class Cart extends Component{
           <div className="grid-cart-info">
             <div>Number of products: {total_amount}</div>
             <div>Total cost: {total_price}</div>
-            <div className="purchase-btn">Go to cashier</div>
+            <div className="purchase-btn">
+              <a href="#" onClick={handleClick}>Go to cashier</a>
+            </div>
           </div>
 
         <style jsx="true">{`
@@ -91,7 +100,8 @@ export class Cart extends Component{
             margin-left: 0;
             text-align: left;
           }
-          .purchase-btn{
+          .purchase-btn a{
+            color: white;
             cursor: pointer;
           }
 
