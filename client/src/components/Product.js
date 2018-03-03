@@ -39,12 +39,13 @@ export class Product extends Component {
             </div>
 
             <div className="grid-button">
+             <Link to="/product">
               <Button className="buy-button"
                       bsStyle="success"
                       bsSize="xsmall"
                       onClick={handleClick}>Add to cart</Button>
             </div>
-            
+
           <style jsx="true">{`
           .product-container {
             width: 200px;
