@@ -40,7 +40,7 @@ const Layout = props => (
     .grid-main{
       display: grid;
       grid-area: grid-main;
-      background-color: #f3efe7;
+      background-color: #EAEAEA;
       height: 100%;
       width: 100%;
     }
