@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export class Product extends Component {
 
@@ -31,9 +32,11 @@ export class Product extends Component {
               </div>
             </div>
             <div className="grid-button">
+             <Link to="/product">
               <Button className="buy-button"
                       bsStyle="success"
                       bsSize="xsmall">Add</Button>
+             </Link>
             </div>
           <style jsx="true">{`
           .product-container {

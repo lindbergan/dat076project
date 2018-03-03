@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 function handleClick(e){
-  e.preventDefault();
   console.log("link clicked");
 }
 
@@ -66,7 +65,7 @@ export class Cart extends Component{
             <div>Number of products: {total_amount}</div>
             <div>Total cost: {total_price}</div>
             <div className="purchase-btn">
-              <a href="#" onClick={handleClick}>Go to cashier</a>
+              <Link to="/checkout" onClick={handleClick}>Go to cashier</Link>
             </div>
           </div>
 
