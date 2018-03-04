@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl } from 'react-bootstrap';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Cart } from './Cart.js'
 
 export class Header extends Component {
@@ -35,6 +35,9 @@ export class Header extends Component {
               Amazing Products Webshop
           </h1>
             <form>
+              <Button
+                className="btn btn-danger"
+                onClick={this.props.logOut}>Logout</Button>
             <FormGroup
               controlId="formBasicText"
               validationState={this.getValidationState()}
