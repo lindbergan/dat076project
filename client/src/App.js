@@ -1,72 +1,55 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Header } from './components/header.js';
-import { Sidebar } from './components/sidebar.js';
-import { GridView } from "./components/gridview";
-import { Authentication } from "./components/authentication-view";
+import Layout from './Layout.js';
+import { GridView } from "./components/Gridview";
+import { Authentication } from "./components/Authentication-view";
+import { Route } from 'react-router-dom';
+import Checkout from './components/Checkout.js';
+import ProductDetails from './components/Product-details.js';
 
 class App extends Component {
   constructor() {
     super();
+
+    const savedUserId = sessionStorage.getItem('userId');
+    const savedAuthenticated = sessionStorage.getItem('authenticated');
+
     this.state = {
-      authenticated: sessionStorage.getItem('authenticated')
-    }
+      authenticated: savedAuthenticated,
+      userId: savedUserId
+    };
+  }
+
+  logIn(userId) {
+    this.setState({
+      authenticated: true,
+      userId: userId
+    });
+    sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('authenticated', true);
+  }
+
+  logOut() {
+    this.setState({
+      authenticated: false,
+      userId: null
+    });
+    sessionStorage.setItem('userId', null);
+    sessionStorage.setItem('authenticated', false);
   }
 
   async componentDidMount() {}
 
   render() {
-    if (!this.state.authenticated) {
-      return <Authentication authFunc={
-        () => {
-          this.setState({ authenticated: true });
-          sessionStorage.setItem('authenticated', this.state.authenticated);
-        }
-      }/>
+    if (!this.state.authenticated || this.state.authenticated === 'false') {
+      return <Authentication logIn={this.logIn.bind(this)}/>
     }
     return (
-      <div className="App grid-container">
-        <div className="grid-header">
-          <Header/>
-        </div>
-        <div className="grid-sidebar">
-          <Sidebar/>
-        </div>
-        <div className="grid-main">
-          <GridView />
-        </div>
-        <style jsx="true">{`
-          .grid-container{
-            display:grid;
-            grid-template-rows: 150px auto;
-            grid-template-columns: 20% 80%;
-            grid-template-areas:
-              "grid-header grid-header"
-              "grid-sidebar grid-main"
-          }
-          .grid-header{
-            display:grid;
-            grid-area: grid-header;
-            height: 100%;
-            width:100%;
-            background-color: #B5C7CB;
-          }
-
-          .grid-sidebar{
-            display: grid;
-            grid-area: grid-sidebar;
-            background-color: #EAEAEA;
-          }
-
-          .grid-main{
-            display: grid;
-            grid-area: grid-main;
-            background-color: #EAEAEA;
-            height: 100%;
-            width: 100%;
-          }
-        `}</style>
-      </div>
+      <Layout logOut={this.logOut.bind(this)}>
+        <Route path="/" exact component={GridView} />
+        <Route path="/checkout" exact component={Checkout} />
+        <Route path="/product" exact component={ProductDetails} />
+      </Layout>
     );
   }
 }
