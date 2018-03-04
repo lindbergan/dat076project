@@ -22,6 +22,7 @@ export class Product extends Component {
     if(product !== undefined) {
       return(
         <div className="product-container">
+
             <div className="grid-img">
             <Link to="/product">
               <div className="img-container">
@@ -29,6 +30,7 @@ export class Product extends Component {
               </div>
               </Link>
             </div>
+
             <div className="grid-info">
               <div className="info-container">
                 { product.name } <br/>
@@ -36,12 +38,14 @@ export class Product extends Component {
                 { product.price }<br/>
               </div>
             </div>
+
             <div className="grid-button">
               <Button className="buy-button"
                       bsStyle="success"
                       bsSize="xsmall"
                       onClick={handleClick}>Add to cart</Button>
             </div>
+            
           <style jsx="true">{`
           .product-container {
             width: 200px;
