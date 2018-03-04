@@ -161,25 +161,24 @@ newReview.save(req.body).then(respons => {
 //Hmm - this is tricky. How do we calculate the overall rating for a product (technical matter) and how do we get keep it current (needs to be updated at each review)
 
 //GET ALL PRODUCTS SORTED_BY_RATING (ASC) [NOTE: ONLY RETURNS PRODUCTS WITH RATINGS - DESIGN CHOISE]
-router.get('/filters/rating_acs', (req, res, next) => {
-
+//router.get('/filters/rating_acs', (req, res, next) => {
+//
     //find all products WITH ratings
-    var prodsWithRating = Item.findAll({
-    attributes: ['product_id'],
-    include: [{
-        model: Reviews,
-        attributes: [[sequelize.fn('AVG', sequelize.col('review.rating')), 'avgValue']],
-        order: [['avgValue', 'DESC']]
-    }].then(respons => {
+//    var prodsWithRating = Item.findAll({
+//    attributes: ['product_id'],
+//    include: [{
+//        model: Reviews,
+//        attributes: [[sequelize.fn('AVG', sequelize.col('review.rating')), 'avgValue']],
+//        order: [['avgValue', 'DESC']]
+//    }].then(respons => {
 
         //next - translate them into
-        res.send("review for product saved");
-})
-.catch(err => {
-    res.status(400).send("unable to save review");
-});
-
-});
+//        res.send("review for product saved");
+//})
+//.catch(err => {
+//    res.status(400).send("unable to save review");
+//});
+//});
 //GET ALL PRODUCTS SORTED_BY_RATING (DEC)
 //GET ALL WITH AT LEAST RATING X (ASC)
 
