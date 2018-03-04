@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import Layout from './Layout.js';
-import { Header } from './components/header.js';
-import { Sidebar } from './components/sidebar.js';
-import { GridView } from "./components/gridview";
-import { Authentication } from "./components/authentication-view";
+import { Header } from './components/Header.js';
+import { Sidebar } from './components/Sidebar.js';
+import { GridView } from "./components/Gridview";
+import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
-import Checkout from './components/checkout.js';
-import ProductDetails from './components/product-details.js';
+import Checkout from './components/Checkout.js';
+import ProductDetails from './components/Product-details.js';
 
 class App extends Component {
   constructor() {

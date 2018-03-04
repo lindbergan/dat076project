@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Header } from './components/header.js';
-import { Sidebar } from './components/sidebar.js';
+import { Header } from './components/Header.js';
+import { Sidebar } from './components/Sidebar.js';
 
 
 const Layout = props => (

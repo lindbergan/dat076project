@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl } from 'react-bootstrap';
-import { Cart } from './cart.js'
+import { Cart } from './Cart.js'
 
 export class Header extends Component {
 
@@ -26,7 +26,7 @@ export class Header extends Component {
 
     render() {
       return (
-        <div className="header-container">
+        <header className="header-container">
           <div className="grid-hatch">
             <img alt="logo" className="headerlogo"/>
           </div>
@@ -81,7 +81,7 @@ export class Header extends Component {
             }
 
           `}</style>
-        </div>
+        </header>
       )
     }
 }
