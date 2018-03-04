@@ -5,7 +5,7 @@ import { GridView } from "./components/Gridview";
 import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
 import Checkout from './components/Checkout.js';
-import ProductDetails from './components/Product-details.js';
+import {ProductDetails} from './components/Product-details.js';
 
 class App extends Component {
   constructor() {
@@ -48,7 +48,7 @@ class App extends Component {
       <Layout logOut={this.logOut.bind(this)}>
         <Route path="/" exact component={GridView} />
         <Route path="/checkout" exact component={Checkout} />
-        <Route path="/product" exact component={ProductDetails} />
+        <Route path="/product/:product_id" exact component={ProductDetails} />
       </Layout>
     );
   }

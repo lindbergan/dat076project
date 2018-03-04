@@ -24,7 +24,7 @@ export class Product extends Component {
         <div className="product-container">
 
             <div className="grid-img">
-            <Link to="/product">
+            <Link to={"/product/" + product.id}>
               <div className="img-container">
                 img goes here
               </div>
