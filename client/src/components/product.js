@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+  function handleClick(e){
+    console.log("add button clicked, push to cart");
+  }
 
 export class Product extends Component {
-
   constructor() {
     super();
     this.state = {};
@@ -18,11 +22,15 @@ export class Product extends Component {
     if(product !== undefined) {
       return(
         <div className="product-container">
+
             <div className="grid-img">
+            <Link to="/product">
               <div className="img-container">
                 img goes here
               </div>
+              </Link>
             </div>
+
             <div className="grid-info">
               <div className="info-container">
                 { product.name } <br/>
@@ -30,21 +38,24 @@ export class Product extends Component {
                 { product.price }<br/>
               </div>
             </div>
+
             <div className="grid-button">
               <Button className="buy-button"
                       bsStyle="success"
-                      bsSize="xsmall">Add</Button>
+                      bsSize="xsmall"
+                      onClick={handleClick}>Add to cart</Button>
             </div>
+            
           <style jsx="true">{`
           .product-container {
             width: 200px;
-            height: 250px;
+            height: 275px;
             background-color: #F5FFE1;
             float: left;
             margin: 10px;
             cursor: pointer;
             display: grid;
-            grid-template-rows: 200px 50px;
+            grid-template-rows: 200px 75px;
             grid-template-columns: 50% 50%;
             grid-template-areas:
               "grid-img grid-img"
@@ -54,9 +65,10 @@ export class Product extends Component {
             display: grid;
             grid-area: grid-img;
             padding: 20px;
+            background-color: #A7AE99;
           }
           .img-container{
-            background-color: #A7AE99;
+            background-color: white;
           }
           .grid-info{
             display: grid;

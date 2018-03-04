@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, FormControl } from 'react-bootstrap';
+import { Cart } from './cart.js'
 
 export class Header extends Component {
 
@@ -25,27 +26,52 @@ export class Header extends Component {
 
     render() {
       return (
-        <div className="container">
-          <img alt="logo" className="headerlogo"/>
+        <div className="header-container">
+          <div className="grid-hatch">
+            <img alt="logo" className="headerlogo"/>
+          </div>
+          <div className="grid-title">
           <h1 className="webshop-title">
               Amazing Products Webshop
           </h1>
-          <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <FormControl
-            className="search-field"
-            type="text"
-            value={this.state.value}
-            placeholder="Search..."
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-        </FormGroup>
-      </form>
+            <form>
+            <FormGroup
+              controlId="formBasicText"
+              validationState={this.getValidationState()}
+            >
+              <FormControl
+                className="search-field"
+                type="text"
+                value={this.state.value}
+                placeholder="Search..."
+                onChange={this.handleChange}
+              />
+            <FormControl.Feedback />
+            </FormGroup>
+            </form>
+          </div>
+          <div className="grid-cart">
+            <Cart />
+          </div>
           <style jsx="true">{`
+            .header-container{
+              display:grid;
+              grid-template-columns: 25% 50% 25%;
+              grid-template-areas:
+                "grid-hatch grid-title grid-cart"
+            }
+            .grid-hatch{
+              display:grid;
+              grid-area:grid-hatch;
+            }
+            .grid-title{
+              display:grid;
+              grid-area:grid-title;
+            }
+            .grid-cart{
+              display:grid;
+              grid-area:grid-cart;
+            }
             .webshop-title {
               color: white;
             }
