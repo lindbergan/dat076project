@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import './shadows.css';
 
   function handleClick(e){
     console.log("add button clicked, push to cart");
@@ -21,7 +22,7 @@ export class Product extends Component {
     const { product } = this.state;
     if(product !== undefined) {
       return(
-        <div className="product-container">
+        <div className="product-container effect1">
 
             <div className="grid-img">
             <Link to={"/product/" + product.id}>
@@ -65,7 +66,7 @@ export class Product extends Component {
             display: grid;
             grid-area: grid-img;
             padding: 20px;
-            background-color: #A7AE99;
+            background: white;
           }
           .img-container{
             background-color: white;
