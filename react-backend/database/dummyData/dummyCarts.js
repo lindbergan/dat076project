@@ -11,7 +11,7 @@ for (var i = 1; i <= amount; i++) {
         {
             user_id:    Math.round(1 + Math.random() * nmbrOfDummyUsers),
             product_id: Math.round(1 + Math.random() * nmbrOfDummyProd),
-            amount:     Math.round(Math.random() * 6) //somewhere between 1 - 5 #products
+            amount:     Math.round(1+ Math.random() * 5) //somewhere between 1 - 5 #products
         }
     )
 }

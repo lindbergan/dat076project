@@ -62,18 +62,29 @@ router.delete('/:user_id', (req, res, next) => {
 });
 });
 
-/*********************************TODOs**************************************/
+//UPDATE PRODUCT AMOUNT IN USERS CART
+router.put('/:user_id/', (req, res, next) => {
+    /* Update existing product amount in cart */
+    Carts.update(req.body,{
+        where:{
+            user_id: req.body.user_id,
+            product_id: req.body.product_id
+        }
+}).then(respons => {
+    res.send("cart updated!");
+})
+.catch(err => {
+    res.status(400).send("unable to save product to users cart");
+});
+})
+
+/*********************************TODOs [SUMS]**************************************/
 //GET TOTAL PRICE FOR CART
 router.get('/:user_id/total_price', (req, res, next) => {
 });
 
 //GET TOTAL #ITEMS IN CART
 router.get('/:user_id/total_amount', (req, res, next) => {
-});
-
-//UPDATE AMOUNT
-router.put('/', (req, res, next) => {
-    /* Update existing product amount in cart */
 });
 
 /****************************************************************************/

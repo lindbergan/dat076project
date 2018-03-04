@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const sequelize = require('sequelize'); //?
 var models = require('../database/models');
 var Users = models.user;
 
@@ -58,10 +57,19 @@ router.delete('/:user_id', (req, res, next) => {
 });
 });
 
-/*****************************TODOs*********************************************/
 //UPDATE USER
-
-
-
+router.put('/', (req, res, next) => {
+    /* Update existing product amount in cart */
+    Users.update(req.body,{
+    where:{
+        user_id: req.body.user_id,
+    }
+}).then(respons => {
+    res.send("User updated!");
+})
+.catch(err => {
+    res.status(400).send("unable to updates user's settings!");
+});
+})
 
 module.exports = router;
