@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Layout from './Layout.js';
-import { Header } from './components/Header.js';
-import { Sidebar } from './components/Sidebar.js';
 import { GridView } from "./components/Gridview";
 import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
@@ -12,24 +10,42 @@ import ProductDetails from './components/Product-details.js';
 class App extends Component {
   constructor() {
     super();
+
+    const savedUserId = sessionStorage.getItem('userId');
+    const savedAuthenticated = sessionStorage.getItem('authenticated');
+
     this.state = {
-      authenticated: sessionStorage.getItem('authenticated')
-    }
+      authenticated: savedAuthenticated,
+      userId: savedUserId
+    };
+  }
+
+  logIn(userId) {
+    this.setState({
+      authenticated: true,
+      userId: userId
+    });
+    sessionStorage.setItem('userId', userId);
+    sessionStorage.setItem('authenticated', true);
+  }
+
+  logOut() {
+    this.setState({
+      authenticated: false,
+      userId: null
+    });
+    sessionStorage.setItem('userId', null);
+    sessionStorage.setItem('authenticated', false);
   }
 
   async componentDidMount() {}
 
   render() {
-    if (!this.state.authenticated) {
-      return <Authentication authFunc={
-        () => {
-          this.setState({ authenticated: true });
-          sessionStorage.setItem('authenticated', this.state.authenticated);
-        }
-      }/>
+    if (!this.state.authenticated || this.state.authenticated === 'false') {
+      return <Authentication logIn={this.logIn.bind(this)}/>
     }
     return (
-      <Layout>
+      <Layout logOut={this.logOut.bind(this)}>
         <Route path="/" exact component={GridView} />
         <Route path="/checkout" exact component={Checkout} />
         <Route path="/product" exact component={ProductDetails} />

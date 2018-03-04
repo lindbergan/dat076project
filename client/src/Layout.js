@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import { Header } from './components/Header.js';
 import { Sidebar } from './components/Sidebar.js';
 
-
 const Layout = props => (
-
 
 <div className="App grid-container">
   <div className="grid-header">
-    <Header/>
+    <Header logOut={props.logOut}/>
   </div>
   <div className="grid-sidebar">
     <Sidebar/>
