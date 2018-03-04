@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
+import {Review} from './review.js';
 
 const bobRossIpsum = "It's almost like something out of a fairytale book. Go out on a limb - that's where the fruit is. Only eight colors that you need. Fluff it up a little and hypnotize it. Little trees and bushes grow however makes them happy. The very fact that you're aware of suffering is enough reason to be overjoyed that you're alive and can experience it.";
 
 
 export class ProductDetails extends Component{
 
-constructor(){
-  super();
+constructor(props){
+  super(props);
+  this.product_id = props.id;
   this.state = {
     product: '',
   }
@@ -19,6 +21,11 @@ async componentDidMount() {
 }
 
 render(){
+
+  const {product} = this.state;
+
+  if(product){
+
   return(
     <div className="prod-details-container">
 
@@ -37,7 +44,12 @@ render(){
 
     <div className="grid-det-price"> {this.state.product.price}
     </div>
-    <div className="grid-det-reviews"> Reviews
+    <div className="grid-det-reviews">
+    {product.review_ids.map( review => (
+        <Review product_id={1} review_id={1} />
+      )
+    )}
+
     </div>
 
       <style jsx="true">{`
@@ -95,7 +107,11 @@ render(){
 
       `}</style>
     </div>
-  );
+  );}else{
+    return(
+      <div>Review not found...</div>
+    );
+  }
 }
 
 };
