@@ -64,12 +64,12 @@ render(){
             "grid-det-img grid-det-info"
             "grid-det-img grid-det-price"
             "grid-det-img grid-det-reviews";
-          background: #f3efe7;
+          background: #F7F7F7;
         }
         .grid-det-img{
           display:grid;
           grid-area:grid-det-img;
-          background:#E4F5C3;
+
           padding: 10px;
         }
         .img-wrapper{
@@ -81,7 +81,7 @@ render(){
           height:100px;
           display:grid;
           grid-area:grid-det-name;
-          background:#CBF5C3;
+
           font-size: 3em;
           text-align: left;
           padding:10px 0 0 15px;
@@ -89,19 +89,19 @@ render(){
         .grid-det-info{
           display:grid;
           grid-area:grid-det-info;
-          background:#C3E4F5;
+
           text-align: left;
           padding:10px 50px 0 15px;
         }
         .grid-det-price{
           display:grid;
           grid-area:grid-det-price;
-          background:#C3CBF5;
+
         }
         .grid-det-reviews{
           display:grid;
           grid-area:grid-det-reviews;
-          background: #F4C2C2;
+          
         }
 
 
