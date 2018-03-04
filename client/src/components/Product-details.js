@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+const bobRossIpsum = "It's almost like something out of a fairytale book. Go out on a limb - that's where the fruit is. Only eight colors that you need. Fluff it up a little and hypnotize it. Little trees and bushes grow however makes them happy. The very fact that you're aware of suffering is enough reason to be overjoyed that you're alive and can experience it.";
+
+
 export class ProductDetails extends Component{
 
 constructor(){
@@ -19,16 +22,22 @@ render(){
   return(
     <div className="prod-details-container">
 
-    <div className="grid-det-img"> {this.state.product.id}
+    <div className="grid-det-img">
+      <div className="img-wrapper">
+        Img goes here
+      </div>
     </div>
 
-    <div className="grid-det-name"> {this.state.product.name}
+    <div className="grid-det-name">
+      {this.state.product.name}
     </div>
 
-    <div className="grid-det-info"> Lorem Ipsum Information
+    <div className="grid-det-info"> {bobRossIpsum}
     </div>
 
     <div className="grid-det-price"> {this.state.product.price}
+    </div>
+    <div className="grid-det-reviews"> Reviews
     </div>
 
       <style jsx="true">{`
@@ -36,33 +45,51 @@ render(){
           width:100%;
           height100%;
           display:grid;
-          grid-template-rows: 100px auto 100px;
+          grid-template-rows: 100px 200px 100px auto;
           grid-template-columns: 30%;
           grid-template-areas:
             "grid-det-img grid-det-name"
             "grid-det-img grid-det-info"
-            "grid-det-img grid-det-price";
+            "grid-det-img grid-det-price"
+            "grid-det-img grid-det-reviews";
           background: #f3efe7;
         }
         .grid-det-img{
           display:grid;
           grid-area:grid-det-img;
           background:#E4F5C3;
+          padding: 10px;
+        }
+        .img-wrapper{
+          width: 100%;
+          height: 400px;
+          background: white;
         }
         .grid-det-name{
+          height:100px;
           display:grid;
           grid-area:grid-det-name;
           background:#CBF5C3;
+          font-size: 3em;
+          text-align: left;
+          padding:10px 0 0 15px;
         }
         .grid-det-info{
           display:grid;
           grid-area:grid-det-info;
           background:#C3E4F5;
+          text-align: left;
+          padding:10px 50px 0 15px;
         }
         .grid-det-price{
           display:grid;
           grid-area:grid-det-price;
           background:#C3CBF5;
+        }
+        .grid-det-reviews{
+          display:grid;
+          grid-area:grid-det-reviews;
+          background: #F4C2C2;
         }
 
 
