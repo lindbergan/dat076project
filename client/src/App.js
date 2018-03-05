@@ -4,7 +4,7 @@ import Layout from './Layout.js';
 import { GridView } from "./components/Gridview";
 import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
-import Checkout from './components/Checkout.js';
+import {Checkout} from './components/Checkout.js';
 import {ProductDetails} from './components/Product-details.js';
 
 class App extends Component {

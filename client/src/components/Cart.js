@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-function handleClick(e){
-  console.log("link clicked");
-}
 
 export class Cart extends Component{
 
@@ -64,7 +61,7 @@ export class Cart extends Component{
             <div>Number of products: {total_amount}</div>
             <div>Total cost: {total_amount}</div>
             <div className="purchase-btn">
-              <Link to="/checkout" onClick={handleClick}>Go to cashier</Link>
+              <Link to="/checkout" >Go to cashier</Link>
             </div>
           </div>
 

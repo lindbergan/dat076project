@@ -3,18 +3,20 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
 
+
+// TODO: make dynamic
   function handleClick(e){
     console.log("Add button clicked, post req initiated");
-    // return fetch('/carts/3/4' , {
-    //     method: 'delete'
-    //   }).then(response =>
-    //     response.json().then(json => {
-    //       return json;
-    //     })
-    //   );
+    return fetch('/carts/3/7' , {
+        method: 'delete'
+      }).then(response =>
+        response.json().then(json => {
+          return json;
+        })
+      );
   }
 
-export class Product extends Component {
+export class ProductCO extends Component {
   constructor() {
     super();
     this.state = {};
@@ -49,9 +51,9 @@ export class Product extends Component {
 
             <div className="grid-button">
               <Button className="buy-button"
-                      bsStyle="success"
+                      bsStyle="danger"
                       bsSize="xsmall"
-                      onClick={handleClick}>Add to cart</Button>
+                      onClick={handleClick}>Delete</Button>
             </div>
 
           <style jsx="true">{`
