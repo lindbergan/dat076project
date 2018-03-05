@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
+import MaterialIcon, {colorPallet} from 'material-icons-react';
 
   function handleClick(e){
   }
@@ -26,7 +27,7 @@ export class Product extends Component {
             <div className="grid-img">
             <Link to={"/product/" + product.id}>
               <div className="img-container">
-                img goes here
+                <MaterialIcon icon="insert_photo" size={175} />
               </div>
               </Link>
             </div>
