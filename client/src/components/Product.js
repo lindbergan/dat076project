@@ -25,7 +25,7 @@ export class Product extends Component {
         <div className="product-container effect1">
 
             <div className="grid-img">
-            <Link to={"/product/" + product.id}>
+            <Link to={"/product/" + product.product_id} props={{ product_id: 1 }}>
               <div className="img-container">
                 img goes here
               </div>
@@ -35,7 +35,7 @@ export class Product extends Component {
             <div className="grid-info">
               <div className="info-container">
                 { product.name } <br/>
-                { product.id }<br/>
+                { product.product_id }<br/>
                 { product.price }<br/>
               </div>
             </div>

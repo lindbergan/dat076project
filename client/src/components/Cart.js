@@ -10,13 +10,13 @@ export class Cart extends Component{
   constructor(props, context){
     super(props, context);
     this.state = {
-      cart: [],
+      cart: '',
     };
   }
 
   async componentDidMount(){
     console.log("mounting successful");
-    fetch('cart/1')
+    fetch('carts/1')
       .then(res => res.json())
       .then(cart => this.setState({cart}));
   }
@@ -50,9 +50,8 @@ export class Cart extends Component{
 
     );
     }else{
-      const total_amount = cart.total_amount;
-      const total_price = cart.total_price;
-      console.log("total amount: " + total_amount + "total price: " + total_price );
+      const total_amount = cart.length;
+      console.log("total amount: " + total_amount + "total price: " + total_amount );
       return(
 
         <div className="cart-container">
@@ -63,7 +62,7 @@ export class Cart extends Component{
           </div>
           <div className="grid-cart-info">
             <div>Number of products: {total_amount}</div>
-            <div>Total cost: {total_price}</div>
+            <div>Total cost: {total_amount}</div>
             <div className="purchase-btn">
               <Link to="/checkout" onClick={handleClick}>Go to cashier</Link>
             </div>

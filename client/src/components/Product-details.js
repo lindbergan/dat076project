@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import {Review} from './review.js';
 
-const bobRossIpsum = "It's almost like something out of a fairytale book. Go out on a limb - that's where the fruit is. Only eight colors that you need. Fluff it up a little and hypnotize it. Little trees and bushes grow however makes them happy. The very fact that you're aware of suffering is enough reason to be overjoyed that you're alive and can experience it.";
 
 
 export class ProductDetails extends Component{
 
 constructor(props){
   super(props);
-  this.product_id = props.id;
+  this.product_id = props.product_id;
   this.state = {
     product: '',
     reviews: '',
@@ -16,17 +15,18 @@ constructor(props){
 }
 
 async componentDidMount() {
-  fetch('/products/1')
+  var id = this.props.match.params.product_id;
+  fetch('/products/' + id)
     .then(res => res.json())
     .then(res => {
-      console.log(res); return res;
+      console.log("product >------>");console.log(res); return res;
     })
     .then(product => this.setState({ product }))
 
-    fetch('/products/1/reviews')
+    fetch(`/products/${id}/reviews`)
       .then(res => res.json())
       .then(res => {
-        console.log(res); return res;
+        console.log("reviews >------>");console.log(res); return res;
       })
       .then(reviews => this.setState({ reviews }))
 }
@@ -34,8 +34,9 @@ async componentDidMount() {
 render(){
 
   const {product} = this.state;
+  const {reviews} = this.state;
 
-  if(product){
+  if(product && reviews){
 
   return(
     <div className="prod-details-container">
@@ -50,16 +51,16 @@ render(){
       {this.state.product.name}
     </div>
 
-    <div className="grid-det-info"> {bobRossIpsum}
+    <div className="grid-det-info"> {this.state.product.description}
     </div>
 
     <div className="grid-det-price"> {this.state.product.price}
     </div>
     <div className="grid-det-reviews">
-    {/*reviews.map( review => (
-        <Review product_id={review.} review_id={1} />
+    {this.state.reviews.map( review => (
+        <Review key={`${review.user_id}${review.product_id}`} review={review} />
       )
-    )*/}
+    )}
 
     </div>
 

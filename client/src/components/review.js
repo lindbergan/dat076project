@@ -4,38 +4,32 @@ import './shadows.css';
 export class Review extends Component{
 
   constructor(props){
-    super();
-    this.product_id = props.product_id;
-    this.review_id = props.review_id;
-    this.state = {
-      id:'',
-      title:'',
-      rating:'',
-      comment:'',
-    }
+    super(props);
+    this.review = props.review;
+    this.state = {}
   }
 
-  async componentDidMount() {
-    fetch('/products/1/review/1')
-      .then(res => res.json())
-      .then(review => this.setState({ id: review.id,
-                                      title:review.title,
-                                      rating:review.rating,
-                                      comment:review.comment }));
-  }
+  // async componentDidMount() {
+  //   fetch('/products/1/review/1')
+  //     .then(res => res.json())
+  //     .then(review => this.setState({ id: review.user_id,
+  //                                     title:review.title,
+  //                                     rating:review.rating,
+  //                                     comment:review.comment }));
+  // }
 
   render(){
     return(
       <div className="review-container effect7">
 
         <div className="grid-review-rating">
-          {this.state.rating}
+          {this.review.rating}
         </div>
         <div className="grid-review-title">
-          {this.state.title}
+          HEJ
         </div>
         <div className="grid-review-comment">
-          {this.state.comment}
+          {this.review.comment}
         </div>
 
 
