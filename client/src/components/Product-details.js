@@ -18,16 +18,10 @@ async componentDidMount() {
   var id = this.props.match.params.product_id;
   fetch('/products/' + id)
     .then(res => res.json())
-    .then(res => {
-      console.log("product >------>");console.log(res); return res;
-    })
     .then(product => this.setState({ product }))
 
     fetch(`/products/${id}/reviews`)
       .then(res => res.json())
-      .then(res => {
-        console.log("reviews >------>");console.log(res); return res;
-      })
       .then(reviews => this.setState({ reviews }))
 }
 

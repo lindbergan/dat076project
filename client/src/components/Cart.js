@@ -16,7 +16,7 @@ export class Cart extends Component{
 
   async componentDidMount(){
     console.log("mounting successful");
-    fetch('carts/1')
+    fetch('/carts/3')
       .then(res => res.json())
       .then(cart => this.setState({cart}));
   }

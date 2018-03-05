@@ -4,7 +4,20 @@ import { Link } from 'react-router-dom';
 import './shadows.css';
 
   function handleClick(e){
-    console.log("add button clicked, push to cart");
+
+    fetch('/carts/3', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: '2',
+        product_id: '7',
+        user_id: '3',
+        amount: '1',
+      })
+    });
   }
 
 export class Product extends Component {
