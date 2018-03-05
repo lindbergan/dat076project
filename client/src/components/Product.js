@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './shadows.css';
 
   function handleClick(e){
-    console.log("add button clicked, push to cart");
   }
 
 export class Product extends Component {
