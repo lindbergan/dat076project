@@ -13,7 +13,7 @@ for (var i = 1; i <= amount; i++) {
             comment:    userComment,
             user_id:    Math.round(1 + Math.random() * nmbrOfDummyUsers),
             product_id: Math.round(1 + Math.random() * nmbrOfDummyProd),
-            rating:     Math.round(Math.random() * 5 *10)/10 //somewhere between 0.0 - 5.0
+            rating:     Math.round(Math.random() * 5) //somewhere between 1-5
         }
     )
 }

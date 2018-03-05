@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Nedrefogel1",
+    "password": "admin",
     "database": "webshop",
     "host": "127.0.0.1",
     "dialect": "mysql"

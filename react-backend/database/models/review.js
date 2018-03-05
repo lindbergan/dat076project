@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:    false,
       unique:       'compositeIndex'
     },
-    rating:         DataTypes.DOUBLE //should probably have a limit (between 0.0 - 5.0)
+    rating:         DataTypes.INTEGER //should probably ideally be limited to (between 1 - 5)
 
   }, {
     //here you can define certain table criteria, like disableing the time stamps
