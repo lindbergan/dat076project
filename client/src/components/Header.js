@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Button } from 'react-bootstrap';
-import { Cart } from './Cart.js'
+import ReactDOM from 'react-dom';
+import { Button, FormGroup, FormControl } from 'react-bootstrap';
+import { Cart } from './Cart';
 
 export class Header extends Component {
 
@@ -26,7 +27,7 @@ export class Header extends Component {
 
     render() {
       return (
-        <header className="header-container">
+        <div className="header-container">
           <div className="grid-hatch">
             <img alt="logo" className="headerlogo"/>
           </div>
@@ -84,7 +85,7 @@ export class Header extends Component {
             }
 
           `}</style>
-        </header>
+        </div>
       )
     }
 }
