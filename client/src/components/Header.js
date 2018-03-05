@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Button, FormGroup, FormControl } from 'react-bootstrap';
-import { Cart } from './cart';
+import { Cart } from './Cart';
 
 export class Header extends Component {
 

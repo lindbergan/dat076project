@@ -11,13 +11,24 @@ constructor(props){
   this.product_id = props.id;
   this.state = {
     product: '',
+    reviews: '',
   }
 }
 
 async componentDidMount() {
   fetch('/products/1')
     .then(res => res.json())
+    .then(res => {
+      console.log(res); return res;
+    })
     .then(product => this.setState({ product }))
+
+    fetch('/products/1/reviews')
+      .then(res => res.json())
+      .then(res => {
+        console.log(res); return res;
+      })
+      .then(reviews => this.setState({ reviews }))
 }
 
 render(){
@@ -45,10 +56,10 @@ render(){
     <div className="grid-det-price"> {this.state.product.price}
     </div>
     <div className="grid-det-reviews">
-    {product.review_ids.map( review => (
-        <Review product_id={1} review_id={1} />
+    {/*reviews.map( review => (
+        <Review product_id={review.} review_id={1} />
       )
-    )}
+    )*/}
 
     </div>
 
@@ -101,7 +112,7 @@ render(){
         .grid-det-reviews{
           display:grid;
           grid-area:grid-det-reviews;
-          
+
         }
 
 
