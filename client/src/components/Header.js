@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
 
 export class Header extends Component {
@@ -27,65 +27,58 @@ export class Header extends Component {
 
     render() {
       return (
-        <div className="header-container">
-          <div className="grid-hatch">
+        <Grid id="header" fluid={true}>
+          {/*<div className="grid-hatch">
             <img alt="logo" className="headerlogo"/>
-          </div>
-          <div className="grid-title">
-          <h1 className="webshop-title">
-              Amazing Products Webshop
-          </h1>
-            <form>
+          </div>*/}
+          <Row>
+            <h1 className="webshop-title">
+                Amazing Products Webshop
+            </h1>
+          </Row>
+          <Row>
+            <Col md={ 4 } sm={3} lg={ 4 }/>
+            <Col xs={12} sm={6} md={4} lg={4}>
+              <form>
+                <FormGroup
+                  controlId="formBasicText"
+                  validationState={ this.getValidationState() }
+                >
+                  <FormControl
+                    className="search-field"
+                    type="text"
+                    value={ this.state.value }
+                    placeholder="Search..."
+                    onChange={ this.handleChange }
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
+              </form>
+            </Col>
+            <Col md={ 1 } sm={3} lg={ 1 }/>
+            <Col md={ 1 } lg={ 1 }/>
+            <Col xs={12} sm={12} md={1} lg={1}>
               <Button
                 className="btn btn-danger"
-                onClick={ this.props.logOut }>Logout</Button>
-            <FormGroup
-              controlId="formBasicText"
-              validationState={ this.getValidationState() }
-            >
-              <FormControl
-                className="search-field"
-                type="text"
-                value={ this.state.value }
-                placeholder="Search..."
-                onChange={ this.handleChange }
-              />
-            <FormControl.Feedback />
-            </FormGroup>
-            </form>
-          </div>
-          <div className="grid-cart">
-            <Cart />
-          </div>
+                onClick={ this.props.logOut }
+                active
+              >Logout</Button>
+            </Col>
+            <Col md={ 1 } lg={ 1 }/>
+          </Row>
           <style jsx="true">{`
-            .header-container{
-              display:grid;
-              grid-template-columns: 25% 50% 25%;
-              grid-template-areas:
-                "grid-hatch grid-title grid-cart"
-            }
-            .grid-hatch{
-              display:grid;
-              grid-area:grid-hatch;
-            }
-            .grid-title{
-              display:grid;
-              grid-area:grid-title;
-            }
-            .grid-cart{
-              display:grid;
-              grid-area:grid-cart;
+            #header {
+              background-color: #B5C7CB;
             }
             .webshop-title {
               color: white;
             }
             .search-field{
-              width: 25%;
-              margin:auto;
+              width: 100%;
             }
 
           `}</style>
-        </div>
+        </Grid>
       )
     }
 }

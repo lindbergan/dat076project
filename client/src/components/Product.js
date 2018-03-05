@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
+import MaterialIcon from 'material-icons-react';
 
   function handleClick(e){
     console.log("Add button clicked, post req initiated");
@@ -29,67 +30,48 @@ export class Product extends Component {
     const { product } = this.state;
     if(product !== undefined) {
       return(
-        <div className="product-container effect1">
-
-            <div className="grid-img">
-            <Link to={"/product/" + product.product_id} >
-              <div className="img-container">
-                img goes here
-              </div>
+        <Grid className="product-container effect1" fluid={true}>
+          <Row>
+            <Col className="grid-img" md={6} lg={6}>
+              <Link to={"/product/" + product.product_id}>
+                <div className="img-container">
+                  <MaterialIcon icon="insert_photo" size={175} />
+                </div>
               </Link>
-            </div>
-
-            <div className="grid-info">
+            </Col>
+            <Col className="grid-info" md={6} lg={6}>
               <div className="info-container">
                 { product.name } <br/>
                 { product.product_id }<br/>
                 { product.price }<br/>
               </div>
-            </div>
-
-            <div className="grid-button">
-              <Button className="buy-button"
-                      bsStyle="success"
-                      bsSize="xsmall"
-                      onClick={handleClick}>Add to cart</Button>
-            </div>
+            </Col>
+          </Row>
+          <Row>
+            <Button className="buy-button"
+                    bsStyle="success"
+                    bsSize="sm"
+                    onClick={handleClick}>Add to cart</Button>
+          </Row>
 
           <style jsx="true">{`
           .product-container {
-            width: 200px;
-            height: 275px;
             background-color: #F5FFE1;
-            float: left;
             margin: 10px;
             cursor: pointer;
-            display: grid;
-            grid-template-rows: 200px 75px;
-            grid-template-columns: 50% 50%;
-            grid-template-areas:
-              "grid-img grid-img"
-              "grid-info grid-button"
+            padding: 50px;
           }
           .grid-img{
-            display: grid;
-            grid-area: grid-img;
-            padding: 20px;
             background: white;
           }
           .img-container{
             background-color: white;
           }
           .grid-info{
-            display: grid;
-            grid-area: grid-info;
             font-size:10px;
           }
-          .grid-button{
-            display: grid;
-            grid-area: grid-button;
-            padding: 10px;
-          }
           `}</style>
-        </div>
+        </Grid>
       )
     } else {
       return(
