@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 function handleClick(e){
-  console.log("link clicked");
 }
 
 export class Cart extends Component{
@@ -15,7 +14,6 @@ export class Cart extends Component{
   }
 
   async componentDidMount(){
-    console.log("mounting successful");
     fetch('cart/1')
       .then(res => res.json())
       .then(cart => this.setState({cart}));
@@ -25,7 +23,6 @@ export class Cart extends Component{
   render(){
 
     const cart = this.state.cart;
-    console.log(cart);
     if(!cart){
       return(
 
@@ -52,7 +49,6 @@ export class Cart extends Component{
     }else{
       const total_amount = cart.total_amount;
       const total_price = cart.total_price;
-      console.log("total amount: " + total_amount + "total price: " + total_price );
       return(
 
         <div className="cart-container">
