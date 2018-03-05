@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 var models = require('../database/models');
-var Carts = models.shoppingCart;
+var Carts = models.cart;
+
+/*****************************************************************/
 
 //GET USERS CART
 router.get('/:user_id', (req, res, next) => {
@@ -13,15 +15,32 @@ router.get('/:user_id', (req, res, next) => {
 
     if (!cart) {
         return res.status(404).send({
-        message: 'user has no carts',
+        message: 'user has no products in carts',
         });
     };
-    return res.status(200).send(cart);
+
+//sum #products in cart
+Carts.sum('amount', {
+        where: {
+            user_id: req.params.user_id
+        }}).then(sum => {
+
+            
+
+            //Carts.sum('amount'*'price')
+    return res.status(200).send(
+        {cart,
+            amount: sum,
+            price: 4
+        });
   })
 .catch(error => res.status(400).send(error));
+}).catch(error => res.status(400).send(error));
 });
 
-// POST PRODUCT TO USERS CART
+
+/*****************************************************************/
+// ADD PRODUCT TO USERS CART
 router.post('/', (req, res, next) => {
 
     var newCart = new Carts(req.body);
@@ -33,8 +52,8 @@ router.post('/', (req, res, next) => {
 });
 });
 
+/* REMOVE EXISTING PRODUCT FROM CART */
 router.delete('/:user_id/:product_id', (req, res, next) => {
-  /* Remove existing product from cart */
   Carts.destroy({
         where: {
             user_id: req.params.user_id,
@@ -48,8 +67,8 @@ router.delete('/:user_id/:product_id', (req, res, next) => {
 });
 });
 
+/* CLEARS ENTIRE CART */
 router.delete('/:user_id', (req, res, next) => {
-  /* Clears the entire cart */
     Carts.destroy({
     where: {
         user_id: req.params.user_id,
