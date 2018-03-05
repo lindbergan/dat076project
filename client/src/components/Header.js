@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Button, FormGroup, FormControl } from 'react-bootstrap';
 import { Cart } from './Cart';
 
@@ -15,6 +14,7 @@ export class Header extends Component {
 
     handleChange(e){
       this.setState({value: e.target.value});
+      this.props.changeTerm(e.target.value);
     }
 
     getValidationState() {
@@ -38,17 +38,17 @@ export class Header extends Component {
             <form>
               <Button
                 className="btn btn-danger"
-                onClick={this.props.logOut}>Logout</Button>
+                onClick={ this.props.logOut }>Logout</Button>
             <FormGroup
               controlId="formBasicText"
-              validationState={this.getValidationState()}
+              validationState={ this.getValidationState() }
             >
               <FormControl
                 className="search-field"
                 type="text"
-                value={this.state.value}
+                value={ this.state.value }
                 placeholder="Search..."
-                onChange={this.handleChange}
+                onChange={ this.handleChange }
               />
             <FormControl.Feedback />
             </FormGroup>

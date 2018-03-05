@@ -1,18 +1,13 @@
 import React  from 'react';
 import { Header } from './components/Header.js';
-import { Sidebar } from './components/Sidebar.js';
 
 const Layout = props => (
-
 <div className="App grid-container">
   <div className="grid-header">
-    <Header logOut={props.logOut}/>
-  </div>
-  <div className="grid-sidebar">
-    <Sidebar/>
+    <Header logOut={ props.logOut } changeTerm={ props.changeTerm }/>
   </div>
   <div className="grid-main">
-    {props.children}
+    { props.children }
   </div>
   <style jsx="true">{`
     .grid-container{
@@ -21,7 +16,7 @@ const Layout = props => (
       grid-template-columns: 20% 80%;
       grid-template-areas:
         "grid-header grid-header"
-        "grid-sidebar grid-main"
+        "grid-main grid-main"
     }
     .grid-header{
       display:grid;
@@ -46,8 +41,6 @@ const Layout = props => (
     }
   `}</style>
 </div>
-
-
 );
 
 export default Layout;

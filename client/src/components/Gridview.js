@@ -13,21 +13,26 @@ export class GridView extends Component {
   async componentDidMount() {
     fetch('/products')
       .then(res => res.json())
-      .then(products => this.setState({ products }))
+      .then(products => this.setState({
+        products: products
+      }));
   }
 
-  render(){
+  render() {
     const { products } = this.state;
-
     if (products !== null) {
+      const { searchTerm } = this.props;
       return(
         <div className="gridView">
-          {products.map(product =>
-            <Product key={ product.product_id } id={ product.product_id } product={ product }/>)}
+          {
+            products
+              .filter(product => product.name.includes(searchTerm))
+              .map(product =>
+                <Product key={ product.product_id } id={ product.product_id } product={ product }/>)
+          }
           <style jsx="true">{`
-
             .gridView {
-              width: 80%;
+              width: 100%;
               height: inherit;
               align-content: center;
               position: fixed;

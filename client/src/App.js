@@ -16,7 +16,8 @@ class App extends Component {
 
     this.state = {
       authenticated: savedAuthenticated,
-      userId: savedUserId
+      userId: savedUserId,
+      searchTerm: ''
     };
   }
 
@@ -38,17 +39,23 @@ class App extends Component {
     sessionStorage.setItem('authenticated', false);
   }
 
+  changeSearchTerm(newTerm) {
+    this.setState({
+      searchTerm: newTerm
+    });
+  }
+
   async componentDidMount() {}
 
   render() {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
-      return <Authentication logIn={this.logIn.bind(this)}/>
+      return <Authentication logIn={ this.logIn.bind(this) }/>
     }
     return (
-      <Layout logOut={this.logOut.bind(this)}>
-        <Route path="/" exact component={GridView} />
-        <Route path="/checkout" exact component={Checkout} />
-        <Route path="/product/:product_id" exact component={ProductDetails} />
+      <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }>
+        <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />
+        <Route path="/checkout" exact component={ Checkout } />
+        <Route path="/product/:product_id" exact component={ ProductDetails } />
       </Layout>
     );
   }
