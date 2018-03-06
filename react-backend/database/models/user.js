@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define('user', {
 
     user_id: {
-      type:           DataTypes.INTEGER,
+      type:           DataTypes.BIGINT,
       primaryKey:     true,
       unique:         true,
       allowNull:      false

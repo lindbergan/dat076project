@@ -52,14 +52,14 @@ router.delete('/:user_id', (req, res, next) => {
 }).then(respons => {
     res.send("User deleted");
 })
-.catch(err => { //A bit strange that it isn't considered an error when trying to delete something that doesn't exist...
+.catch(err => {
     res.status(400).send("unable to delete users");
 });
 });
 
 //UPDATE USER
 router.put('/', (req, res, next) => {
-    /* Update existing product amount in cart */
+
     Users.update(req.body,{
     where:{
         user_id: req.body.user_id,

@@ -6,7 +6,6 @@ var dummyReviews = require('../dummyData/dummyReviews');
 module.exports = (sequelize, DataTypes) => {
   var review = sequelize.define('review', {
 
-    comment: DataTypes.TEXT,
     user_id: {
       type:         DataTypes.INTEGER,
       allowNull:    false,
@@ -17,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:    false,
       unique:       'compositeIndex'
     },
-    rating:         DataTypes.INTEGER //should probably ideally be limited to (between 1 - 5)
+    rating:         DataTypes.INTEGER, //should probably ideally be limited to (between 1 - 5)
+    comment:        DataTypes.TEXT
 
   }, {
     //here you can define certain table criteria, like disableing the time stamps

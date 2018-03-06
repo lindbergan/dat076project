@@ -6,6 +6,13 @@ var dummyCarts = require('../dummyData/dummyCarts');
 module.exports = (sequelize, DataTypes) => {
   var cart = sequelize.define('cart', {
 
+/*    cart_id: {
+      type:           DataTypes.INTEGER,
+      primaryKey:     true,
+      unique:         true,
+      allowNull:      false,
+      autoIncrement:  true
+    },*/
     product_id: {
       type:           DataTypes.INTEGER,
       allowNull:      false,
@@ -23,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   cart.associate = function(models) {
     // associations can be defined here
-     /* cart.belongsTo(models.user, {
+     cart.belongsTo(models.user, {
           foreignKey:  {
               primaryKey: true,
               foreignKey: "user_id"
@@ -31,9 +38,10 @@ module.exports = (sequelize, DataTypes) => {
           onDelete: 'CASCADE'});
       cart.belongsTo(models.product, {
           foreignKey: {
-              primaryKey: true
+              primaryKey: true,
+              foreignKey: "product_id"
           },
-          onDelete: 'CASCADE'});*/
+          onDelete: 'CASCADE'});
   };
 
 /************************************************************/

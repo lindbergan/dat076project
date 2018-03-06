@@ -5,7 +5,7 @@ var Carts = models.cart;
 
 /*****************************************************************/
 
-//GET USERS CART
+/* GET USERS CART (INC AMOUNT, TOTAL_PRICE) */
 router.get('/:user_id', (req, res, next) => {
 
   return Carts.findAll({
@@ -19,15 +19,16 @@ router.get('/:user_id', (req, res, next) => {
         });
     };
 
-//sum #products in cart
+//GET TOTAL #ITEMS IN CART
 Carts.sum('amount', {
         where: {
             user_id: req.params.user_id
         }}).then(sum => {
+        //GET TOTAL PRICE FOR CART
 
             
 
-            //Carts.sum('amount'*'price')
+    //Carts.sum('amount'*'price')
     return res.status(200).send(
         {cart,
             amount: sum,
@@ -40,7 +41,7 @@ Carts.sum('amount', {
 
 
 /*****************************************************************/
-// ADD PRODUCT TO USERS CART
+/* ADD PRODUCT TO USERS CART */
 router.post('/:user_id', (req, res, next) => {
 
     var newCart = new Carts(req.body);
@@ -74,16 +75,16 @@ router.delete('/:user_id', (req, res, next) => {
         user_id: req.params.user_id,
     }
 }).then(respons => {
-    res.send("product deleted from users cart");
+    res.send("products deleted from users cart");
 })
 .catch(err => { //A bit strange that it isn't considered an error when trying to delete something that doesn't exist...
     res.status(400).send("unable to delete product to users cart");
 });
 });
 
-//UPDATE PRODUCT AMOUNT IN USERS CART
+/* UPDATE PRODUCT AMOUNT IN USERS CART */
 router.put('/:user_id/', (req, res, next) => {
-    /* Update existing product amount in cart */
+
     Carts.update(req.body,{
         where:{
             user_id: req.body.user_id,
@@ -96,16 +97,5 @@ router.put('/:user_id/', (req, res, next) => {
     res.status(400).send("unable to save product to users cart");
 });
 })
-
-/*********************************TODOs [SUMS]**************************************/
-//GET TOTAL PRICE FOR CART
-router.get('/:user_id/total_price', (req, res, next) => {
-});
-
-//GET TOTAL #ITEMS IN CART
-router.get('/:user_id/total_amount', (req, res, next) => {
-});
-
-/****************************************************************************/
 
 module.exports = router;
