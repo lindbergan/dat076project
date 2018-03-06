@@ -65,7 +65,6 @@ class App extends Component {
     this.setState({
       profile: profileObject
     });
-    console.log(profileObject);
     sessionStorage.setItem('profilePictureUrl', profileObject.imageUrl);
     sessionStorage.setItem('profileFirstName', profileObject.givenName);
     sessionStorage.setItem('profileLastName', profileObject.familyName);

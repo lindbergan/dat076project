@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
+import MaterialIcon from 'material-icons-react';
 
 
 // TODO: make dynamic
@@ -12,7 +13,10 @@ export class ProductCO extends Component {
     super();
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
-    this.state = {};
+    this.state = {
+      name: '',
+      price: -1
+    };
 
   }
 
@@ -41,10 +45,6 @@ export class ProductCO extends Component {
 
     const user_id = sessionStorage.getItem('userId');
     const {product_id} = this.state.product;
-
-    console.log("Delete button clicked, delete req initiated");
-    console.log("user_id ----> " + user_id + " product_id ----> " + product_id);
-
     return fetch(`/carts/3/${product_id}` , {
         method: 'delete'
       }).then(response =>
@@ -53,90 +53,80 @@ export class ProductCO extends Component {
 
   }
 
+  async getProduct(product) {
+    fetch(`/products/${product.product_id}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          name: res.name,
+          price: res.price
+        });
+      })
+      .catch(ex => console.log(ex));
+  }
 
   render(){
     const { product } = this.state;
     if(product !== undefined) {
+      if (this.state.name === '' && this.state.price === -1) {
+        this.getProduct(product);
+      }
       return(
-        <div className="product-container effect1">
-
-            <div className="grid-img">
-            <Link to={"/product/" + product.product_id} >
+        <Grid className="product-container effect1" fluid={true}>
+          <Row>
+            <Link to={"/product/" + product.product_id}>
               <div className="img-container">
-                img goes here
+                <MaterialIcon icon="insert_photo" size={100} />
               </div>
-              </Link>
+            </Link>
+          </Row>
+          <Row>
+            <div className="info-container">
+              <h3>{this.state.name}</h3>
+              <h4>Amount: {product.amount}</h4>
+              <h4>Price: {this.state.price} kr</h4>
             </div>
-
-            <div className="grid-info">
-              <div className="info-container">
-                { product.name } <br/>
-                { product.product_id }<br/>
-                { product.price }<br/>
-              </div>
-            </div>
-
-            <div className="grid-button">
-            <Button className="add-button"
-                    bsStyle="success"
-                    bsSize="xsmall"
-                    onClick={this.handleAdd}>Add</Button>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <Button className="add-button"
+                      bsStyle="success"
+                      bsSize="sm"
+                      onClick={this.handleAdd}>Add</Button>
+            </Col>
+            <Col md={6}>
               <Button className="delete-button"
                       bsStyle="danger"
-                      bsSize="xsmall"
+                      bsSize="sm"
                       onClick={this.handleDelete}>Delete</Button>
-            </div>
+            </Col>
+          </Row>
 
           <style jsx="true">{`
           .product-container {
-            width: 200px;
-            height: 275px;
             background-color: #F5FFE1;
-            float: left;
             margin: 10px;
             cursor: pointer;
-            display: grid;
-            grid-template-rows: 200px 75px;
-            grid-template-columns: 50% 50%;
-            grid-template-areas:
-              "grid-img grid-img"
-              "grid-info grid-button"
+            max-width: 350px;
           }
           .grid-img{
-            display: grid;
-            grid-area: grid-img;
-            padding: 20px;
             background: white;
           }
           .img-container{
-            background-color: white;
+            background-color: #ccc;
+            margin-top: 15px;
           }
           .grid-info{
-            display: grid;
-            grid-area: grid-info;
             font-size:10px;
           }
-          .grid-button{
-            display: grid;
-            grid-area: grid-button;
-            padding: 10px;
+          .button-product {
+            margin-bottom: 15px;
           }
           `}</style>
-        </div>
+        </Grid>
       )
     } else {
-      return(
-        <div className="product">
-          <h1>Product loading...</h1>
-          <style jsx="true">{`
-          .product {
-            width: 100px;
-            height: 100px;
-            background-color: yellow;
-          }
-          `}</style>
-        </div>
-      )
+      return (<div />)
     }
   }
 }

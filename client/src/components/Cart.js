@@ -13,7 +13,6 @@ export class Cart extends Component{
   }
 
   async componentDidMount(){
-    console.log("mounting successful");
     fetch('/carts/3')
       .then(res => res.json())
       .then(cart => this.setState({cart}));
@@ -23,7 +22,6 @@ export class Cart extends Component{
   render(){
 
     const cart = this.state.cart;
-    console.log(cart);
     if(!cart){
       return(
 
@@ -42,7 +40,6 @@ export class Cart extends Component{
     );
     }else{
       const total_amount = cart.length;
-      console.log("total amount: " + total_amount + "total price: " + total_amount );
       return(
 
         <Grid className="cart-container" fluid={true}>

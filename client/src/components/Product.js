@@ -32,25 +32,22 @@ export class Product extends Component {
       return(
         <Grid className="product-container effect1" fluid={true}>
           <Row>
-            <Col className="grid-img" md={6} lg={6}>
               <Link to={"/product/" + product.product_id}>
                 <div className="img-container">
-                  <MaterialIcon icon="insert_photo" size={175} />
+                  <MaterialIcon icon="insert_photo" size={100} />
                 </div>
               </Link>
-            </Col>
-            <Col className="grid-info" md={6} lg={6}>
-              <div className="info-container">
-                { product.name } <br/>
-                { product.product_id }<br/>
-                { product.price }<br/>
-              </div>
-            </Col>
           </Row>
           <Row>
-            <Button className="buy-button"
+            <div className="info-container">
+              <h3>{product.name}</h3>
+              <h4>Price: {product.price} kr</h4>
+            </div>
+          </Row>
+          <Row>
+            <Button className="buy-button button-product"
                     bsStyle="success"
-                    bsSize="sm"
+                    bsSize="md"
                     onClick={handleClick}>Add to cart</Button>
           </Row>
 
@@ -59,17 +56,20 @@ export class Product extends Component {
             background-color: #F5FFE1;
             margin: 10px;
             cursor: pointer;
-            padding: 50px;
             max-width: 350px;
           }
           .grid-img{
             background: white;
           }
           .img-container{
-            background-color: white;
+            background-color: #ccc;
+            margin-top: 15px;
           }
           .grid-info{
             font-size:10px;
+          }
+          .button-product {
+            margin-bottom: 15px;
           }
           `}</style>
         </Grid>
