@@ -27,7 +27,8 @@ export class ProductCO extends Component {
 
   handleAdd(e){
     console.log("Add button clicked, post req initiated");
-    return fetch('/carts/3', {
+    const user_id = sessionStorage.getItem('userId');
+    return fetch(`/carts/3`, {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',

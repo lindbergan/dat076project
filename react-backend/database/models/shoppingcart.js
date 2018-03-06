@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       unique:         'compositeIndex'
     },
     user_id: {
-      type:           DataTypes.INTEGER,
+      type:           DataTypes.STRING,
       allowNull:      false,
       unique:         'compositeIndex'
     },

@@ -6,13 +6,20 @@ import MaterialIcon from 'material-icons-react';
 
   function handleClick(e){
     console.log("Add button clicked, post req initiated");
-    // return fetch('/carts/3/4' , {
-    //     method: 'delete'
-    //   }).then(response =>
-    //     response.json().then(json => {
-    //       return json;
-    //     })
-    //   );
+
+    const id = sessionStorage.getItem('userId');
+    return fetch(`/carts/${id}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product_id: '7',
+              user_id: id.toString(),
+              amount: '6',
+            })
+          }); //end fetch
   }
 
 export class Product extends Component {
