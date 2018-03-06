@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Grid, Row } from "react-bootstrap";
 
 
 export class Cart extends Component{
@@ -33,13 +34,6 @@ export class Cart extends Component{
 
           .cart-container {
             background-color: steelblue;
-            display:grid;
-            grid-template-columns: 50% 50%;
-            grid-template-rows: 15% 60% 15%;
-            grid-template-areas:
-              ". . ."
-              "grid-icon grid-cart-info"
-              ". . ."
           }
 
         `}</style>
@@ -51,19 +45,19 @@ export class Cart extends Component{
       console.log("total amount: " + total_amount + "total price: " + total_amount );
       return(
 
-        <div className="cart-container">
-          <div className="grid-icon">
+        <Grid className="cart-container" fluid={true}>
+          <Row className="grid-icon">
             <div className="cart-icon">
               <i className="fas fa-shopping-cart"></i>
             </div>
-          </div>
-          <div className="grid-cart-info">
+          </Row>
+          <Row className="grid-cart-info">
             <div>Number of products: {total_amount}</div>
             <div>Total cost: {total_amount}</div>
             <div className="purchase-btn">
               <Link to="/checkout" >Go to cashier</Link>
             </div>
-          </div>
+          </Row>
 
         <style jsx="true">{`
 
@@ -71,29 +65,14 @@ export class Cart extends Component{
           .cart-container {
             color: white;
             background-color: steelblue;
-            display:grid;
-            grid-template-columns: 50% 50%;
-            grid-template-rows: 15% 60% 15%;
-            grid-template-areas:
-              ". . "
-              "grid-icon grid-cart-info"
-              ". ."
           }
           .grid-icon{
-            display: grid;
-            grid-area: grid-icon;
-            text-align: center;
-            content-align:center;
           }
           .cart-icon{
             font-size:4em;
             color:white;
           }
           .grid-cart-info{
-            display: grid;
-            grid-area: grid-cart-info;
-            margin-left: 0;
-            text-align: left;
           }
           .purchase-btn a{
             color: white;
@@ -102,7 +81,7 @@ export class Cart extends Component{
 
         `}</style>
 
-        </div>
+        </Grid>
 
       );
     }

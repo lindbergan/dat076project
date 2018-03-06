@@ -60,6 +60,7 @@ export class Product extends Component {
             margin: 10px;
             cursor: pointer;
             padding: 50px;
+            max-width: 350px;
           }
           .grid-img{
             background: white;

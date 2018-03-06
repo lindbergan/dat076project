@@ -37,8 +37,8 @@ export class GridView extends Component {
 
   getNrColumns() {
     const width = this.state.width;
-    if (width < 750) return 1;
-    else if (width <= 750 && width < 900) return 2;
+    if (width < 300) return 1;
+    else if (width <= 300 && width < 900) return 2;
     else if (width >= 900 && width < 1200) return 3;
     else return 4;
   }

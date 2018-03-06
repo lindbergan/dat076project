@@ -13,7 +13,7 @@ export class Header extends Component {
     }
 
     handleChange(e){
-      this.setState({value: e.target.value});
+      this.setState({ value: e.target.value });
       this.props.changeTerm(e.target.value);
     }
 
@@ -33,20 +33,20 @@ export class Header extends Component {
 
       return (
         <Grid id="header" fluid={true}>
-          {/*<div className="grid-hatch">
-            <img alt="logo" className="headerlogo"/>
-          </div>*/}
           <Row>
-            <h1 className="webshop-title">
-                Amazing Products Webshop
-            </h1>
-          </Row>
-          <Row>
-            <Col md={ 4 } sm={3} lg={ 4 }>
-              <img src={profilePicture} className="img-thumbnail rounded mx-auto d-block profilePic" />
-              <h4>{profileName}</h4>
+            <Col md={ 4 } sm={3} lg={ 2 }>
+              <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" />
+              <h4>{ profileName }</h4>
+              <Button
+                className="btn btn-danger"
+                onClick={ this.props.logOut }
+                active
+              >Logout</Button>
             </Col>
-            <Col xs={12} sm={6} md={4} lg={4}>
+            <Col xs={12} sm={6} md={4} lg={6}>
+              <h2 className="webshop-title">
+                Amazing Products Webshop
+              </h2>
               <form>
                 <FormGroup
                   controlId="formBasicText"
@@ -63,16 +63,11 @@ export class Header extends Component {
                 </FormGroup>
               </form>
             </Col>
-            <Col md={ 1 } sm={3} lg={ 1 } />
-            <Col md={ 1 } lg={ 1 }/>
-            <Col xs={12} sm={12} md={1} lg={1}>
-              <Button
-                className="btn btn-danger"
-                onClick={ this.props.logOut }
-                active
-              >Logout</Button>
+            <Col sm={3} lg={2}/>
+            <Col xs={12} sm={6} md={4} lg={2}>
+              <Cart/>
             </Col>
-            <Col md={ 1 } lg={ 1 }/>
+            <Col sm={3}/>
           </Row>
           <style jsx="true">{`
             #header {
@@ -83,9 +78,12 @@ export class Header extends Component {
             }
             .search-field{
               width: 100%;
+              max-width: 450px;
+              margin: 0 auto;
+              display: block;
             }
             .profilePic {
-              max-width: 10%;
+              max-width: 50px;
               margin: 10px;
             }
           `}</style>
