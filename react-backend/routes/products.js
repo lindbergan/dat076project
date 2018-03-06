@@ -144,10 +144,10 @@ return res.status(200).send(reviews);
 });
 
 //POST A CERTAIN REVIEW FOR A CERTAIN PRODUCT
-router.post('/:product_id/reviews', (req, res, next) => { //req = body of the new review
+router.put('/:product_id/reviews', (req, res, next) => { //req = body of the new review
 
     var newReview = new Reviews(req.body);
-newReview.save(req.body).then(respons => {
+newReview.update(req.body).then(respons => {
     res.send("review for product saved");
 })
 .catch(err => {

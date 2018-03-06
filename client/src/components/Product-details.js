@@ -19,6 +19,7 @@ constructor(props){
 }
 
 async componentDidMount() {
+  const savedUserId = sessionStorage.getItem('userId');
   const id = this.props.match.params.product_id;
   fetch('/products/' + id)
     .then(res => res.json())
@@ -26,7 +27,15 @@ async componentDidMount() {
 
     fetch(`/products/${id}/reviews`)
       .then(res => res.json())
-      .then(reviews => this.setState({ reviews }))
+      .then(reviews => {
+        this.setState({ reviews });
+
+        const myReview = reviews.find(r => r.user_id === savedUserId);
+        myReview !== undefined ? this.setState({
+          tempReviewRating: myReview.rating,
+          tempReviewComment: myReview.comment
+        }) : '';
+      })
 }
 
 createReview() {
@@ -34,22 +43,20 @@ createReview() {
   return fetch(`/products/${this.props.match.params.product_id}/reviews/${savedUserId}`)
     .then(res => res.json())
     .then(res => {
-      if (res.length === 0) {
-        fetch(`/products/${this.props.match.params.product_id}/reviews`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_id: savedUserId,
-            product_id: this.props.match.params.product_id,
-            rating: this.state.tempReviewRating,
-            comment: this.state.tempReviewComment,
-          })
-        });
-        return res;
-      }
+      fetch(`/products/${this.props.match.params.product_id}/reviews`, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: savedUserId,
+          product_id: this.props.match.params.product_id,
+          rating: this.state.tempReviewRating,
+          comment: this.state.tempReviewComment,
+        })
+      });
+      return res;
     })
     .then(_ => {
       fetch(`/products/${this.props.match.params.product_id}/reviews`)
@@ -91,8 +98,7 @@ render(){
                                        this.setState({tempReviewComment : e.target.value });
                                      }}
           /></Row>
-          <Row>Enter rating: <select promt="Rating..."
-                                    value={this.state.tempReviewRating}
+          <Row>Enter rating: <select value={this.state.tempReviewRating}
                                     onChange={(e) => {
                                       this.setState({tempReviewRating : e.target.value});
                                     }}

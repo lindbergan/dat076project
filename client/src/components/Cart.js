@@ -19,7 +19,6 @@ export class Cart extends Component{
       .then(cart => this.setState({cart}));
   }
 
-
   render() {
 
     const cart = this.state.cart;

@@ -35,7 +35,7 @@ export class Product extends Component {
               user_id: user_id.toString(),
               amount: '1',
             })
-          });
+          })
   }
 
   render() {
