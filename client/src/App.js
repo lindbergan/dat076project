@@ -22,8 +22,19 @@ class App extends Component {
   }
 
   // createUser(user_id){
-  //   fetch()
-  // }
+  //   return fetch('/carts/3', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Accept': 'application/json',
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify({
+  //             product_id: '7',
+  //             user_id: '3',
+  //             amount: '6',
+  //           })
+  //         }); //end fetch
+  //  }
 
   logIn(userId) {
     this.setState({
