@@ -5,27 +5,42 @@ import './shadows.css';
 
 
 // TODO: make dynamic
-  function handleClick(e){
-    console.log("Add button clicked, post req initiated");
-    return fetch('/carts/3/7' , {
-        method: 'delete'
-      }).then(response =>
-        response.json().then(json => {
-          return json;
-        })
-      );
-  }
+
 
 export class ProductCO extends Component {
   constructor() {
     super();
+    this.handleClick = this.handleClick.bind(this);
     this.state = {};
+
   }
 
   async componentDidMount() {
     const { product } = this.props;
     this.setState({ product });
   }
+
+  // TODO: Handle the case of the product not being in the cart ????
+  handleClick(e){
+
+    const user_id = sessionStorage.getItem('userId');
+    const {product_id} = this.state.product;
+
+    if(e.target.getElementsByClassName('delete-button')){
+
+    console.log("Delete button clicked, delete req initiated");
+    console.log("user_id ----> " + user_id + " product_id ----> " + product_id);
+
+    return fetch(`/carts/${user_id}/${product_id}` , {
+        method: 'delete'
+      }).then(response =>
+        console.log("ok" + response),
+      );
+    }else{
+      console.log("Add button clicked, post req initiated");
+    }
+  }
+
 
   render(){
     const { product } = this.state;
@@ -50,10 +65,14 @@ export class ProductCO extends Component {
             </div>
 
             <div className="grid-button">
-              <Button className="buy-button"
+            <Button className="add-button"
+                    bsStyle="success"
+                    bsSize="xsmall"
+                    onClick={this.handleClick}>Add</Button>
+              <Button className="delete-button"
                       bsStyle="danger"
                       bsSize="xsmall"
-                      onClick={handleClick}>Delete</Button>
+                      onClick={this.handleClick}>Delete</Button>
             </div>
 
           <style jsx="true">{`
