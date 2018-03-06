@@ -5,7 +5,7 @@ import { Grid, Row } from "react-bootstrap";
 const Layout = props => (
 <Grid className="App" fluid={true}>
   <Row>
-    <Header logOut={ props.logOut } changeTerm={ props.changeTerm }/>
+    <Header logOut={ props.logOut } changeTerm={ props.changeTerm } loggedInProfile={ props.profile }/>
   </Row>
   <Row className="grid-main">
     { props.children }

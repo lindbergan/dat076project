@@ -12,7 +12,10 @@ export class Authentication extends Component {
         className="btn btn-primary"
         clientId="619353481887-svkhfldhas6b2bs65atfrimeqe1eoge8.apps.googleusercontent.com"
         buttonText="Login"
-        onSuccess={(response) => this.props.logIn(response.googleId)}
+        onSuccess={(response) => {
+          this.props.logIn(response.googleId);
+          this.props.setProfile(response.profileObj)
+        }}
         onFailure={(response) => console.log(response)}
       />
     </div>)

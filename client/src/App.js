@@ -17,7 +17,8 @@ class App extends Component {
     this.state = {
       authenticated: savedAuthenticated,
       userId: savedUserId,
-      searchTerm: ''
+      searchTerm: '',
+      profilePicture: undefined
     };
   }
 
@@ -54,6 +55,18 @@ class App extends Component {
     sessionStorage.setItem('authenticated', false);
   }
 
+  setProfilePicture(profileObject) {
+    this.setState({
+      profile: profileObject
+    });
+    console.log(profileObject);
+    sessionStorage.setItem('profilePictureUrl', profileObject.imageUrl);
+    sessionStorage.setItem('profileFirstName', profileObject.givenName);
+    sessionStorage.setItem('profileLastName', profileObject.familyName);
+    sessionStorage.setItem('profileFullName', profileObject.name);
+    sessionStorage.setItem('profileEmail', profileObject.email);
+  }
+
   changeSearchTerm(newTerm) {
     this.setState({
       searchTerm: newTerm
@@ -64,12 +77,13 @@ class App extends Component {
 
   render() {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
-      return <Authentication logIn={ this.logIn.bind(this) }/>
+      return <Authentication logIn={ this.logIn.bind(this) } setProfile={this.setProfilePicture.bind(this)}/>
     }
     // const user_id = sessionStorage.getItem('userId');
     // createUser(user_id);
     return (
-      <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }>
+      <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
+      profilePicture={this.state.profile}>
         <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />
         <Route path="/checkout" exact component={ Checkout } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />

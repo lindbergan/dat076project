@@ -8,7 +8,7 @@ export class Header extends Component {
       super(props, context);
       this.handleChange = this.handleChange.bind(this);
       this.state = {
-        value: '',
+        value: ''
       }
     }
 
@@ -26,6 +26,11 @@ export class Header extends Component {
   }
 
     render() {
+      const savedProfilePicture = sessionStorage.getItem('profilePictureUrl');
+      const savedProfileName = sessionStorage.getItem('profileFullName');
+      const profilePicture = savedProfilePicture !== null ? savedProfilePicture : this.props.loggedInProfile.imageUrl;
+      const profileName = savedProfileName !== null ? savedProfileName : this.props.loggedInProfile.name;
+
       return (
         <Grid id="header" fluid={true}>
           {/*<div className="grid-hatch">
@@ -37,7 +42,10 @@ export class Header extends Component {
             </h1>
           </Row>
           <Row>
-            <Col md={ 4 } sm={3} lg={ 4 }/>
+            <Col md={ 4 } sm={3} lg={ 4 }>
+              <img src={profilePicture} className="img-thumbnail rounded mx-auto d-block profilePic" />
+              <h4>{profileName}</h4>
+            </Col>
             <Col xs={12} sm={6} md={4} lg={4}>
               <form>
                 <FormGroup
@@ -55,7 +63,7 @@ export class Header extends Component {
                 </FormGroup>
               </form>
             </Col>
-            <Col md={ 1 } sm={3} lg={ 1 }/>
+            <Col md={ 1 } sm={3} lg={ 1 } />
             <Col md={ 1 } lg={ 1 }/>
             <Col xs={12} sm={12} md={1} lg={1}>
               <Button
@@ -76,7 +84,10 @@ export class Header extends Component {
             .search-field{
               width: 100%;
             }
-
+            .profilePic {
+              max-width: 10%;
+              margin: 10px;
+            }
           `}</style>
         </Grid>
       )
