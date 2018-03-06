@@ -20,27 +20,33 @@ class App extends Component {
       authenticated: savedAuthenticated,
       userId: savedUserId,
       searchTerm: '',
-      profilePicture: undefined
+      profilePicture: undefined,
+      profile: null
     };
   }
 
-  createUser(){
+  createUser() {
     const id = this.state.userId;
-    return fetch('/users', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              user_id: id.toString(),
-              firstName: 'user',
-              lastName: 'usersson',
-              email: 'user@gmail.com',
-              role: 'customer',
-              userimgurl: '../images/profileDummy.img',
-            })
-          }); //end fetch
+    fetch(`/users/${id}`)
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(ex => {
+        return fetch('/users', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: id.toString(),
+            firstName: this.state.profile.firstName,
+            lastName: this.state.profile.familyName,
+            email: this.state.profile.email,
+            role: 'customer',
+            userimgurl: this.state.profile.imageUrl,
+          })
+        });
+      })
    }
 
   logIn(userId) {
@@ -71,6 +77,7 @@ class App extends Component {
     sessionStorage.setItem('profileLastName', profileObject.familyName);
     sessionStorage.setItem('profileFullName', profileObject.name);
     sessionStorage.setItem('profileEmail', profileObject.email);
+    this.createUser();
   }
 
   changeSearchTerm(newTerm) {
@@ -85,9 +92,6 @@ class App extends Component {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
       return <Authentication logIn={ this.logIn.bind(this) } setProfile={this.setProfilePicture.bind(this)}/>
     }
-
-    //const user_id = sessionStorage.getItem('userId');
-    this.createUser();
 
     return (
       <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
