@@ -10,7 +10,8 @@ export class GridView extends Component {
       products: null,
       width: 0,
       height: 0,
-      shouldReverse: false
+      shouldReverse: false,
+      buttonActive: true
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
@@ -70,10 +71,22 @@ export class GridView extends Component {
         <Grid>
           <Row>
             <Col md={6} >
-              <Button onClick={() => this.setState({ shouldReverse : false })}>Asc</Button>
+              <Button className={this.state.buttonActive ? "btn btn-primary active" : "btn btn-primary"}
+                      onClick={() => {
+                this.setState({
+                  shouldReverse : false,
+                  buttonActive : true
+                });
+              }}>Asc</Button>
             </Col>
             <Col md={6}>
-              <Button onClick={() => this.setState({ shouldReverse : true })}>Desc</Button>
+              <Button className={!this.state.buttonActive ? "btn btn-primary active" : "btn btn-primary"}
+                      onClick={() => {
+                        this.setState({
+                          shouldReverse : true,
+                          buttonActive : false
+                        });
+                      }}>Desc</Button>
             </Col>
           </Row>
           <Row>
