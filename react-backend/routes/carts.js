@@ -53,7 +53,7 @@ router.post('/:user_id', (req, res, next) => {
 });
 });
 
-/* REMOVE EXISTING PRODUCT FROM CART */
+/* REMOVE PRODUCT FROM CART */
 router.delete('/:user_id/:product_id', (req, res, next) => {
   Carts.destroy({
         where: {
@@ -68,7 +68,7 @@ router.delete('/:user_id/:product_id', (req, res, next) => {
 });
 });
 
-/* CLEARS ENTIRE CART */
+/* CLEAR ENTIRE CART */
 router.delete('/:user_id', (req, res, next) => {
     Carts.destroy({
     where: {
@@ -77,7 +77,7 @@ router.delete('/:user_id', (req, res, next) => {
 }).then(respons => {
     res.send("products deleted from users cart");
 })
-.catch(err => { //A bit strange that it isn't considered an error when trying to delete something that doesn't exist...
+.catch(err => {
     res.status(400).send("unable to delete product to users cart");
 });
 });

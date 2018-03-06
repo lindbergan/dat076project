@@ -18,19 +18,30 @@ return res.status(200).send(product);
 .catch(error => res.status(400).send(error));
 });
 
+/******************************************************************************/
 /* GET PRODUCT BY ID */
 router.get('/:product_id', (req, res, next) => {
 
     return Products.findById(req.params.product_id).then(product => {
         if (!product) {
-    return res.status(404).send({
-        message: 'product Not Found',
-    });
-}
-return res.status(200).send(product);
-})
-.catch(error => res.status(400).send(error));
+        return res.status(404).send({
+            message: 'product Not Found',
+        });
+        }
+    //ELSE
+    Reviews.findAll({ //INCLUDE OVERALL RATING
+        attributes: [[models.sequelize.fn('AVG', models.sequelize.col('rating')), 'avg_rating']],
+        where: {
+            product_id: req.params.product_id
+        }
+    }).then(avg =>{
+        return res.status(200).send(
+            {product, rating: avg});
+}).catch(error => res.status(400).send(error));
+}).catch(error => res.status(400).send(error));
 });
+
+/******************************************************************************/
 
 /* GET ALL PRODUCTS SORTED_BY_PRICE (ASC) */
 router.get('/filters/price_asc', (req, res, next) => {
@@ -277,7 +288,6 @@ return res.status(200).send(products);
 
 /******************************TODOs*************************************************/
 
-/* GET A PRODUCTS OVERALL RATING */
 /* GET ALL PRODUCTS SORTED_BY_RATING (ASC) */
 /* GET ALL PRODUCTS SORTED_BY_RATING (DEC) */
 /* GET ALL WITH AT LEAST RATING X (ASC) */
