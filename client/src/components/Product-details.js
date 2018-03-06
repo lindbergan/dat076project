@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Review} from './review.js';
+import { Col, Grid, Row } from "react-bootstrap";
+import MaterialIcon from "material-icons-react";
 
 
 
@@ -15,10 +17,10 @@ constructor(props){
 }
 
 async componentDidMount() {
-  var id = this.props.match.params.product_id;
+  const id = this.props.match.params.product_id;
   fetch('/products/' + id)
     .then(res => res.json())
-    .then(product => this.setState({ product }))
+    .then(product => this.setState({ product }));
 
     fetch(`/products/${id}/reviews`)
       .then(res => res.json())
@@ -27,92 +29,39 @@ async componentDidMount() {
 
 render(){
 
-  const {product} = this.state;
-  const {reviews} = this.state;
+  const { product } = this.state;
+  const { reviews } = this.state;
 
   if(product && reviews){
 
   return(
-    <div className="prod-details-container">
-
-    <div className="grid-det-img">
-      <div className="img-wrapper">
-        Img goes here
-      </div>
-    </div>
-
-    <div className="grid-det-name">
-      {this.state.product.name}
-    </div>
-
-    <div className="grid-det-info"> {this.state.product.description}
-    </div>
-
-    <div className="grid-det-price"> {this.state.product.price}
-    </div>
-    <div className="grid-det-reviews">
-    {this.state.reviews.map( review => (
-        <Review key={`${review.user_id}${review.product_id}`} review={review} />
-      )
-    )}
-
-    </div>
-
+    <Grid className="prod-details-container" fluid={true}>
+      <Row>
+        <Col md={4} lg={4}>
+          <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
+        </Col>
+        <Col md={8} lg={8}>
+          <h1>{this.state.product.name}</h1>
+          <h3>Price: {this.state.product.price}</h3>
+          <p>{this.state.product.description}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12} lg={12}>
+          {this.state.reviews.map( review => (
+              <Review key={`${review.user_id}${review.product_id}`} review={review} />
+            )
+          )}
+        </Col>
+      </Row>
       <style jsx="true">{`
         .prod-details-container{
           width:100%;
           height100%;
-          display:grid;
-          grid-template-rows: 100px 200px 100px auto;
-          grid-template-columns: 30%;
-          grid-template-areas:
-            "grid-det-img grid-det-name"
-            "grid-det-img grid-det-info"
-            "grid-det-img grid-det-price"
-            "grid-det-img grid-det-reviews";
           background: #F7F7F7;
         }
-        .grid-det-img{
-          display:grid;
-          grid-area:grid-det-img;
-
-          padding: 10px;
-        }
-        .img-wrapper{
-          width: 100%;
-          height: 400px;
-          background: white;
-        }
-        .grid-det-name{
-          height:100px;
-          display:grid;
-          grid-area:grid-det-name;
-
-          font-size: 3em;
-          text-align: left;
-          padding:10px 0 0 15px;
-        }
-        .grid-det-info{
-          display:grid;
-          grid-area:grid-det-info;
-
-          text-align: left;
-          padding:10px 50px 0 15px;
-        }
-        .grid-det-price{
-          display:grid;
-          grid-area:grid-det-price;
-
-        }
-        .grid-det-reviews{
-          display:grid;
-          grid-area:grid-det-reviews;
-
-        }
-
-
       `}</style>
-    </div>
+    </Grid>
   );}else{
     return(
       <div>Review not found...</div>
