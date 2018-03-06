@@ -41,7 +41,7 @@ Carts.sum('amount', {
 
 /*****************************************************************/
 // ADD PRODUCT TO USERS CART
-router.post('/', (req, res, next) => {
+router.post('/:user_id', (req, res, next) => {
 
     var newCart = new Carts(req.body);
     newCart.save(req.body).then(respons => {
