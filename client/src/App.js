@@ -13,6 +13,7 @@ class App extends Component {
 
     const savedUserId = sessionStorage.getItem('userId');
     const savedAuthenticated = sessionStorage.getItem('authenticated');
+    this.createUser = this.createUser.bind(this);
 
     this.state = {
       authenticated: savedAuthenticated,
@@ -22,20 +23,25 @@ class App extends Component {
     };
   }
 
-  // createUser(user_id){
-  //   return fetch('/carts/3', {
-  //           method: 'POST',
-  //           headers: {
-  //             'Accept': 'application/json',
-  //             'Content-Type': 'application/json',
-  //           },
-  //           body: JSON.stringify({
-  //             product_id: '7',
-  //             user_id: '3',
-  //             amount: '6',
-  //           })
-  //         }); //end fetch
-  //  }
+  createUser(){
+    console.log("user_id ------>" + this.state.userId);
+    const id = this.state.userId;
+    return fetch('/users', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: id.toString(),
+              firstName: 'user',
+              lastName: 'usersson',
+              email: 'user@gmail.com',
+              role: 'customer',
+              userimgurl: '../images/profileDummy.img',
+            })
+          }); //end fetch
+   }
 
   logIn(userId) {
     this.setState({
@@ -79,8 +85,10 @@ class App extends Component {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
       return <Authentication logIn={ this.logIn.bind(this) } setProfile={this.setProfilePicture.bind(this)}/>
     }
-    // const user_id = sessionStorage.getItem('userId');
-    // createUser(user_id);
+
+    //const user_id = sessionStorage.getItem('userId');
+    this.createUser();
+
     return (
       <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
       profilePicture={this.state.profile}>

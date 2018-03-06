@@ -29,8 +29,11 @@ export class Header extends Component {
     render() {
       const savedProfilePicture = sessionStorage.getItem('profilePictureUrl');
       const savedProfileName = sessionStorage.getItem('profileFullName');
-      const profilePicture = savedProfilePicture !== null ? savedProfilePicture : this.props.loggedInProfile.imageUrl;
-      const profileName = savedProfileName !== null ? savedProfileName : this.props.loggedInProfile.name;
+      const profilePicture = savedProfilePicture !== null ? savedProfilePicture :
+      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.imageUrl : '';
+      const profileName = savedProfileName !== null ? savedProfileName :
+      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.name
+      : '';
 
       return (
         <Grid id="header" fluid={true}>
