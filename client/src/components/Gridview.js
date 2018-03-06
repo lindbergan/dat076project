@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Product } from "./Product";
-import { Col, Grid, Row } from "react-bootstrap";
+import { Button, Col, Grid, Row } from "react-bootstrap";
 
 export class GridView extends Component {
 
@@ -9,7 +9,8 @@ export class GridView extends Component {
     this.state = {
       products: null,
       width: 0,
-      height: 0
+      height: 0,
+      shouldReverse: false
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
@@ -45,14 +46,16 @@ export class GridView extends Component {
 
   renderColumns(products, searchTerm, nrColumns) {
     const filtered = products.filter(product => product.name.includes(searchTerm));
-    return [...Array(nrColumns).keys()].map(nr => (
+    const sortedIfNeeded = this.state.shouldReverse ? filtered.reverse() : filtered;
+    return  [...Array(nrColumns).keys()].map(nr => (
       <Col xs={12} sm={6} md={4} lg={3} key={nr}>
         {
-          filtered
-            .filter(product => filtered.indexOf(product) % nrColumns === nr)
+          sortedIfNeeded
+            .filter(product => sortedIfNeeded.indexOf(product) % nrColumns === nr)
             .map(product => <Product key={ product.product_id }
                                      id={ product.product_id }
                                      product={ product }/>)
+
         }
       </Col>
     ));
@@ -65,6 +68,14 @@ export class GridView extends Component {
       const nrColumns = this.getNrColumns();
       return(
         <Grid>
+          <Row>
+            <Col md={6} >
+              <Button onClick={() => this.setState({ shouldReverse : false })}>Asc</Button>
+            </Col>
+            <Col md={6}>
+              <Button onClick={() => this.setState({ shouldReverse : true })}>Desc</Button>
+            </Col>
+          </Row>
           <Row>
             {
               this.renderColumns(products, searchTerm, nrColumns)

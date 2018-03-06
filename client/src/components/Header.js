@@ -40,7 +40,7 @@ export class Header extends Component {
           <Row>
             <Col md={ 4 } sm={3} lg={ 2 }>
               <Link to="/">
-                <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" />
+                <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
               </Link>
               <h4>{ profileName }</h4>
               <Button

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Col, Grid, Row } from 'react-bootstrap';
+import { Button, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
 import MaterialIcon from 'material-icons-react';
