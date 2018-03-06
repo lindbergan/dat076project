@@ -32,7 +32,7 @@ export class ProductCO extends Component {
             body: JSON.stringify({
               product_id: '7',
               user_id: '3',
-              amount: '2',
+              amount: '6',
             })
           }); //end fetch
   }
