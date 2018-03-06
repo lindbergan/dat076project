@@ -4,33 +4,38 @@ import { Link } from 'react-router-dom';
 import './shadows.css';
 import MaterialIcon from 'material-icons-react';
 
-  function handleClick(e){
-    console.log("Add button clicked, post req initiated");
 
-    const id = sessionStorage.getItem('userId');
-    return fetch(`/carts/${id}`, {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              product_id: '7',
-              user_id: id.toString(),
-              amount: '6',
-            })
-          }); //end fetch
-  }
 
 export class Product extends Component {
   constructor() {
     super();
+    this.handleClick = this.handleClick.bind(this);
     this.state = {};
   }
 
   async componentDidMount() {
     const { product } = this.props;
     this.setState({ product });
+  }
+
+  handleClick(e){
+    console.log("Add button clicked, post req initiated");
+
+    const user_id = sessionStorage.getItem('userId');
+    const product_id = this.state.product.product_id;
+    
+    return fetch(`/carts/${user_id}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product_id: product_id,
+              user_id: user_id.toString(),
+              amount: '1',
+            })
+          }); //end fetch
   }
 
   render(){
@@ -55,7 +60,7 @@ export class Product extends Component {
             <Button className="buy-button button-product"
                     bsStyle="success"
                     bsSize="md"
-                    onClick={handleClick}>Add to cart</Button>
+                    onClick={this.handleClick}>Add to cart</Button>
           </Row>
 
           <style jsx="true">{`

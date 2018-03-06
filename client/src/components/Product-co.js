@@ -28,16 +28,16 @@ export class ProductCO extends Component {
   handleAdd(e){
     console.log("Add button clicked, post req initiated");
     const user_id = sessionStorage.getItem('userId');
-    return fetch(`/carts/3`, {
+    return fetch(`/carts/${user_id}`, {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              product_id: '7',
-              user_id: '3',
-              amount: '6',
+              product_id: '3',
+              user_id: user_id.toString(),
+              amount: '10',
             })
           }); //end fetch
   }

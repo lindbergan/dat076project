@@ -13,7 +13,8 @@ export class Cart extends Component{
   }
 
   async componentDidMount(){
-    fetch('/carts/3')
+    const user_id = sessionStorage.getItem('userId');
+    fetch(`/carts/${user_id}`)
       .then(res => res.json())
       .then(cart => this.setState({cart}));
   }
