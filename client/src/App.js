@@ -21,6 +21,10 @@ class App extends Component {
     };
   }
 
+  // createUser(user_id){
+  //   fetch()
+  // }
+
   logIn(userId) {
     this.setState({
       authenticated: true,
@@ -51,6 +55,8 @@ class App extends Component {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
       return <Authentication logIn={ this.logIn.bind(this) }/>
     }
+    // const user_id = sessionStorage.getItem('userId');
+    // createUser(user_id);
     return (
       <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }>
         <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />

@@ -10,7 +10,8 @@ import './shadows.css';
 export class ProductCO extends Component {
   constructor() {
     super();
-    this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.state = {};
 
   }
@@ -20,25 +21,36 @@ export class ProductCO extends Component {
     this.setState({ product });
   }
 
+  handleAdd(e){
+    console.log("Add button clicked, post req initiated");
+    return fetch('/carts/3', {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product_id: '7',
+              user_id: '3',
+              amount: '2',
+            })
+          }); //end fetch
+  }
   // TODO: Handle the case of the product not being in the cart ????
-  handleClick(e){
+  handleDelete(e){
 
     const user_id = sessionStorage.getItem('userId');
     const {product_id} = this.state.product;
 
-    if(e.target.getElementsByClassName('delete-button')){
-
     console.log("Delete button clicked, delete req initiated");
     console.log("user_id ----> " + user_id + " product_id ----> " + product_id);
 
-    return fetch(`/carts/${user_id}/${product_id}` , {
+    return fetch(`/carts/3/${product_id}` , {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
       );
-    }else{
-      console.log("Add button clicked, post req initiated");
-    }
+
   }
 
 
@@ -68,11 +80,11 @@ export class ProductCO extends Component {
             <Button className="add-button"
                     bsStyle="success"
                     bsSize="xsmall"
-                    onClick={this.handleClick}>Add</Button>
+                    onClick={this.handleAdd}>Add</Button>
               <Button className="delete-button"
                       bsStyle="danger"
                       bsSize="xsmall"
-                      onClick={this.handleClick}>Delete</Button>
+                      onClick={this.handleDelete}>Delete</Button>
             </div>
 
           <style jsx="true">{`
