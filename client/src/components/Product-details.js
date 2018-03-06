@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Review} from './review.js';
-import { Col, Grid, Row } from "react-bootstrap";
+import { Button, Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
 
 
@@ -13,6 +13,8 @@ constructor(props){
   this.state = {
     product: '',
     reviews: '',
+    tempReviewRating: 0,
+    tempReviewComment: ''
   }
 }
 
@@ -25,6 +27,35 @@ async componentDidMount() {
     fetch(`/products/${id}/reviews`)
       .then(res => res.json())
       .then(reviews => this.setState({ reviews }))
+}
+
+createReview() {
+  const savedUserId = sessionStorage.getItem('userId');
+  return fetch(`/products/${this.props.match.params.product_id}/reviews/${savedUserId}`)
+    .then(res => res.json())
+    .then(res => {
+      if (res.length === 0) {
+        fetch(`/products/${this.props.match.params.product_id}/reviews`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user_id: savedUserId,
+            product_id: this.props.match.params.product_id,
+            rating: this.state.tempReviewRating,
+            comment: this.state.tempReviewComment,
+          })
+        });
+        return res;
+      }
+    })
+    .then(_ => {
+      fetch(`/products/${this.props.match.params.product_id}/reviews`)
+        .then(res => res.json())
+        .then(reviews => this.setState({ reviews}))
+    });
 }
 
 render(){
@@ -47,11 +78,36 @@ render(){
         </Col>
       </Row>
       <Row>
-        <Col md={12} lg={12}>
+        <Col md={6} lg={6}>
           {this.state.reviews.map( review => (
               <Review key={`${review.user_id}${review.product_id}`} review={review} />
             )
           )}
+        </Col>
+        <Col md={6} lg={6}>
+          <Row>Enter message: <input promt="Message..."
+                                     value={this.state.tempReviewComment}
+                                     onChange={(e) => {
+                                       this.setState({tempReviewComment : e.target.value });
+                                     }}
+          /></Row>
+          <Row>Enter rating: <select promt="Rating..."
+                                    value={this.state.tempReviewRating}
+                                    onChange={(e) => {
+                                      this.setState({tempReviewRating : e.target.value});
+                                    }}
+          >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select></Row>
+          <Row><Button className="btn btn-success"
+                       bsSize="large"
+                       onClick={(e) => { e.preventDefault(); this.createReview() }}
+          >Submit</Button></Row>
         </Col>
       </Row>
       <style jsx="true">{`

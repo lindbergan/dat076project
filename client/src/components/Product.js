@@ -35,10 +35,10 @@ export class Product extends Component {
               user_id: user_id.toString(),
               amount: '1',
             })
-          }); //end fetch
+          });
   }
 
-  render(){
+  render() {
     const { product } = this.state;
     if(product !== undefined) {
       return(
@@ -59,7 +59,7 @@ export class Product extends Component {
           <Row>
             <Button className="buy-button button-product"
                     bsStyle="success"
-                    bsSize="md"
+                    bsSize="large"
                     onClick={this.handleClick}>Add to cart</Button>
           </Row>
 

@@ -20,7 +20,7 @@ export class Cart extends Component{
   }
 
 
-  render(){
+  render() {
 
     const cart = this.state.cart;
     if(!cart){

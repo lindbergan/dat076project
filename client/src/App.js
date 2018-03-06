@@ -6,7 +6,6 @@ import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
 import { Checkout } from './components/Checkout.js';
 import { ProductDetails } from './components/Product-details.js';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 class App extends Component {
   constructor() {
@@ -56,7 +55,6 @@ class App extends Component {
     });
     sessionStorage.setItem('userId', userId);
     sessionStorage.setItem('authenticated', true);
-    NotificationManager.success('You have logged in successfully, you are now a user and can use our website.', 'Logged in successfully');
   }
 
   logOut() {
@@ -96,7 +94,6 @@ class App extends Component {
     return (
       <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
       profilePicture={this.state.profile}>
-        <div><NotificationContainer/></div>
         <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />
         <Route path="/checkout" exact component={ () => <Checkout searchTerm={ this.state.searchTerm } /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 
     comment: DataTypes.TEXT,
     user_id: {
-      type:         DataTypes.INTEGER,
+      type:         DataTypes.STRING,
       allowNull:    false,
       unique:       'compositeIndex'
     },

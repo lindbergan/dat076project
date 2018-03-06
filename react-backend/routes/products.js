@@ -151,7 +151,8 @@ newReview.save(req.body).then(respons => {
     res.send("review for product saved");
 })
 .catch(err => {
-    res.status(400).send("unable to save review");
+  console.log(err);
+  res.status(400).send("unable to save review");
 });
 });
 
