@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
+import { Link } from "react-router-dom";
 
 export class Header extends Component {
 
@@ -35,7 +36,9 @@ export class Header extends Component {
         <Grid id="header" fluid={true}>
           <Row>
             <Col md={ 4 } sm={3} lg={ 2 }>
-              <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" />
+              <Link to="/">
+                <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" />
+              </Link>
               <h4>{ profileName }</h4>
               <Button
                 className="btn btn-danger"
