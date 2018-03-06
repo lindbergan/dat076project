@@ -7,8 +7,9 @@ export class Checkout extends Component{
   constructor(){
     super();
     this.state={
-      cart: ''
-    }
+      cart: '',
+      searchTerm: ''
+    };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
@@ -39,30 +40,31 @@ export class Checkout extends Component{
     else return 4;
   }
 
-  renderColumns(products, nrColumns) {
+  renderColumns(products, searchTerm, nrColumns) {
+    const filtered = products.filter(product => true); // todo use product.name when nylundj has time.
     return [...Array(nrColumns).keys()].map(nr => (
       <Col xs={12} sm={6} md={4} lg={3} key={nr}>
         {
-          products
-            .filter(product => products.indexOf(product) % nrColumns === nr)
+          filtered
+            .filter(product => filtered.indexOf(product) % nrColumns === nr)
             .map(product => <ProductCO key={ product.product_id }
-                                     id={ product.product_id }
-                                     product={ product }/>)
+                                       id={ product.product_id }
+                                       product={ product }/>)
         }
       </Col>
     ));
   }
 
   render() {
-    const {cart} = this.state;
+    const { cart } = this.state;
+    const { searchTerm } = this.props;
     if (cart !== '') {
-      console.log(cart);
       const nrColumns = this.getNrColumns();
       return(
         <Grid>
           <Row>
             {
-              this.renderColumns(cart, nrColumns)
+              this.renderColumns(cart, searchTerm, nrColumns)
             }
           </Row>
         </Grid>

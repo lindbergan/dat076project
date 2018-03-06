@@ -90,15 +90,15 @@ export class ProductCO extends Component {
           </Row>
           <Row>
             <Col md={6}>
-              <Button className="add-button"
+              <Button className="add-button co-button"
                       bsStyle="success"
-                      bsSize="sm"
+                      bsSize="large"
                       onClick={this.handleAdd}>Add</Button>
             </Col>
             <Col md={6}>
-              <Button className="delete-button"
+              <Button className="delete-button co-button"
                       bsStyle="danger"
-                      bsSize="sm"
+                      bsSize="large"
                       onClick={this.handleDelete}>Delete</Button>
             </Col>
           </Row>
@@ -121,6 +121,9 @@ export class ProductCO extends Component {
             font-size:10px;
           }
           .button-product {
+            margin-bottom: 15px;
+          }
+          .co-button {
             margin-bottom: 15px;
           }
           `}</style>

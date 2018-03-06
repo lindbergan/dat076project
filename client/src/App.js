@@ -24,7 +24,6 @@ class App extends Component {
   }
 
   createUser(){
-    console.log("user_id ------>" + this.state.userId);
     const id = this.state.userId;
     return fetch('/users', {
             method: 'POST',
@@ -92,7 +91,7 @@ class App extends Component {
       <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
       profilePicture={this.state.profile}>
         <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />
-        <Route path="/checkout" exact component={ Checkout } />
+        <Route path="/checkout" exact component={ () => <Checkout searchTerm={ this.state.searchTerm } /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
       </Layout>
     );
