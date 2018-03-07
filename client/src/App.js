@@ -28,23 +28,24 @@ class App extends Component {
     const id = this.state.userId;
     fetch(`/users/${id}`)
       .then(res => res.json())
-      .then(res => console.log(res))
-      .catch(ex => {
-        return fetch('/users', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user_id: id.toString(),
-            firstName: this.state.profile.firstName,
-            lastName: this.state.profile.familyName,
-            email: this.state.profile.email,
-            role: 'customer',
-            userimgurl: this.state.profile.imageUrl,
-          })
-        });
+      .then(result => {
+        if (result.hasOwnProperty('message')) {
+          return fetch('/users', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              user_id: id.toString(),
+              firstName: this.state.profile.firstName,
+              lastName: this.state.profile.familyName,
+              email: this.state.profile.email,
+              role: 'customer',
+              userimgurl: this.state.profile.imageUrl,
+            })
+          });
+        }
       })
    }
 
