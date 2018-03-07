@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Review} from './review.js';
 
 const bobRossIpsum = "It's almost like something out of a fairytale book. Go out on a limb - that's where the fruit is. Only eight colors that you need. Fluff it up a little and hypnotize it. Little trees and bushes grow however makes them happy. The very fact that you're aware of suffering is enough reason to be overjoyed that you're alive and can experience it.";
 
