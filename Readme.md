@@ -1,7 +1,8 @@
-Webbprogramming project
+Web programming project
 =====
 
-**Client:**[Client](client/)
-**Server:**[Server](react-backend/)
+**Client:** [Client](client/)
+
+**Server:** [Server](react-backend/)
 
 **Made by:** Adrian, Jonathan, Jonatan and Johannes

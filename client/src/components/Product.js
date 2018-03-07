@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
-import MaterialIcon, {colorPallet} from 'material-icons-react';
-
-  function handleClick(e){
-  }
+import MaterialIcon from 'material-icons-react';
 
 export class Product extends Component {
   constructor() {
     super();
+    this.handleClick = this.handleClick.bind(this);
     this.state = {};
   }
 
@@ -18,71 +16,73 @@ export class Product extends Component {
     this.setState({ product });
   }
 
-  render(){
+  handleClick(e){
+    console.log("Add button clicked, post req initiated");
+
+    const user_id = sessionStorage.getItem('userId');
+    const product_id = this.state.product.product_id;
+    
+    return fetch(`/carts/${user_id}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product_id: product_id,
+              user_id: user_id.toString(),
+              amount: '1',
+            })
+          })
+  }
+
+  render() {
     const { product } = this.state;
     if(product !== undefined) {
       return(
-        <div className="product-container effect1">
-
-            <div className="grid-img">
-            <Link to={"/product/" + product.id}>
-              <div className="img-container">
-                <MaterialIcon icon="insert_photo" size={175} />
-              </div>
+        <Grid className="product-container effect1" fluid={true}>
+          <Row>
+              <Link to={"/product/" + product.product_id}>
+                <div className="img-container">
+                  <MaterialIcon icon="insert_photo" size={100} />
+                </div>
               </Link>
+          </Row>
+          <Row>
+            <div className="info-container">
+              <h3>{product.name}</h3>
+              <h4>Price: {product.price} kr</h4>
             </div>
-
-            <div className="grid-info">
-              <div className="info-container">
-                { product.name } <br/>
-                { product.id }<br/>
-                { product.price }<br/>
-              </div>
-            </div>
-
-            <div className="grid-button">
-              <Button className="buy-button"
-                      bsStyle="success"
-                      bsSize="xsmall"
-                      onClick={handleClick}>Add to cart</Button>
-            </div>
+          </Row>
+          <Row>
+            <Button className="buy-button button-product"
+                    bsStyle="success"
+                    bsSize="large"
+                    onClick={this.handleClick}>Add to cart</Button>
+          </Row>
 
           <style jsx="true">{`
           .product-container {
-            width: 200px;
-            height: 275px;
             background-color: #F5FFE1;
-            float: left;
             margin: 10px;
             cursor: pointer;
-            display: grid;
-            grid-template-rows: 200px 75px;
-            grid-template-columns: 50% 50%;
-            grid-template-areas:
-              "grid-img grid-img"
-              "grid-info grid-button"
+            max-width: 350px;
           }
           .grid-img{
-            display: grid;
-            grid-area: grid-img;
-            padding: 20px;
             background: white;
           }
           .img-container{
-            background-color: white;
+            background-color: #ccc;
+            margin-top: 15px;
           }
           .grid-info{
-            display: grid;
-            grid-area: grid-info;
             font-size:10px;
           }
-          .grid-button{
-            display: grid;
-            grid-area: grid-button;
-            padding: 10px;
+          .button-product {
+            margin-bottom: 15px;
           }
           `}</style>
-        </div>
+        </Grid>
       )
     } else {
       return(

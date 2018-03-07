@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
+import { Link } from "react-router-dom";
 
 export class Header extends Component {
 
@@ -8,12 +9,12 @@ export class Header extends Component {
       super(props, context);
       this.handleChange = this.handleChange.bind(this);
       this.state = {
-        value: '',
+        value: ''
       }
     }
 
     handleChange(e){
-      this.setState({value: e.target.value});
+      this.setState({ value: e.target.value });
       this.props.changeTerm(e.target.value);
     }
 
@@ -26,66 +27,73 @@ export class Header extends Component {
   }
 
     render() {
+      const savedProfilePicture = sessionStorage.getItem('profilePictureUrl');
+      const savedProfileName = sessionStorage.getItem('profileFullName');
+      const profilePicture = savedProfilePicture !== null ? savedProfilePicture :
+      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.imageUrl : '';
+      const profileName = savedProfileName !== null ? savedProfileName :
+      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.name
+      : '';
+
       return (
-        <div className="header-container">
-          <div className="grid-hatch">
-            <img alt="logo" className="headerlogo"/>
-          </div>
-          <div className="grid-title">
-          <h1 className="webshop-title">
-              Amazing Products Webshop
-          </h1>
-            <form>
+        <Grid id="header" fluid={true}>
+          <Row>
+            <Col md={ 4 } sm={3} lg={ 2 }>
+              <Link to="/">
+                <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
+              </Link>
+              <h4>{ profileName }</h4>
               <Button
                 className="btn btn-danger"
-                onClick={ this.props.logOut }>Logout</Button>
-            <FormGroup
-              controlId="formBasicText"
-              validationState={ this.getValidationState() }
-            >
-              <FormControl
-                className="search-field"
-                type="text"
-                value={ this.state.value }
-                placeholder="Search..."
-                onChange={ this.handleChange }
-              />
-            <FormControl.Feedback />
-            </FormGroup>
-            </form>
-          </div>
-          <div className="grid-cart">
-            <Cart />
-          </div>
+                onClick={ this.props.logOut }
+                active
+              >Logout</Button>
+            </Col>
+            <Col xs={12} sm={6} md={4} lg={6}>
+              <h2 className="webshop-title">
+                Amazing Products Webshop
+              </h2>
+              <form>
+                <FormGroup
+                  controlId="formBasicText"
+                  validationState={ this.getValidationState() }
+                >
+                  <FormControl
+                    className="search-field"
+                    type="text"
+                    value={ this.state.value }
+                    placeholder="Search..."
+                    onChange={ this.handleChange }
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
+              </form>
+            </Col>
+            <Col sm={3} lg={2}/>
+            <Col xs={12} sm={6} md={4} lg={2}>
+              <Cart/>
+            </Col>
+            <Col sm={3}/>
+          </Row>
           <style jsx="true">{`
-            .header-container{
-              display:grid;
-              grid-template-columns: 25% 50% 25%;
-              grid-template-areas:
-                "grid-hatch grid-title grid-cart"
-            }
-            .grid-hatch{
-              display:grid;
-              grid-area:grid-hatch;
-            }
-            .grid-title{
-              display:grid;
-              grid-area:grid-title;
-            }
-            .grid-cart{
-              display:grid;
-              grid-area:grid-cart;
+            #header {
+              background-color: #B5C7CB;
             }
             .webshop-title {
               color: white;
             }
             .search-field{
-              width: 25%;
-              margin:auto;
+              width: 100%;
+              max-width: 450px;
+              margin: 0 auto;
+              display: block;
             }
-
+            .profilePic {
+              max-width: 50px;
+              margin: 10px;
+            }
           `}</style>
-        </div>
+        </Grid>
       )
     }
 }

@@ -1,122 +1,129 @@
 import React, {Component} from 'react';
+import {Review} from './review.js';
+import { Button, Col, Grid, Row } from "react-bootstrap";
+import MaterialIcon from "material-icons-react";
 
-const bobRossIpsum = "It's almost like something out of a fairytale book. Go out on a limb - that's where the fruit is. Only eight colors that you need. Fluff it up a little and hypnotize it. Little trees and bushes grow however makes them happy. The very fact that you're aware of suffering is enough reason to be overjoyed that you're alive and can experience it.";
 
 
 export class ProductDetails extends Component{
 
 constructor(props){
   super(props);
-  this.product_id = props.id;
+  this.product_id = props.product_id;
   this.state = {
     product: '',
     reviews: '',
+    tempReviewRating: 0,
+    tempReviewComment: ''
   }
 }
 
 async componentDidMount() {
-  fetch('/products/1')
+  const savedUserId = sessionStorage.getItem('userId');
+  const id = this.props.match.params.product_id;
+  fetch('/products/' + id)
+    .then(res => res.json())
+    .then(product => this.setState({ product: product.product }));
+
+    fetch(`/products/${id}/reviews`)
+      .then(res => res.json())
+      .then(reviews => {
+        this.setState({ reviews });
+
+        const myReview = reviews.find(r => r.user_id === savedUserId);
+        myReview !== undefined ? this.setState({
+          tempReviewRating: myReview.rating,
+          tempReviewComment: myReview.comment
+        }) : '';
+      })
+}
+
+createReview() {
+  const savedUserId = sessionStorage.getItem('userId');
+  return fetch(`/products/${this.props.match.params.product_id}/reviews/${savedUserId}`)
     .then(res => res.json())
     .then(res => {
-      console.log(res); return res;
+      fetch(`/products/${this.props.match.params.product_id}/reviews`, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id: savedUserId,
+          product_id: this.props.match.params.product_id,
+          rating: this.state.tempReviewRating,
+          comment: this.state.tempReviewComment,
+        })
+      });
+      return res;
     })
-    .then(product => this.setState({ product }))
-
-    fetch('/products/1/reviews')
-      .then(res => res.json())
-      .then(res => {
-        console.log(res); return res;
-      })
-      .then(reviews => this.setState({ reviews }))
+    .then(_ => {
+      fetch(`/products/${this.props.match.params.product_id}/reviews`)
+        .then(res => res.json())
+        .then(reviews => this.setState({ reviews}))
+    });
 }
 
 render(){
 
-  const {product} = this.state;
+  const { product } = this.state;
+  const { reviews } = this.state;
 
-  if(product){
+  if(product && reviews){
 
   return(
-    <div className="prod-details-container">
-
-    <div className="grid-det-img">
-      <div className="img-wrapper">
-        Img goes here
-      </div>
-    </div>
-
-    <div className="grid-det-name">
-      {this.state.product.name}
-    </div>
-
-    <div className="grid-det-info"> {bobRossIpsum}
-    </div>
-
-    <div className="grid-det-price"> {this.state.product.price}
-    </div>
-    <div className="grid-det-reviews">
-    {/*reviews.map( review => (
-        <Review product_id={review.} review_id={1} />
-      )
-    )*/}
-
-    </div>
-
+    <Grid className="prod-details-container" fluid={true}>
+      <Row>
+        <Col md={4} lg={4}>
+          <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
+        </Col>
+        <Col md={8} lg={8}>
+          <h1>{this.state.product.name}</h1>
+          <h3>Price: {this.state.product.price}</h3>
+          <p>{this.state.product.description}</p>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} lg={6}>
+          {this.state.reviews.map( review => (
+              <Review key={`${review.user_id}${review.product_id}`} review={review} />
+            )
+          )}
+        </Col>
+        <Col md={6} lg={6}>
+          <Row>Enter message: <input promt="Message..."
+                                     value={this.state.tempReviewComment}
+                                     onChange={(e) => {
+                                       this.setState({tempReviewComment : e.target.value });
+                                     }}
+          /></Row>
+          <Row>Enter rating: <select value={this.state.tempReviewRating}
+                                    onChange={(e) => {
+                                      this.setState({tempReviewRating : e.target.value});
+                                    }}
+          >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select></Row>
+          <Row><Button className="btn btn-success"
+                       bsSize="large"
+                       onClick={(e) => { e.preventDefault(); this.createReview() }}
+          >Submit</Button></Row>
+        </Col>
+      </Row>
       <style jsx="true">{`
         .prod-details-container{
           width:100%;
           height100%;
-          display:grid;
-          grid-template-rows: 100px 200px 100px auto;
-          grid-template-columns: 30%;
-          grid-template-areas:
-            "grid-det-img grid-det-name"
-            "grid-det-img grid-det-info"
-            "grid-det-img grid-det-price"
-            "grid-det-img grid-det-reviews";
           background: #F7F7F7;
         }
-        .grid-det-img{
-          display:grid;
-          grid-area:grid-det-img;
-
-          padding: 10px;
-        }
-        .img-wrapper{
-          width: 100%;
-          height: 400px;
-          background: white;
-        }
-        .grid-det-name{
-          height:100px;
-          display:grid;
-          grid-area:grid-det-name;
-
-          font-size: 3em;
-          text-align: left;
-          padding:10px 0 0 15px;
-        }
-        .grid-det-info{
-          display:grid;
-          grid-area:grid-det-info;
-
-          text-align: left;
-          padding:10px 50px 0 15px;
-        }
-        .grid-det-price{
-          display:grid;
-          grid-area:grid-det-price;
-
-        }
-        .grid-det-reviews{
-          display:grid;
-          grid-area:grid-det-reviews;
-
-        }
-
-
       `}</style>
-    </div>
+    </Grid>
   );}else{
     return(
       <div>Review not found...</div>

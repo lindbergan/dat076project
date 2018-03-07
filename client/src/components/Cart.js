@@ -1,112 +1,73 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Grid, Row } from "react-bootstrap";
+import MaterialIcon from "material-icons-react";
 
-function handleClick(e){
-}
 
 export class Cart extends Component{
 
   constructor(props, context){
     super(props, context);
     this.state = {
-      cart: [],
+      cart: '',
     };
   }
 
   async componentDidMount(){
-    fetch('cart/1')
-      .then(res => res.json())
-      .then(cart => this.setState({cart}));
+    const user_id = sessionStorage.getItem('userId');
+    if (user_id !== null || user_id !== 'null') {
+      fetch(`/carts/${user_id}`)
+        .then(res => res.json())
+        .then(cart => this.setState({cart}));
+    } else {
+      console.log("user_id was null. Wasn't saved in sessionStorage.");
+    }
   }
 
-
-  render(){
+  render() {
 
     const cart = this.state.cart;
-    if(!cart){
-      return(
+    const total_amount = cart.length;
+    return(
 
-        <div className="cart-container">Cart is empty
+      <Grid className="cart-container" fluid={true}>
+        <Row className="grid-icon">
+          <div className="cart-icon">
+            <MaterialIcon icon="shopping_cart" invert={true} size={50}/>
+          </div>
+        </Row>
+        <Row className="grid-cart-info">
+          <div>Number of products: {total_amount}</div>
+          <div>Total cost: {total_amount}</div>
+          <div className="purchase-btn">
+            <Link to="/checkout" >Go to cashier</Link>
+          </div>
+        </Row>
+
+      <style jsx="true">{`
 
 
-        <style jsx="true">{`
+        .cart-container {
+          color: white;
+          background-color: steelblue;
+        }
+        .grid-icon{
+        }
+        .cart-icon{
+          font-size:4em;
+          color:white;
+        }
+        .grid-cart-info{
+        }
+        .purchase-btn a{
+          color: white;
+          cursor: pointer;
+        }
 
-          .cart-container {
-            background-color: steelblue;
-            display:grid;
-            grid-template-columns: 50% 50%;
-            grid-template-rows: 15% 60% 15%;
-            grid-template-areas:
-              ". . ."
-              "grid-icon grid-cart-info"
-              ". . ."
-          }
+      `}</style>
 
-        `}</style>
-        </div>
+      </Grid>
 
     );
-    }else{
-      const total_amount = cart.total_amount;
-      const total_price = cart.total_price;
-      return(
-
-        <div className="cart-container">
-          <div className="grid-icon">
-            <div className="cart-icon">
-              <i className="fas fa-shopping-cart"></i>
-            </div>
-          </div>
-          <div className="grid-cart-info">
-            <div>Number of products: {total_amount}</div>
-            <div>Total cost: {total_price}</div>
-            <div className="purchase-btn">
-              <Link to="/checkout" onClick={handleClick}>Go to cashier</Link>
-            </div>
-          </div>
-
-        <style jsx="true">{`
-
-
-          .cart-container {
-            color: white;
-            background-color: steelblue;
-            display:grid;
-            grid-template-columns: 50% 50%;
-            grid-template-rows: 15% 60% 15%;
-            grid-template-areas:
-              ". . "
-              "grid-icon grid-cart-info"
-              ". ."
-          }
-          .grid-icon{
-            display: grid;
-            grid-area: grid-icon;
-            text-align: center;
-            content-align:center;
-          }
-          .cart-icon{
-            font-size:4em;
-            color:white;
-          }
-          .grid-cart-info{
-            display: grid;
-            grid-area: grid-cart-info;
-            margin-left: 0;
-            text-align: left;
-          }
-          .purchase-btn a{
-            color: white;
-            cursor: pointer;
-          }
-
-        `}</style>
-
-        </div>
-
-      );
-    }
-
   }
-
 }
