@@ -43,9 +43,9 @@ export class ProductCO extends Component {
   }
   // TODO: Handle the case of the product not being in the cart ????
   handleDelete(e){
-
+    const user_id = sessionStorage.getItem('userId');
     const { product_id } = this.state.product;
-    return fetch(`/carts/3/${product_id}` , {
+    return fetch(`/carts/${user_id}/${product_id}` , {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
@@ -57,9 +57,10 @@ export class ProductCO extends Component {
     fetch(`/products/${product.product_id}`)
       .then(res => res.json())
       .then(res => {
+        console.log(res);
         this.setState({
-          name: res.name,
-          price: res.price
+          name: res.product.name,
+          price: res.product.price
         });
       })
       .catch(ex => console.log(ex));
