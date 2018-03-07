@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
 
-
 export class Cart extends Component{
 
   constructor(props, context){
@@ -15,6 +14,7 @@ export class Cart extends Component{
 
   async componentDidMount(){
     const user_id = sessionStorage.getItem('userId');
+
     if (user_id !== null || user_id !== 'null') {
       fetch(`/carts/${user_id}`)
         .then(res => res.json())
@@ -28,8 +28,9 @@ export class Cart extends Component{
 
     const cart = this.state.cart;
     const total_amount = cart.length;
-    return(
 
+    return(
+      
       <Grid className="cart-container" fluid={true}>
         <Row className="grid-icon">
           <div className="cart-icon">

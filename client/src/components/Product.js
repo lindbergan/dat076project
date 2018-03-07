@@ -5,6 +5,7 @@ import './shadows.css';
 import MaterialIcon from 'material-icons-react';
 
 export class Product extends Component {
+  
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
@@ -21,8 +22,6 @@ export class Product extends Component {
   }
 
   handleClick(e){
-    console.log("Add button clicked, post req initiated");
-
     const user_id = this.state.user_id;
     const product_id = this.state.product.product_id;
 
@@ -37,12 +36,12 @@ export class Product extends Component {
               user_id: user_id.toString(),
               amount: '1',
             })
-        });
+        }); //end fetch
       }
-
 
   render() {
     const { product } = this.state;
+
     if(product !== undefined) {
       return(
         <Grid className="product-container effect1" fluid={true}>

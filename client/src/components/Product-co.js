@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import './shadows.css';
 import MaterialIcon from 'material-icons-react';
 
-
-// TODO: make dynamic
-
-
 export class ProductCO extends Component {
   constructor() {
     super();
@@ -17,7 +13,6 @@ export class ProductCO extends Component {
       name: '',
       price: -1
     };
-
   }
 
   async componentDidMount() {
@@ -29,9 +24,7 @@ export class ProductCO extends Component {
     const { product_id } = this.state.product;
     const { user_id } = this.state.product;
     const amount = this.state.product.amount + 1;
-    console.log("handleAdd prod id ===== " + product_id);
-    console.log("handleAdd user id ===== " + user_id);
-    console.log("handleAdd amount ===== " + amount);
+
     return fetch(`/carts/${user_id}`, {
             method: 'PUT',
             headers: {
@@ -43,20 +36,21 @@ export class ProductCO extends Component {
               user_id: user_id,
               amount: amount,
             })
-          }); //end fetch
+          }); //end fetch PUT
   }
-  // TODO: Handle the case of the product not being in the cart ????
+
   handleDelete(e){
     const { user_id } = this.state.product;
     const { product_id } = this.state.product;
     const { amount } = this.state.product;
-    console.log("handleDelete amount ===== " + amount);
+
     if(amount === 1){
     return fetch(`/carts/${user_id}/${product_id}` , {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
-      );
+      ); //end fetch DELETE
+
     }else{
       let new_amount = amount - 1;
       return fetch(`/carts/${user_id}`, {
@@ -70,7 +64,7 @@ export class ProductCO extends Component {
                 user_id: user_id,
                 amount: new_amount,
               })
-            }); //end fetch
+            }); //end fetch PUT
     }
   }
 
@@ -89,6 +83,7 @@ export class ProductCO extends Component {
 
   render(){
     const { product } = this.state;
+
     if(product !== undefined) {
       if (this.state.name === '' && this.state.price === -1) {
         this.getProduct(product);
