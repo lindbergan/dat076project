@@ -4,8 +4,15 @@ var dummyCarts = require('../dummyData/dummyCarts');
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var shoppingCart = sequelize.define('shoppingCart', {
+  var cart = sequelize.define('cart', {
 
+/*    cart_id: {
+      type:           DataTypes.INTEGER,
+      primaryKey:     true,
+      unique:         true,
+      allowNull:      false,
+      autoIncrement:  true
+    },*/
     product_id: {
       type:           DataTypes.INTEGER,
       allowNull:      false,
@@ -21,22 +28,28 @@ module.exports = (sequelize, DataTypes) => {
     //here you can define certain table criteria, like disableing the time stamps
     timestamps:       false,
   });
-  shoppingCart.associate = function(models) {
+  cart.associate = function(models) {
     // associations can be defined here
-      //shoppingCart.belongsTo(models.user, {
-      //  foreignkey: 'user_id',
-      //});
-      //shoppingCart.belongsTo(models.product, {
-      //  foreignkey: 'product_id',
-      //});
+    //  cart.belongsTo(models.user, {
+    //       foreignKey:  {
+    //           primaryKey: true,
+    //           foreignKey: "user_id"
+    //       },
+    //       onDelete: 'CASCADE'});
+    //   cart.belongsTo(models.product, {
+    //       foreignKey: {
+    //           primaryKey: true,
+    //           foreignKey: "product_id"
+    //       },
+    //       onDelete: 'CASCADE'});
   };
 
 /************************************************************/
-  shoppingCart.sync({force: true}).then(function (err) { //Now forces re-creation of tables
+    cart.sync({force: true}).then(function (err) { //Now forces re-creation of tables
 
-      shoppingCart.bulkCreate(dummyCarts, {validate: true, ignoreDuplicates: true}).then(task => {});
+        cart.bulkCreate(dummyCarts, {validate: true, ignoreDuplicates: true}).then(task => {});
 
   });
   /************************************************************/
-  return shoppingCart;
+  return cart;
 };

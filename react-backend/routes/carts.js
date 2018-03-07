@@ -1,27 +1,27 @@
 const express = require('express');
 const router = express.Router();
 var models = require('../database/models');
-var Carts = models.shoppingCart;
+var Carts = models.cart;
 
-//GET USERS CART
+/* GET USERS CART */
 router.get('/:user_id', (req, res, next) => {
 
-  return Carts.findAll({
-    where: {
-        user_id: req.params.user_id
-    }}).then(cart => {
+    return Carts.findAll({
+        where: {
+            user_id: req.params.user_id
+        }}).then(cart => {
 
-    if (!cart) {
-        return res.status(404).send({
+        if (!cart) {
+    return res.status(404).send({
         message: 'user has no carts',
-        });
-    };
-    return res.status(200).send(cart);
-  })
+    });
+};
+return res.status(200).send(cart);
+})
 .catch(error => res.status(400).send(error));
 });
 
-// POST PRODUCT TO USERS CART
+/* ADD PRODUCT TO USERS CART */
 router.post('/:user_id', (req, res, next) => {
 
     var newCart = new Carts(req.body);
@@ -33,8 +33,8 @@ router.post('/:user_id', (req, res, next) => {
 });
 });
 
+/* REMOVE PRODUCT FROM CART */
 router.delete('/:user_id/:product_id', (req, res, next) => {
-  /* Remove existing product from cart */
   Carts.destroy({
         where: {
             user_id: req.params.user_id,
@@ -48,26 +48,26 @@ router.delete('/:user_id/:product_id', (req, res, next) => {
 });
 });
 
+/* CLEAR ENTIRE CART */
 router.delete('/:user_id', (req, res, next) => {
-  /* Clears the entire cart */
     Carts.destroy({
     where: {
         user_id: req.params.user_id,
     }
 }).then(respons => {
-    res.send("product deleted from users cart");
+    res.send("products deleted from users cart");
 })
-.catch(err => { //A bit strange that it isn't considered an error when trying to delete something that doesn't exist...
+.catch(err => {
     res.status(400).send("unable to delete product to users cart");
 });
 });
 
-//UPDATE PRODUCT AMOUNT IN USERS CART
+/* UPDATE PRODUCT AMOUNT IN USERS CART */
 router.put('/:user_id/', (req, res, next) => {
-    /* Update existing product amount in cart */
+
     Carts.update(req.body,{
         where:{
-            user_id: req.body.user_id,
+            user_id: req.params.user_id,
             product_id: req.body.product_id
         }
 }).then(respons => {
@@ -77,16 +77,5 @@ router.put('/:user_id/', (req, res, next) => {
     res.status(400).send("unable to save product to users cart");
 });
 })
-
-/*********************************TODOs [SUMS]**************************************/
-//GET TOTAL PRICE FOR CART
-router.get('/:user_id/total_price', (req, res, next) => {
-});
-
-//GET TOTAL #ITEMS IN CART
-router.get('/:user_id/total_amount', (req, res, next) => {
-});
-
-/****************************************************************************/
 
 module.exports = router;

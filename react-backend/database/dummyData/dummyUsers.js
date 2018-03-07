@@ -7,7 +7,7 @@ const amount = 10;
 for (var i = 1; i <= amount; i++) {
     dummyUsers.push(
         {
-            user_id:        i,
+            user_id:        i.toString(),
             firstName:      ('User' + i).toString(),
             lastName:       '***',
             email:          ('user' + i + '@gmail.com').toString(),

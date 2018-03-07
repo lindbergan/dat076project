@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
+<<<<<<< HEAD
 import MaterialIcon from 'material-icons-react';
 
+=======
+import MaterialIcon, {colorPallet} from 'material-icons-react';
+>>>>>>> master
 
 
 export class Product extends Component {

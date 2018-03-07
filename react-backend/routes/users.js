@@ -3,7 +3,7 @@ const router = express.Router();
 var models = require('../database/models');
 var Users = models.user;
 
-//GET ALL USERS
+/* GET ALL USERS */
 router.get('/', (req, res, next) => {
 
     return Users.findAll().then(users => {
@@ -17,7 +17,7 @@ return res.status(200).send(users);
 .catch(error => res.status(400).send(error));
 });
 
-//GET USER BY ID
+/* GET USER BY ID */
 router.get('/:user_id', (req, res, next) => {
 
     return Users.findById(req.params.user_id).then(user => {
@@ -31,19 +31,19 @@ return res.status(200).send(user);
 .catch(error => res.status(400).send(error));
 });
 
-//POST USER
+/* ADD USER */
 router.post('/', (req, res, next) => {
 
     var newUser = new Users(req.body);
 newUser.save(req.body).then(respons => {
-    res.send("item saved to database");
+    res.send("user saved to database");
 })
 .catch(err => {
     res.status(400).send("unable to save user");
 });
 });
 
-//DELETE USER
+/* DELETE USER */
 router.delete('/:user_id', (req, res, next) => {
     Users.destroy({
     where: {
@@ -52,14 +52,14 @@ router.delete('/:user_id', (req, res, next) => {
 }).then(respons => {
     res.send("User deleted");
 })
-.catch(err => { //A bit strange that it isn't considered an error when trying to delete something that doesn't exist...
-    res.status(400).send("unable to delete users");
+.catch(err => {
+    res.status(400).send("Unable to delete users");
 });
 });
 
-//UPDATE USER
+/* UPDATE USER */
 router.put('/', (req, res, next) => {
-    /* Update existing product amount in cart */
+
     Users.update(req.body,{
     where:{
         user_id: req.body.user_id,

@@ -10,7 +10,7 @@ for (var i = 1; i <= amount; i++) {
     {
       product_id:   i,
       name:         ("Product " + i).toString(),
-      price:        Math.round(Math.random() * 100 *100)/100,
+      price:        Math.round(Math.random() * 100),
       description:  descLoremIpsum,
       prodimgurl:   '../images/productDummy.img',
     }
