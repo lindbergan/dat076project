@@ -37,8 +37,8 @@ router.get('/:product_id', (req, res, next) => {
     }).then(avg =>{
         return res.status(200).send(
             {product, rating: avg});
-}).catch(error => res.status(400).send(error));
-}).catch(error => res.status(400).send(error));
+        }).catch(error => res.status(400).send(error));
+    }).catch(error => res.status(400).send(error));
 });
 
 /******************************************************************************/

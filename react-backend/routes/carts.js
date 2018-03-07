@@ -15,23 +15,20 @@ router.get('/:user_id', (req, res, next) => {
 
     if (!cart) {
         return res.status(404).send({
-        message: 'user has no products in carts',
+        message: 'Cart is empty',
         });
     };
 
-//GET TOTAL #ITEMS IN CART
-Carts.sum('amount', {
+    //GET TOTAL #ITEMS IN CART
+    Carts.sum('amount', {
         where: {
             user_id: req.params.user_id
-        }}).then(sum => {
+        }}).then(total_amount => {
+
         //GET TOTAL PRICE FOR CART
-
-            
-
-    //Carts.sum('amount'*'price')
-    return res.status(200).send(
+        return res.status(200).send(
         {cart,
-            amount: sum,
+            amount: total_amount,
             price: 4
         });
   })
