@@ -11,7 +11,7 @@ for (var i = 1; i <= amount; i++) {
     dummyReviews.push(
         {
             comment:    userComment,
-            user_id:    Math.round(1 + Math.random() * nmbrOfDummyUsers),
+            user_id:    (Math.round(1 + Math.random() * nmbrOfDummyUsers)).toString(),
             product_id: Math.round(1 + Math.random() * nmbrOfDummyProd),
             rating:     Math.round(Math.random() * 5) //somewhere between 1-5
         }

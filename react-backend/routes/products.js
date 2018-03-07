@@ -4,6 +4,8 @@ var models = require('../database/models');
 var Products = models.product;
 var Reviews = models.review;
 
+/******************************CRUDs*********************************************/
+
 /* GET ALL PRODUCTS */
 router.get('/', (req, res, next) => {
 
@@ -18,7 +20,6 @@ return res.status(200).send(product);
 .catch(error => res.status(400).send(error));
 });
 
-/******************************************************************************/
 /* GET PRODUCT BY ID */
 router.get('/:product_id', (req, res, next) => {
 
@@ -41,7 +42,36 @@ router.get('/:product_id', (req, res, next) => {
     }).catch(error => res.status(400).send(error));
 });
 
-/******************************************************************************/
+/* UPDATE A PRODUCT */
+router.put('/', (req, res, next) => {
+
+    Products.update(req.body,{
+    where:{
+        product_id: req.body.product_id,
+    }
+}).then(respons => {
+    res.send("Product updated!");
+})
+.catch(err => {
+    res.status(400).send("Unable to update product!");
+});
+})
+
+/* DELETE A PRODUCT */
+router.delete('/:product_id', (req, res, next) => {
+    Products.destroy({
+    where: {
+        product_id: req.params.product_id,
+    }
+}).then(respons => {
+    res.send("Product deleted!");
+})
+.catch(err => {
+    res.status(400).send("Unable to delete product");
+});
+});
+
+/******************************FILTERS*********************************************/
 
 /* GET ALL PRODUCTS SORTED_BY_PRICE (ASC) */
 router.get('/filters/price_asc', (req, res, next) => {
@@ -115,59 +145,7 @@ return res.status(200).send(products);
 .catch(error => res.status(400).send(error));
 });
 
-/* GET ALL REVIEWS FOR A CERTAIN PRODUCT */
-router.get('/:product_id/reviews', (req, res, next) => {
-
-    return Reviews.findAll({
-        where: {
-            //limit: here we could specify a certain limit if relevant
-            product_id: req.params.product_id
-        }
-    }).then(reviews => {
-        if (!reviews) {
-    return res.status(404).send({
-        message: 'No reviews found',
-    });
-}
-return res.status(200).send(reviews);
-})
-.catch(error => res.status(400).send(error));
-});
-
-
-/* GET A CERTAIN REVIEW FOR A CERTAIN PRODUCT BY A CERTAIN USER */
-router.get('/:product_id/reviews/:user_id', (req, res, next) => {
-
-    return Reviews.findAll({
-        where: {
-            product_id: req.params.product_id,
-            user_id: req.params.user_id
-        }
-    }).then(reviews => {
-        if (!reviews) {
-    return res.status(404).send({ //Maybe this should happen also for empty array
-        message: 'No reviews found',
-    });
-}
-return res.status(200).send(reviews);
-})
-.catch(error => res.status(400).send(error));
-});
-
-/* POST A CERTAIN REVIEW FOR A CERTAIN PRODUCT */
-router.post('/:product_id/reviews', (req, res, next) => { //req = body of the new review
-
-    var newReview = new Reviews(req.body);
-newReview.save(req.body).then(respons => {
-    res.send("review for product saved");
-})
-.catch(err => {
-    res.status(400).send("unable to save review");
-});
-});
-
-
-/******************************SEARCH*************************************************/
+/******************************SEARCH*******************************************/
 
 /* GET ALL PRODUCTS FROM SEARCH [by name atm, could easily be extended] */
 router.get('/search/:searchstring', (req, res, next) => {
@@ -285,6 +263,74 @@ return res.status(200).send(products);
 .catch(error => res.status(400).send(error));
 });
 
+/******************************REVIEWS*********************************************/
+
+/* GET ALL REVIEWS FOR A CERTAIN PRODUCT */
+router.get('/:product_id/reviews', (req, res, next) => {
+
+    return Reviews.findAll({
+        where: {
+            //limit: here we could specify a certain limit if relevant
+            product_id: req.params.product_id
+        }
+    }).then(reviews => {
+        if (!reviews) {
+    return res.status(404).send({
+        message: 'No reviews found',
+    });
+}
+return res.status(200).send(reviews);
+})
+.catch(error => res.status(400).send(error));
+});
+
+
+/* GET A CERTAIN REVIEW FOR A CERTAIN PRODUCT BY A CERTAIN USER */
+router.get('/:product_id/reviews/:user_id', (req, res, next) => {
+
+    return Reviews.findAll({
+        where: {
+            product_id: req.params.product_id,
+            user_id: req.params.user_id
+        }
+    }).then(reviews => {
+        if (!reviews) {
+    return res.status(404).send({ //Maybe this should happen also for empty array
+        message: 'No reviews found',
+    });
+}
+return res.status(200).send(reviews);
+})
+.catch(error => res.status(400).send(error));
+});
+
+/* POST A CERTAIN REVIEW FOR A CERTAIN PRODUCT */
+router.post('/:product_id/reviews', (req, res, next) => { //req = body of the new review
+
+    var newReview = new Reviews(req.body);
+    newReview.save(req.body).then(respons => {
+    res.send("review for product saved");
+})
+.catch(err => {
+    res.status(400).send("unable to save review");
+});
+});
+
+/* UPDATE A CERTAIN REVIEW FOR A CERTAIN PRODUCT */
+router.put('/:product_id/reviews', (req, res, next) => {
+
+    Reviews.update(req.body,{
+    where:{
+        user_id: req.body.user_id,
+        product_id: req.params.product_id
+    }
+}).then(respons => {
+    res.send("Product updated!");
+})
+.catch(err => {
+    res.status(400).send("Unable to update product!");
+});
+})
 
 /******************************TODOs*************************************************/
 

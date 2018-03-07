@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   var review = sequelize.define('review', {
 
     user_id: {
-      type:         DataTypes.INTEGER,
+      type:         DataTypes.STRING,
       allowNull:    false,
       unique:       'compositeIndex'
     },

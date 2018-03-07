@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       unique:         'compositeIndex'
     },
     user_id: {
-      type:           DataTypes.INTEGER,
+      type:           DataTypes.STRING,
       allowNull:      false,
       unique:         'compositeIndex'
     },
@@ -30,18 +30,18 @@ module.exports = (sequelize, DataTypes) => {
   });
   cart.associate = function(models) {
     // associations can be defined here
-     cart.belongsTo(models.user, {
-          foreignKey:  {
-              primaryKey: true,
-              foreignKey: "user_id"
-          },
-          onDelete: 'CASCADE'});
-      cart.belongsTo(models.product, {
-          foreignKey: {
-              primaryKey: true,
-              foreignKey: "product_id"
-          },
-          onDelete: 'CASCADE'});
+    //  cart.belongsTo(models.user, {
+    //       foreignKey:  {
+    //           primaryKey: true,
+    //           foreignKey: "user_id"
+    //       },
+    //       onDelete: 'CASCADE'});
+    //   cart.belongsTo(models.product, {
+    //       foreignKey: {
+    //           primaryKey: true,
+    //           foreignKey: "product_id"
+    //       },
+    //       onDelete: 'CASCADE'});
   };
 
 /************************************************************/

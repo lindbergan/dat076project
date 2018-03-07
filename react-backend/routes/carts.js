@@ -3,41 +3,24 @@ const router = express.Router();
 var models = require('../database/models');
 var Carts = models.cart;
 
-/*****************************************************************/
-
-/* GET USERS CART (INC AMOUNT, TOTAL_PRICE) */
+/* GET USERS CART */
 router.get('/:user_id', (req, res, next) => {
 
-  return Carts.findAll({
-    where: {
-        user_id: req.params.user_id
-    }}).then(cart => {
-
-    if (!cart) {
-        return res.status(404).send({
-        message: 'Cart is empty',
-        });
-    };
-
-    //GET TOTAL #ITEMS IN CART
-    Carts.sum('amount', {
+    return Carts.findAll({
         where: {
             user_id: req.params.user_id
-        }}).then(total_amount => {
+        }}).then(cart => {
 
-        //GET TOTAL PRICE FOR CART
-        return res.status(200).send(
-        {cart,
-            amount: total_amount,
-            price: 4
-        });
-  })
+        if (!cart) {
+    return res.status(404).send({
+        message: 'user has no carts',
+    });
+};
+return res.status(200).send(cart);
+})
 .catch(error => res.status(400).send(error));
-}).catch(error => res.status(400).send(error));
 });
 
-
-/*****************************************************************/
 /* ADD PRODUCT TO USERS CART */
 router.post('/:user_id', (req, res, next) => {
 
@@ -84,7 +67,7 @@ router.put('/:user_id/', (req, res, next) => {
 
     Carts.update(req.body,{
         where:{
-            user_id: req.body.user_id,
+            user_id: req.params.user_id,
             product_id: req.body.product_id
         }
 }).then(respons => {
