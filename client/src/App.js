@@ -46,6 +46,9 @@ class App extends Component {
             })
           });
         }
+        else {
+          console.log("Creating user since it didn't exist before.")
+        }
       })
    }
 

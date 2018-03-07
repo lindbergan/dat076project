@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Row } from "react-bootstrap";
+import MaterialIcon from "material-icons-react";
 
 
 export class Cart extends Component{
@@ -14,15 +15,19 @@ export class Cart extends Component{
 
   async componentDidMount(){
     const user_id = sessionStorage.getItem('userId');
-    fetch(`/carts/${user_id}`)
-      .then(res => res.json())
-      .then(cart => this.setState({cart}));
+    if (user_id !== null || user_id !== 'null') {
+      fetch(`/carts/${user_id}`)
+        .then(res => res.json())
+        .then(cart => this.setState({cart}));
+    } else {
+      console.log("user_id was null. Wasn't saved in sessionStorage.");
+    }
   }
 
   render() {
 
     const cart = this.state.cart;
-    if(!cart){
+    if(cart.length === 0){
       return(
 
         <div className="cart-container">Cart is empty
@@ -45,7 +50,7 @@ export class Cart extends Component{
         <Grid className="cart-container" fluid={true}>
           <Row className="grid-icon">
             <div className="cart-icon">
-              <i className="fas fa-shopping-cart"></i>
+              <MaterialIcon icon="shopping_cart" invert={true} size={50}/>
             </div>
           </Row>
           <Row className="grid-cart-info">
