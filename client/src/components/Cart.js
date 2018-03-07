@@ -45,8 +45,6 @@ export class Cart extends Component{
         </Row>
 
       <style jsx="true">{`
-
-
         .cart-container {
           color: white;
           background-color: steelblue;
@@ -63,7 +61,6 @@ export class Cart extends Component{
           color: white;
           cursor: pointer;
         }
-
       `}</style>
 
       </Grid>

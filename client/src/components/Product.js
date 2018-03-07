@@ -8,7 +8,11 @@ export class Product extends Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
-    this.state = {};
+    this.state = {
+      in_cart: false,
+      product: '',
+      user_id: sessionStorage.getItem('userId'),
+    };
   }
 
   async componentDidMount() {
@@ -19,9 +23,9 @@ export class Product extends Component {
   handleClick(e){
     console.log("Add button clicked, post req initiated");
 
-    const user_id = sessionStorage.getItem('userId');
+    const user_id = this.state.user_id;
     const product_id = this.state.product.product_id;
-    
+
     return fetch(`/carts/${user_id}`, {
             method: 'POST',
             headers: {
@@ -33,8 +37,9 @@ export class Product extends Component {
               user_id: user_id.toString(),
               amount: '1',
             })
-          })
-  }
+        });
+      }
+
 
   render() {
     const { product } = this.state;

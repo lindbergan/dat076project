@@ -26,8 +26,12 @@ export class ProductCO extends Component {
   }
 
   handleAdd(e){
-    console.log("Add button clicked, post req initiated");
-    const user_id = sessionStorage.getItem('userId');
+    const { product_id } = this.state.product;
+    const { user_id } = this.state.product;
+    const amount = this.state.product.amount + 1;
+    console.log("handleAdd prod id ===== " + product_id);
+    console.log("handleAdd user id ===== " + user_id);
+    console.log("handleAdd amount ===== " + amount);
     return fetch(`/carts/${user_id}`, {
             method: 'PUT',
             headers: {
@@ -35,22 +39,39 @@ export class ProductCO extends Component {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              product_id: '3',
-              user_id: user_id.toString(),
-              amount: '10',
+              product_id: product_id,
+              user_id: user_id,
+              amount: amount,
             })
           }); //end fetch
   }
   // TODO: Handle the case of the product not being in the cart ????
   handleDelete(e){
-    const user_id = sessionStorage.getItem('userId');
+    const { user_id } = this.state.product;
     const { product_id } = this.state.product;
+    const { amount } = this.state.product;
+    console.log("handleDelete amount ===== " + amount);
+    if(amount === 1){
     return fetch(`/carts/${user_id}/${product_id}` , {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
       );
-
+    }else{
+      let new_amount = amount - 1;
+      return fetch(`/carts/${user_id}`, {
+              method: 'PUT',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                product_id: product_id,
+                user_id: user_id,
+                amount: new_amount,
+              })
+            }); //end fetch
+    }
   }
 
   async getProduct(product) {
@@ -93,13 +114,13 @@ export class ProductCO extends Component {
               <Button className="add-button co-button"
                       bsStyle="success"
                       bsSize="large"
-                      onClick={this.handleAdd}>Add</Button>
+                      onClick={this.handleAdd}>+</Button>
             </Col>
             <Col md={6}>
               <Button className="delete-button co-button"
                       bsStyle="danger"
                       bsSize="large"
-                      onClick={this.handleDelete}>Delete</Button>
+                      onClick={this.handleDelete}>-</Button>
             </Col>
           </Row>
 
