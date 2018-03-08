@@ -19,6 +19,7 @@ export class SortingButtons extends React.Component {
   };
 
   render() {
+    console.log(this.parent);
     return (<Grid fluid={true} className="grid">
       <Row className="filter-row">
         <Button className={this.buttonClassNames('ascending')}

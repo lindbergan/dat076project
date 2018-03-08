@@ -8,27 +8,14 @@ export class Authentication extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      loadingIsVisible: true
+      wasTooFast: false
     };
-  }
-
-  componentWillMount() {
-    this.setState({ loadingIsVisible: true })
-  }
-
-  componentDidMount() {
-    this.setState({ loadingIsVisible: false })
   }
 
   render() {
     return (
     <Grid fluid={true}>
       <div>
-        <div>
-          {
-            this.state.loadingIsVisible && <ReactLoading type='balls' color="grey" width='150px' height='150px'/>
-          }
-        </div>
         <Row>
           <Col md={4} lg={4} mdOffset={4}>
             <h1 className="centerH1">Authentication</h1>
@@ -38,19 +25,25 @@ export class Authentication extends Component {
         <Row>
           <Col md={4} lg={4} mdOffset={4}>
             <GoogleLogin
-              className="btn btn-primary btn-lg centerButton"
-              clientId="619353481887-svkhfldhas6b2bs65atfrimeqe1eoge8.apps.googleusercontent.com"
-              buttonText="Login"
-              onSuccess={(response) => {
-                this.props.logIn(response.googleId);
-                this.props.setProfile(response.profileObj)
-              }}
-              onFailure={(response) => console.log(response)}
-            />
+                className="btn btn-primary btn-lg centerButton"
+                clientId="619353481887-svkhfldhas6b2bs65atfrimeqe1eoge8.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={(response) => {
+                  this.props.logIn(response.googleId);
+                  this.props.setProfile(response.profileObj)
+                }}
+                onFailure={(response) => this.setState({ wasTooFast: true })}
+              />
+            {
+              this.state.wasTooFast && <h3 className="too-fast">You were to fast! Try reloading!</h3>
+            }
           </Col>
         </Row>
       </div>
       <style jsx="true">{`
+        .too-fast {
+          color: red;
+        }
         .centerH1 {
           text-align: center;
         }

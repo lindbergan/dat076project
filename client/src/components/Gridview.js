@@ -95,8 +95,16 @@ export class GridView extends Component {
       )
     } else { return(<Grid fluid={true}>
       <Row>
-        <ReactLoading type='balls' width='100px' height='100px' color="grey"/>
+        <ReactLoading className="center" type='balls' width='100px' height='100px' color="grey"/>
       </Row>
+      <style jsx="true">
+        {`
+          .center {
+            display: block;
+            margin: 0 auto;
+          }
+        `}
+      </style>
     </Grid>) }
   }
 }

@@ -24,14 +24,18 @@ export class Cart extends Component{
         </Row>
         <Row className="grid-cart-info">
           <table align="center">
-            <tr>
-              <td><h5 className="title-row">Number of products:</h5></td>
-              <td><h5 className="title-row">{total_amount}</h5></td>
-            </tr>
-            <tr>
-              <td><h5 className="title-row">Total cost:</h5></td>
-              <td><h5 className="title-row">{total_amount}</h5></td>
-            </tr>
+            <tbody>
+              <tr>
+                <td><h5 className="title-row">Number of products:</h5></td>
+                <td><h5 className="title-row">{total_amount}</h5></td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <td><h5 className="title-row">Total cost:</h5></td>
+                <td><h5 className="title-row">{total_amount}</h5></td>
+              </tr>
+            </tbody>
           </table>
         </Row>
       <style jsx="true">{`

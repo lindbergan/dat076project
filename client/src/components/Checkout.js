@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { ProductCO } from "./Product-co";
 import { Col, Grid, Row } from "react-bootstrap";
-
+import ReactLoading from 'react-loading';
 
 export class Checkout extends Component{
   constructor(props){
@@ -78,6 +78,18 @@ export class Checkout extends Component{
           </Row>
         </Grid>
       )
-    } else { return(<div />) }
+    } else { return(<Grid fluid={true}>
+      <Row>
+        <ReactLoading className="center" type='balls' width='100px' height='100px' color="grey"/>
+      </Row>
+      <style jsx="true">
+        {`
+          .center {
+            display: block;
+            margin: 0 auto;
+          }
+        `}
+      </style>
+    </Grid>) }
   }
 }
