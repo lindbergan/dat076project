@@ -133,7 +133,8 @@ class App extends Component {
         <Route path="/" exact component={ () =>
           <GridView searchTerm={ this.state.searchTerm }
                     sortReversingOrder={ this.state.sortReversingOrder }
-                    sortCheapest={ this.state.sortCheapest }/> } />
+                    sortCheapest={ this.state.sortCheapest }
+                    updateCart={this.updateCart.bind(this)}/> } />
         <Route path="/checkout" exact component={ () =>
           <Checkout searchTerm={ this.state.searchTerm } updateCart={this.updateCart.bind(this)} /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />

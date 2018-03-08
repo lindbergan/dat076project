@@ -62,7 +62,9 @@ export class GridView extends Component {
             .filter(product => sortedIfNeeded.indexOf(product) % nrColumns === nr)
             .map(product => <Product key={ product.product_id }
                                      id={ product.product_id }
-                                     product={ product }/>)
+                                     product={ product }
+                                     updateCart ={this.props.updateCart}/>)
+
         }
       </Col>
     ));

@@ -5,12 +5,11 @@ import './shadows.css';
 import MaterialIcon from 'material-icons-react';
 
 export class Product extends Component {
-  
-  constructor() {
-    super();
+
+  constructor(props) {
+    super(props);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      in_cart: false,
       product: '',
       user_id: sessionStorage.getItem('userId'),
     };
@@ -25,7 +24,7 @@ export class Product extends Component {
     const user_id = this.state.user_id;
     const product_id = this.state.product.product_id;
 
-    return fetch(`/carts/${user_id}`, {
+    fetch(`/carts/${user_id}`, {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -37,6 +36,8 @@ export class Product extends Component {
               amount: '1',
             })
         }); //end fetch
+
+    this.props.updateCart();
       }
 
   render() {
