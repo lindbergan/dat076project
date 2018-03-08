@@ -19,12 +19,18 @@ export class Header extends Component {
     }
 
     getValidationState() {
-    const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-    return null;
-  }
+      if (this.state.value.length === 0) return null;
+      const valueCart = this.state.value.split("");
+      const dangerousCharacters = ['<', '>', '\\', '/', '!', ";", '#'];
+      if (dangerousCharacters.filter(function(n) {
+          return valueCart.indexOf(n) !== -1;
+        }).length !== 0) {
+        return 'error';
+      }
+      else if (this.state.value.length > 15 && this.state.value.length <= 25) return 'warning';
+      else if (this.state.value.length > 25) return 'error';
+      return 'success';
+    }
 
     render() {
       const savedProfilePicture = sessionStorage.getItem('profilePictureUrl');
@@ -33,13 +39,12 @@ export class Header extends Component {
       this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.imageUrl :
       savedProfilePicture !== null || savedProfilePicture !== 'null' ? savedProfilePicture : '';
       const profileName = savedProfileName !== null ? savedProfileName :
-      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.name
-      : '';
+      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.name : '';
 
       return (
         <Grid id="header" fluid={true}>
-          <Row>
-            <Col md={ 4 } sm={3} lg={ 2 }>
+          <Row className="row-header">
+            <Col md={ 4 } sm={3} lg={3}>
               <Link to="/">
                 <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
               </Link>
@@ -65,18 +70,20 @@ export class Header extends Component {
                     value={ this.state.value }
                     placeholder="Search..."
                     onChange={ this.handleChange }
-                  />
-                  <FormControl.Feedback />
+
+                  /><FormControl.Feedback />
                 </FormGroup>
               </form>
             </Col>
-            <Col sm={3} lg={2}/>
             <Col xs={12} sm={6} md={4} lg={2}>
               <Cart cartContent={this.props.cartContent}/>
             </Col>
-            <Col sm={3}/>
           </Row>
           <style jsx="true">{`
+            .row-header {
+              display: block;
+              margin: 0 auto;
+            }
             #header {
               background-color: #B5C7CB;
             }
@@ -88,6 +95,7 @@ export class Header extends Component {
               max-width: 450px;
               margin: 0 auto;
               display: block;
+              padding: 15px;
             }
             .profilePic {
               max-width: 50px;
