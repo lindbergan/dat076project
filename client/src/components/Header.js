@@ -47,7 +47,7 @@ export class Header extends Component {
             <Link to="/">
               <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
             </Link>
-            <h4>{ profileName }</h4>
+            <h4 className="">Welcome: { profileName }</h4>
             <Button
               className="btn btn-danger"
               onClick={ this.props.logOut }
@@ -68,16 +68,19 @@ export class Header extends Component {
                   type="text"
                   value={ this.state.value }
                   placeholder="Search..."
-                  onChange={ this.handleChange }
-
-                /><FormControl.Feedback />
+                  onChange={ this.handleChange }/>
               </FormGroup>
             </form>
           </Col>
-          <Col xs={12} sm={6} md={4} lg={2}>
+          <Col xs={12} sm={6} md={4} lg={2} className="cart-col">
             <Cart cartContent={this.props.cartContent}/>
           </Col>
           <style jsx="true">{`
+            @media (min-width: 1000px)
+            .cart-col {
+              padding: 0;
+            }
+
             .profile-col {
               margin: 10px;
             }
@@ -88,14 +91,19 @@ export class Header extends Component {
             }
             #header {
               background-color: #B5C7CB;
+              padding: 0;
             }
+
+            @import url('/public/fonts/berkshire-swash/BerkshireSwash-Regular');
             .webshop-title {
               color: white;
+              font-family: 'Berkshire Swash', cursive;
+              font-size: 55pt;
             }
             .search-field{
               width: 100%;
               max-width: 450px;
-              margin: 0 auto;
+              margin: 35px auto 0 auto;
               display: block;
               padding: 15px;
             }

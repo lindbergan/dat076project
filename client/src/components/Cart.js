@@ -30,13 +30,13 @@ export class Cart extends Component{
       <style jsx="true">{`
         .cart-container {
           color: white;
-          background-color: steelblue;
         }
         .grid-icon{
         }
         .cart-icon{
           font-size:4em;
           color:white;
+          margin-top: 50px;
         }
         .grid-cart-info{
         }
