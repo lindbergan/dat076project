@@ -43,8 +43,9 @@ createReview() {
   return fetch(`/products/${this.props.match.params.product_id}/reviews/${savedUserId}`)
     .then(res => res.json())
     .then(res => {
+      const reqMethod = res.length === 0 ? 'POST' : 'PUT';
       fetch(`/products/${this.props.match.params.product_id}/reviews`, {
-        method: 'PUT',
+        method: reqMethod,
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
