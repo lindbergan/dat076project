@@ -5,27 +5,12 @@ import MaterialIcon from "material-icons-react";
 
 export class Cart extends Component{
 
-  constructor(props, context){
-    super(props, context);
-    this.state = {
-      cart: props.cartContent,
-    };
-  }
-
-  async componentDidMount(){
-    const user_id = sessionStorage.getItem('userId');
-    if (user_id !== null || user_id !== 'null') {
-      fetch(`/carts/${user_id}`)
-        .then(res => res.json())
-        .then(cart => this.setState({cart}));
-    } else {
-      console.log("user_id was null. Wasn't saved in sessionStorage.");
-    }
+  constructor(){
+    super();
   }
 
   render() {
-
-    const cart = this.state.cart;
+    const cart = this.props.cartContent !== undefined ? this.props.cartContent : [];
     const total_amount = cart.length;
     return(
 

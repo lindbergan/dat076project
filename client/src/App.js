@@ -23,8 +23,8 @@ class App extends Component {
       profile: null,
       sortCheapest: false,
       sortReversingOrder: false,
-      cart: '',
     };
+    this.updateCart();
   }
 
   createUser() {
@@ -106,15 +106,12 @@ class App extends Component {
   sortMostExpensive() {
     this.setState({ sortCheapest: false, sortReversingOrder: null });
 }
-  updateCart(){
+  updateCart() {
     const user_id = this.state.userId;
     fetch(`/carts/${user_id}`)
       .then(res => res.json())
       .then(cart => this.setState({ cart }));
-
   }
-
-  async componentDidMount() {}
 
   render() {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
@@ -129,14 +126,14 @@ class App extends Component {
               sortDescending={ this.sortDescending.bind(this) }
               sortCheapest={ this.sortCheapest.bind(this) }
               sortMostExpensive={ this.sortMostExpensive.bind(this) }
-              cartContent={this.state.cart}>
+              cartContent={ this.state.cart }>
         <Route path="/" exact component={ () =>
           <GridView searchTerm={ this.state.searchTerm }
                     sortReversingOrder={ this.state.sortReversingOrder }
                     sortCheapest={ this.state.sortCheapest }
-                    updateCart={this.updateCart.bind(this)}/> } />
+                    updateCart={ this.updateCart.bind(this) }/> } />
         <Route path="/checkout" exact component={ () =>
-          <Checkout searchTerm={ this.state.searchTerm } updateCart={this.updateCart.bind(this)} /> } />
+          <Checkout searchTerm={ this.state.searchTerm } updateCart={ this.updateCart.bind(this) } /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
       </Layout>
     );

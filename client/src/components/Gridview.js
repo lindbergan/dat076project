@@ -61,7 +61,7 @@ export class GridView extends Component {
             .map(product => <Product key={ product.product_id }
                                      id={ product.product_id }
                                      product={ product }
-                                     updateCart ={this.props.updateCart}/>)
+                                     updateCart={ this.props.updateCart }/>)
 
         }
       </Col>

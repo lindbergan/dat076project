@@ -9,10 +9,7 @@ export class ProductCO extends Component {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
-    this.state = {
-      name: '',
-      price: -1
-    };
+    this.state = {};
   }
 
   async componentDidMount() {
@@ -74,7 +71,6 @@ export class ProductCO extends Component {
     fetch(`/products/${product.product_id}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         this.setState({
           name: res.product.name,
           price: res.product.price
@@ -87,7 +83,7 @@ export class ProductCO extends Component {
     const { product } = this.state;
 
     if(product !== undefined) {
-      if (this.state.name === '' && this.state.price === -1) {
+      if (this.state.name === undefined && this.state.price === undefined) {
         this.getProduct(product);
       }
       return(

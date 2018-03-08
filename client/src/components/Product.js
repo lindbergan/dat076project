@@ -36,9 +36,8 @@ export class Product extends Component {
               amount: '1',
             })
         }); //end fetch
-
     this.props.updateCart();
-      }
+  }
 
   render() {
     const { product } = this.state;
