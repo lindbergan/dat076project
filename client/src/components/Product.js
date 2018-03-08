@@ -22,8 +22,7 @@ export class Product extends Component {
 
   handleClick(e){
     const user_id = this.state.user_id;
-    const product_id = this.state.product.product_id;
-
+    const { product_id } = this.state.product;
     fetch(`/carts/${user_id}`, {
             method: 'POST',
             headers: {
@@ -35,7 +34,31 @@ export class Product extends Component {
               user_id: user_id.toString(),
               amount: '1',
             })
-        }); //end fetch
+        })
+      .then(ex => {
+      fetch(`/carts/${user_id}/`)
+        .then(res => res.json())
+        .then(res => {
+          const productThatExist = res.find(el => el.product_id === product_id);
+          if (productThatExist !== undefined) {
+            return fetch(`/carts/${user_id}`, {
+              method: 'PUT',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                product_id: product_id,
+                user_id: user_id.toString(),
+                amount: productThatExist.amount + 1
+              })
+            });
+          } else {
+            console.log("Product doesn't exist but there was still an error.");
+          }
+        })
+        .catch(ex => console.log(ex));
+    });
     this.props.updateCart();
   }
 
