@@ -2,6 +2,7 @@ import React  from 'react';
 import { Header } from '../components/Header.js';
 import { Button, Grid, Row } from "react-bootstrap";
 import { SortingButtons } from "../components/SortingButtons";
+import { Footer } from "../components/Footer";
 
 const Layout = props => (
 <Grid className="App" fluid={true}>
@@ -15,13 +16,13 @@ const Layout = props => (
   <Row className="grid-main">
     { props.children }
   </Row>
+  <Row>
+    <Footer/>
+  </Row>
   <style jsx="true">{`
-    .grid-sidebar{
-      background-color: #EAEAEA;
-    }
-
     .grid-main{
       background-color: #f3efe7;
+      padding: 25px;
     }
   `}</style>
 </Grid>

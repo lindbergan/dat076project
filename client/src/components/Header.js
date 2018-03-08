@@ -43,43 +43,45 @@ export class Header extends Component {
 
       return (
         <Grid id="header" fluid={true}>
-          <Row className="row-header">
-            <Col md={ 4 } sm={3} lg={3}>
-              <Link to="/">
-                <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
-              </Link>
-              <h4>{ profileName }</h4>
-              <Button
-                className="btn btn-danger"
-                onClick={ this.props.logOut }
-                active
-              >Logout</Button>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg={6}>
-              <h2 className="webshop-title">
-                Amazing Products Webshop
-              </h2>
-              <form>
-                <FormGroup
-                  controlId="formBasicText"
-                  validationState={ this.getValidationState() }
-                >
-                  <FormControl
-                    className="search-field"
-                    type="text"
-                    value={ this.state.value }
-                    placeholder="Search..."
-                    onChange={ this.handleChange }
+          <Col md={ 4 } sm={3} lg={3} className="profile-col">
+            <Link to="/">
+              <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
+            </Link>
+            <h4>{ profileName }</h4>
+            <Button
+              className="btn btn-danger"
+              onClick={ this.props.logOut }
+              active
+            >Logout</Button>
+          </Col>
+          <Col xs={12} sm={6} md={4} lg={6}>
+            <h2 className="webshop-title">
+              Amazing Products Webshop
+            </h2>
+            <form>
+              <FormGroup
+                controlId="formBasicText"
+                validationState={ this.getValidationState() }
+              >
+                <FormControl
+                  className="search-field"
+                  type="text"
+                  value={ this.state.value }
+                  placeholder="Search..."
+                  onChange={ this.handleChange }
 
-                  /><FormControl.Feedback />
-                </FormGroup>
-              </form>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg={2}>
-              <Cart cartContent={this.props.cartContent}/>
-            </Col>
-          </Row>
+                /><FormControl.Feedback />
+              </FormGroup>
+            </form>
+          </Col>
+          <Col xs={12} sm={6} md={4} lg={2}>
+            <Cart cartContent={this.props.cartContent}/>
+          </Col>
           <style jsx="true">{`
+            .profile-col {
+              margin: 10px;
+            }
+
             .row-header {
               display: block;
               margin: 0 auto;

@@ -44,6 +44,7 @@ export class SortingButtons extends React.Component {
         <style jsx="true">{`
           .filter-row {
             background: white;
+            padding: 10px;
           }
           .grid {
             padding: 0;
