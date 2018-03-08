@@ -3,8 +3,8 @@ import React from 'react';
 const classNames = require('classnames');
 
 export class SortingButtons extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       activeButton: 'ascending'
     };

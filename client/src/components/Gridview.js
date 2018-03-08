@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Product } from "./Product";
 import { Button, Col, Grid, Row } from "react-bootstrap";
+import ReactLoading from 'react-loading';
 
 export class GridView extends Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       products: null,
       width: 0,
@@ -92,6 +93,10 @@ export class GridView extends Component {
           </Row>
         </Grid>
       )
-    } else { return(<div />) }
+    } else { return(<Grid fluid={true}>
+      <Row>
+        <ReactLoading type='balls' width='100px' height='100px' color="grey"/>
+      </Row>
+    </Grid>) }
   }
 }

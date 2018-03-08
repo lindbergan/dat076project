@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
 import { Link } from "react-router-dom";
+import './shadows.css';
+import '../App.css'
 
 export class Header extends Component {
 
@@ -43,18 +45,18 @@ export class Header extends Component {
 
       return (
         <Grid id="header" fluid={true}>
-          <Col md={ 4 } sm={3} lg={3} className="profile-col">
+          <Col md={ 12 } sm={12} lg={3} className="profile-col">
             <Link to="/">
-              <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
+              <img src={ profilePicture } className="img-thumbnail rounded mx-auto effect7" alt="Profile"/>
             </Link>
-            <h4 className="">Welcome: { profileName }</h4>
+            <h4 className="welcome-name">Welcome! </h4> <p>{ profileName }</p>
             <Button
               className="btn btn-danger"
               onClick={ this.props.logOut }
               active
             >Logout</Button>
           </Col>
-          <Col xs={12} sm={6} md={4} lg={6}>
+          <Col xs={12} sm={12} md={12} lg={6}>
             <h2 className="webshop-title">
               Amazing Products Webshop
             </h2>
@@ -72,13 +74,14 @@ export class Header extends Component {
               </FormGroup>
             </form>
           </Col>
-          <Col xs={12} sm={6} md={4} lg={2} className="cart-col">
+          <Col xs={12} sm={12} md={12} lg={2} className="cart-col">
             <Cart cartContent={this.props.cartContent}/>
           </Col>
           <style jsx="true">{`
-            @media (min-width: 1000px)
-            .cart-col {
-              padding: 0;
+            .welcome-name {
+              color: white;
+              font-size: 20px;
+              font-family: "Times new Roman";
             }
 
             .profile-col {
@@ -92,6 +95,9 @@ export class Header extends Component {
             #header {
               background-color: #B5C7CB;
               padding: 0;
+              position: relative;
+              overflow: hidden;
+              clear: both;
             }
 
             @import url('/public/fonts/berkshire-swash/BerkshireSwash-Regular');

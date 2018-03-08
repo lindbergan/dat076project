@@ -65,7 +65,7 @@ export class Checkout extends Component{
       if (cart.length === 0) {
         return (<Grid>
           <Row>
-            <h1>No items in cart.</h1>
+            <h1>No items in checkout.</h1>
           </Row>
         </Grid>)
       }

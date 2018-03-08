@@ -8,8 +8,8 @@ import { Checkout } from './components/Checkout.js';
 import { ProductDetails } from './components/Product-details.js';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const savedUserId = sessionStorage.getItem('userId');
     const savedAuthenticated = sessionStorage.getItem('authenticated');
