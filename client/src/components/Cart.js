@@ -32,15 +32,14 @@ export class Cart extends Component{
       <Grid className="cart-container" fluid={true}>
         <Row className="grid-icon">
           <div className="cart-icon">
-            <MaterialIcon icon="shopping_cart" invert={true} size={50}/>
+            <Link to="/checkout" >
+            <MaterialIcon icon="shopping_cart" invert={true} size={65}/>
+            </Link>
           </div>
         </Row>
         <Row className="grid-cart-info">
-          <div>Number of products: {total_amount}</div>
-          <div>Total cost: {total_amount}</div>
-          <div className="purchase-btn">
-            <Link to="/checkout" >Go to cashier</Link>
-          </div>
+          <div><h5>Number of products: {total_amount}</h5></div>
+          <div><h5>Total cost: {total_amount}</h5></div>
         </Row>
 
       <style jsx="true">{`

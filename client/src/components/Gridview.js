@@ -53,9 +53,7 @@ export class GridView extends Component {
       sortCheapest === true ? filtered.sort(function(a, b) { return a.price - b.price }) :
         filtered.sort(function(a, b) { return b.price - a.price });
 
-    sortedIfNeeded.forEach(e => console.log(e.price));
-
-    return  [...Array(nrColumns).keys()].map(nr => (
+    const productsShown =  [...Array(nrColumns).keys()].map(nr => (
       <Col xs={12} sm={6} md={4} lg={3} key={nr}>
         {
           sortedIfNeeded
@@ -68,6 +66,16 @@ export class GridView extends Component {
         }
       </Col>
     ));
+
+    const nrChildren = productsShown.reduce((a, el) => a + el.props.children.length, 0);
+
+    if (nrChildren === 0) {
+      return (<Grid>
+        <Row>
+          <h1>No items match that search.</h1>
+        </Row>
+      </Grid>);
+    } else return productsShown;
   }
 
   render() {

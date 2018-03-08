@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Review} from './review.js';
+import {Review} from './Review.js';
 import { Button, Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
 
