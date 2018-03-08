@@ -5,8 +5,8 @@ import './shadows.css';
 import MaterialIcon from 'material-icons-react';
 
 export class ProductCO extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.state = {
@@ -25,7 +25,7 @@ export class ProductCO extends Component {
     const { user_id } = this.state.product;
     const amount = this.state.product.amount + 1;
 
-    return fetch(`/carts/${user_id}`, {
+    fetch(`/carts/${user_id}`, {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
@@ -37,6 +37,7 @@ export class ProductCO extends Component {
               amount: amount,
             })
           }); //end fetch PUT
+    this.props.updateCart();
   }
 
   handleDelete(e){
@@ -45,7 +46,7 @@ export class ProductCO extends Component {
     const { amount } = this.state.product;
 
     if(amount === 1){
-    return fetch(`/carts/${user_id}/${product_id}` , {
+    fetch(`/carts/${user_id}/${product_id}` , {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
@@ -53,7 +54,7 @@ export class ProductCO extends Component {
 
     }else{
       let new_amount = amount - 1;
-      return fetch(`/carts/${user_id}`, {
+      fetch(`/carts/${user_id}`, {
               method: 'PUT',
               headers: {
                 'Accept': 'application/json',
@@ -66,6 +67,7 @@ export class ProductCO extends Component {
               })
             }); //end fetch PUT
     }
+    this.props.updateCart();
   }
 
   async getProduct(product) {

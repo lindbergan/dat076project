@@ -8,13 +8,12 @@ export class Cart extends Component{
   constructor(props, context){
     super(props, context);
     this.state = {
-      cart: '',
+      cart: props.cartContent,
     };
   }
 
   async componentDidMount(){
     const user_id = sessionStorage.getItem('userId');
-
     if (user_id !== null || user_id !== 'null') {
       fetch(`/carts/${user_id}`)
         .then(res => res.json())
@@ -28,9 +27,8 @@ export class Cart extends Component{
 
     const cart = this.state.cart;
     const total_amount = cart.length;
-
     return(
-      
+
       <Grid className="cart-container" fluid={true}>
         <Row className="grid-icon">
           <div className="cart-icon">

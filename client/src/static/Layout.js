@@ -6,7 +6,7 @@ import { SortingButtons } from "../components/SortingButtons";
 const Layout = props => (
 <Grid className="App" fluid={true}>
   <Row>
-    <Header logOut={ props.logOut } changeTerm={ props.changeTerm } loggedInProfile={ props.profile }/>
+    <Header logOut={ props.logOut } changeTerm={ props.changeTerm } loggedInProfile={ props.profile } cartContent={props.cartContent}/>
   </Row>
   <SortingButtons sortAscending={props.sortAscending}
                   sortDescending={props.sortDescending}
