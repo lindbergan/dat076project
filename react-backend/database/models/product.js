@@ -2,6 +2,7 @@
 //(ID, price, description, product_pic, ... ) //maybe more attributes later on
 
 var dummyProducts = require('../dummyData/dummyProducts');
+const models = require('path');
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -24,9 +25,21 @@ module.exports = (sequelize, DataTypes) => {
     //here you can define certain table criteria, like disableing the time stamps
     timestamps:   false
   });
-  product.associate = function(models) {
-    // associations can be defined here
-  };
+
+    product.associate = function(models) {
+        // associations can be defined here
+        product.hasMany(models.cart, {
+            foreignKeyConstraint: true,
+            foreignKey: "product_id",
+            onDelete: 'CASCADE'
+        });
+        product.hasMany(models.review, {
+            foreignKeyConstraint: true,
+            foreignKey: "product_id",
+            onDelete: 'CASCADE'
+        });
+    };
+
 
 /************************************************************/
   product.sync({force: true}).then(function (err) { //Now forces re-creation of tables

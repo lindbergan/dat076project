@@ -3,19 +3,26 @@ const router = express.Router();
 var models = require('../database/models');
 var Carts = models.cart;
 
-/* GET USERS CART */
+/* GET USERS CART (including, total_amount, total_price and the products name and price) */
 router.get('/:user_id', (req, res, next) => {
 
     return Carts.findAll({
         where: {
             user_id: req.params.user_id
-        }}).then(cart => {
+        },    /* include: {
+            model: models.product,
+            where: {
+                user_id: {$col: 'Carts.user_id'}
+            }
+        }*/
+    }).then(cart => {
 
         if (!cart) {
     return res.status(404).send({
-        message: 'user has no carts',
+        message: 'User has no cart',
     });
-};
+    };
+    //Else - sum total_amount and total
 return res.status(200).send(cart);
 })
 .catch(error => res.status(400).send(error));

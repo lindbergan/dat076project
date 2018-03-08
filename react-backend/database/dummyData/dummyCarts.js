@@ -9,8 +9,8 @@ const nmbrOfDummyProd = 20;
 for (var i = 1; i <= amount; i++) {
     dummyCarts.push(
         {
-            user_id:    Math.round(1 + Math.random() * nmbrOfDummyUsers).toString(),
-            product_id: Math.round(1 + Math.random() * nmbrOfDummyProd),
+            user_id:    Math.ceil(Math.random() * nmbrOfDummyUsers).toString(),
+            product_id: Math.ceil(Math.random() * nmbrOfDummyProd),
             amount:     Math.round(1+ Math.random() * 5) //somewhere between 1 - 5 #products
         }
     )

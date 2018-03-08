@@ -1,6 +1,7 @@
 //The definition of a user in the db
 //(Id, email, role, profile_pic) //maybe more attributes later on
 var dummyUsers = require('../dummyData/dummyUsers');
+const models = require('path');
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -28,9 +29,21 @@ module.exports = (sequelize, DataTypes) => {
     //here you can define certain table criteria, like disableing the time stamps
     timestamps:       false
   });
-  user.associate = function(models) {
-    // associations can be defined here
-  };
+
+        user.associate = function(models) {
+            // associations can be defined here
+            user.hasMany(models.cart, {
+                foreignKeyConstraint: true,
+                foreignKey: "user_id",
+                onDelete: 'CASCADE'
+            });
+            user.hasMany(models.review, {
+                foreignKeyConstraint: true,
+                foreignKey: "user_id",
+                onDelete: 'CASCADE'
+            });
+        };
+
 
 /************************************************************/
   user.sync({force: true}).then(function (err) { //Now forces re-creation of tables
