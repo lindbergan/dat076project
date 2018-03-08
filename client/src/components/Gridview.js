@@ -46,7 +46,7 @@ export class GridView extends Component {
   }
 
   renderColumns(products, searchTerm, nrColumns) {
-    const filtered = products.filter(product => product.name.includes(searchTerm));
+    const filtered = products.filter(product => product.name.toLowerCase().includes(searchTerm));
     const sortedIfNeeded = this.state.shouldReverse ? filtered.reverse() : filtered;
     return  [...Array(nrColumns).keys()].map(nr => (
       <Col xs={12} sm={6} md={4} lg={3} key={nr}>
