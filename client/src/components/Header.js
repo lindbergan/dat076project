@@ -72,7 +72,7 @@ export class Header extends Component {
             </Col>
             <Col sm={3} lg={2}/>
             <Col xs={12} sm={6} md={4} lg={2}>
-              <Cart/>
+              <Cart cartContent={this.props.cartContent}/>
             </Col>
             <Col sm={3}/>
           </Row>

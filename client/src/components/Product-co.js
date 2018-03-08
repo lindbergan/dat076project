@@ -4,20 +4,15 @@ import { Link } from 'react-router-dom';
 import './shadows.css';
 import MaterialIcon from 'material-icons-react';
 
-
-// TODO: make dynamic
-
-
 export class ProductCO extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.state = {
       name: '',
       price: -1
     };
-
   }
 
   async componentDidMount() {
@@ -26,31 +21,53 @@ export class ProductCO extends Component {
   }
 
   handleAdd(e){
-    console.log("Add button clicked, post req initiated");
-    const user_id = sessionStorage.getItem('userId');
-    return fetch(`/carts/${user_id}`, {
+    const { product_id } = this.state.product;
+    const { user_id } = this.state.product;
+    const amount = this.state.product.amount + 1;
+
+    fetch(`/carts/${user_id}`, {
             method: 'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              product_id: '3',
-              user_id: user_id.toString(),
-              amount: '10',
+              product_id: product_id,
+              user_id: user_id,
+              amount: amount,
             })
-          }); //end fetch
+          }); //end fetch PUT
+    this.props.updateCart();
   }
-  // TODO: Handle the case of the product not being in the cart ????
+
   handleDelete(e){
-    const user_id = sessionStorage.getItem('userId');
+    const { user_id } = this.state.product;
     const { product_id } = this.state.product;
-    return fetch(`/carts/${user_id}/${product_id}` , {
+    const { amount } = this.state.product;
+
+    if(amount === 1){
+    fetch(`/carts/${user_id}/${product_id}` , {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
-      );
+      ); //end fetch DELETE
 
+    }else{
+      let new_amount = amount - 1;
+      fetch(`/carts/${user_id}`, {
+              method: 'PUT',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                product_id: product_id,
+                user_id: user_id,
+                amount: new_amount,
+              })
+            }); //end fetch PUT
+    }
+    this.props.updateCart();
   }
 
   async getProduct(product) {
@@ -68,6 +85,7 @@ export class ProductCO extends Component {
 
   render(){
     const { product } = this.state;
+
     if(product !== undefined) {
       if (this.state.name === '' && this.state.price === -1) {
         this.getProduct(product);
@@ -93,13 +111,13 @@ export class ProductCO extends Component {
               <Button className="add-button co-button"
                       bsStyle="success"
                       bsSize="large"
-                      onClick={this.handleAdd}>Add</Button>
+                      onClick={this.handleAdd}>+</Button>
             </Col>
             <Col md={6}>
               <Button className="delete-button co-button"
                       bsStyle="danger"
                       bsSize="large"
-                      onClick={this.handleDelete}>Delete</Button>
+                      onClick={this.handleDelete}>-</Button>
             </Col>
           </Row>
 

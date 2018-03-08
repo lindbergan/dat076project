@@ -4,8 +4,8 @@ import { Col, Grid, Row } from "react-bootstrap";
 
 
 export class Checkout extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       cart: '',
       searchTerm: ''
@@ -50,7 +50,8 @@ export class Checkout extends Component{
             .filter(product => filtered.indexOf(product) % nrColumns === nr)
             .map(product => <ProductCO key={ product.product_id }
                                        id={ product.product_id }
-                                       product={ product }/>)
+                                       product={ product }
+                                       updateCart ={this.props.updateCart}/>)
         }
       </Col>
     ));

@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import { Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
 
-
 export class Cart extends Component{
 
   constructor(props, context){
     super(props, context);
     this.state = {
-      cart: '',
+      cart: props.cartContent,
     };
   }
 
@@ -45,8 +44,6 @@ export class Cart extends Component{
         </Row>
 
       <style jsx="true">{`
-
-
         .cart-container {
           color: white;
           background-color: steelblue;
@@ -63,7 +60,6 @@ export class Cart extends Component{
           color: white;
           cursor: pointer;
         }
-
       `}</style>
 
       </Grid>
