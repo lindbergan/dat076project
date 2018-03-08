@@ -62,6 +62,13 @@ export class Checkout extends Component{
     const { searchTerm } = this.props;
     if (cart !== '') {
       const nrColumns = this.getNrColumns();
+      if (cart.length === 0) {
+        return (<Grid>
+          <Row>
+            <h1>No items in cart.</h1>
+          </Row>
+        </Grid>)
+      }
       return(
         <Grid>
           <Row>
