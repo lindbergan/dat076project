@@ -71,15 +71,15 @@ class App extends Component {
   }
 
   setProfilePicture(profileObject) {
-    this.setState({
-      profile: profileObject
-    });
     sessionStorage.setItem('profilePictureUrl', profileObject.imageUrl);
     sessionStorage.setItem('profileFirstName', profileObject.givenName);
     sessionStorage.setItem('profileLastName', profileObject.familyName);
     sessionStorage.setItem('profileFullName', profileObject.name);
     sessionStorage.setItem('profileEmail', profileObject.email);
     this.createUser();
+    this.setState({
+      profile: profileObject
+    });
   }
 
   changeSearchTerm(newTerm) {
@@ -97,7 +97,7 @@ class App extends Component {
 
     return (
       <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
-      profilePicture={this.state.profile}>
+      profilePicture={ this.state.profile }>
         <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />
         <Route path="/checkout" exact component={ () => <Checkout searchTerm={ this.state.searchTerm } /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />

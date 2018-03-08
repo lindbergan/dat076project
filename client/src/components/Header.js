@@ -30,7 +30,8 @@ export class Header extends Component {
       const savedProfilePicture = sessionStorage.getItem('profilePictureUrl');
       const savedProfileName = sessionStorage.getItem('profileFullName');
       const profilePicture = savedProfilePicture !== null ? savedProfilePicture :
-      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.imageUrl : '';
+      this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.imageUrl :
+      savedProfilePicture !== null || savedProfilePicture !== 'null' ? savedProfilePicture : '';
       const profileName = savedProfileName !== null ? savedProfileName :
       this.props.loggedInProfile !== undefined ? this.props.loggedInProfile.name
       : '';
