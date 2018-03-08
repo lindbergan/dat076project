@@ -4,14 +4,12 @@ import { Button, Col, Grid, Row } from "react-bootstrap";
 
 export class GridView extends Component {
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       products: null,
       width: 0,
-      height: 0,
-      shouldReverse: false,
-      buttonActive: true
+      height: 0
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
@@ -47,7 +45,16 @@ export class GridView extends Component {
 
   renderColumns(products, searchTerm, nrColumns) {
     const filtered = products.filter(product => product.name.toLowerCase().includes(searchTerm));
-    const sortedIfNeeded = this.state.shouldReverse ? filtered.reverse() : filtered;
+    const { sortReversingOrder, sortCheapest } = this.props;
+
+    const sortedIfNeeded =
+      sortReversingOrder === true ? filtered.reverse() :
+      sortReversingOrder === false ? filtered :
+      sortCheapest === true ? filtered.sort(function(a, b) { return a.price - b.price }) :
+        filtered.sort(function(a, b) { return b.price - a.price });
+
+    sortedIfNeeded.forEach(e => console.log(e.price));
+
     return  [...Array(nrColumns).keys()].map(nr => (
       <Col xs={12} sm={6} md={4} lg={3} key={nr}>
         {
@@ -56,7 +63,6 @@ export class GridView extends Component {
             .map(product => <Product key={ product.product_id }
                                      id={ product.product_id }
                                      product={ product }/>)
-
         }
       </Col>
     ));
@@ -69,26 +75,6 @@ export class GridView extends Component {
       const nrColumns = this.getNrColumns();
       return(
         <Grid>
-          <Row>
-            <Col md={6} >
-              <Button className={this.state.buttonActive ? "btn btn-primary active" : "btn btn-primary"}
-                      onClick={() => {
-                this.setState({
-                  shouldReverse : false,
-                  buttonActive : true
-                });
-              }}>Asc</Button>
-            </Col>
-            <Col md={6}>
-              <Button className={!this.state.buttonActive ? "btn btn-primary active" : "btn btn-primary"}
-                      onClick={() => {
-                        this.setState({
-                          shouldReverse : true,
-                          buttonActive : false
-                        });
-                      }}>Desc</Button>
-            </Col>
-          </Row>
           <Row>
             {
               this.renderColumns(products, searchTerm, nrColumns)

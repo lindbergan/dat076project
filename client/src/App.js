@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Layout from './Layout.js';
+import Layout from './static/Layout.js';
 import { GridView } from "./components/Gridview";
 import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
@@ -20,7 +20,9 @@ class App extends Component {
       userId: savedUserId,
       searchTerm: '',
       profilePicture: undefined,
-      profile: null
+      profile: null,
+      sortCheapest: false,
+      sortReversingOrder: false
     };
   }
 
@@ -88,18 +90,43 @@ class App extends Component {
     });
   }
 
+  sortAscending() {
+    this.setState({ sortReversingOrder: false, sortCheapest: null });
+  }
+
+  sortDescending() {
+    this.setState({ sortReversingOrder: true, sortCheapest: null });
+  }
+
+  sortCheapest() {
+    this.setState({ sortCheapest: true, sortReversingOrder: null });
+  }
+
+  sortMostExpensive() {
+    this.setState({ sortCheapest: false, sortReversingOrder: null });
+  }
+
   async componentDidMount() {}
 
   render() {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
-      return <Authentication logIn={ this.logIn.bind(this) } setProfile={this.setProfilePicture.bind(this)}/>
+      return <Authentication logIn={ this.logIn.bind(this) } setProfile={ this.setProfilePicture.bind(this) }/>
     }
 
     return (
-      <Layout logOut={ this.logOut.bind(this) } changeTerm={ this.changeSearchTerm.bind(this) }
-      profilePicture={ this.state.profile }>
-        <Route path="/" exact component={ () => <GridView searchTerm={ this.state.searchTerm }/> } />
-        <Route path="/checkout" exact component={ () => <Checkout searchTerm={ this.state.searchTerm } /> } />
+      <Layout logOut={ this.logOut.bind(this) }
+              changeTerm={ this.changeSearchTerm.bind(this) }
+              profilePicture={ this.state.profile }
+              sortAscending={ this.sortAscending.bind(this) }
+              sortDescending={ this.sortDescending.bind(this) }
+              sortCheapest={ this.sortCheapest.bind(this) }
+              sortMostExpensive={ this.sortMostExpensive.bind(this) }>
+        <Route path="/" exact component={ () =>
+          <GridView searchTerm={ this.state.searchTerm }
+                    sortReversingOrder={ this.state.sortReversingOrder }
+                    sortCheapest={ this.state.sortCheapest }/> } />
+        <Route path="/checkout" exact component={ () =>
+          <Checkout searchTerm={ this.state.searchTerm } /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
       </Layout>
     );
