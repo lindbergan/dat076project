@@ -35,32 +35,31 @@ export class Product extends Component {
               amount: '1',
             })
         })
-      .then(res => res.json())
-      .catch(ex => {
-        console.log("Entered ex then");
-        fetch(`/carts/${user_id}/`)
-          .then(res => res.json())
-          .then(res => {
-            const productThatExist = res.find(el => el.product_id === product_id);
-            if (productThatExist !== undefined) {
-              console.log("exists");
-              return fetch(`/carts/${user_id}`, {
-                method: 'PUT',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  product_id: product_id,
-                  user_id: user_id.toString(),
-                  amount: productThatExist.amount + 1
-                })
-              });
-            } else {
-              console.log("Product doesn't exist but there was still an error.");
-            }
-          })
-          .catch(ex => console.log(ex));
+      .then(res => {
+        if (!res.ok) {
+          fetch(`/carts/${user_id}/`)
+            .then(res => res.json())
+            .then(res => {
+              const productThatExist = res.find(el => el.product_id === product_id);
+              if (productThatExist !== undefined) {
+                return fetch(`/carts/${user_id}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    product_id: product_id,
+                    user_id: user_id.toString(),
+                    amount: productThatExist.amount + 1
+                  })
+                });
+              } else {
+                console.log("Product doesn't exist but there was still an error.");
+              }
+            })
+            .catch(ex => console.log(ex));
+        }
       });
     this.props.updateCart();
   }

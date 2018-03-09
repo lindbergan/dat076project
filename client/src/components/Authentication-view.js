@@ -35,14 +35,16 @@ export class Authentication extends Component {
                 onFailure={(response) => this.setState({ wasTooFast: true })}
               />
             {
-              this.state.wasTooFast && <h3 className="too-fast">You were to fast! Try reloading!</h3>
+              this.state.wasTooFast && <h4 className="too-fast">You were to fast! Try reloading!</h4>
             }
+
           </Col>
         </Row>
       </div>
       <style jsx="true">{`
         .too-fast {
           color: red;
+          text-align: center;
         }
         .centerH1 {
           text-align: center;

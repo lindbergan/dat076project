@@ -45,9 +45,7 @@ export class ProductCO extends Component {
     if(amount === 1){
     fetch(`/carts/${user_id}/${product_id}` , {
         method: 'delete'
-      }).then(response =>
-        console.log("ok" + response),
-      ); //end fetch DELETE
+      }); //end fetch DELETE
 
     }else{
       let new_amount = amount - 1;
