@@ -15,7 +15,7 @@ export class Header extends Component {
       }
     }
 
-    handleChange(e){
+    handleChange(e) {
       this.setState({ value: e.target.value });
       this.props.changeTerm(e.target.value);
     }
@@ -47,7 +47,8 @@ export class Header extends Component {
         <Grid id="header" fluid={true}>
           <Col md={ 12 } sm={12} lg={3} className="profile-col">
             <Link to="/">
-              <img src={ profilePicture } className="img-thumbnail rounded mx-auto effect7" alt="Profile"/>
+              <img src={ profilePicture } className="img-thumbnail rounded mx-auto effect7" alt="Profile"
+              onClick={() => { this.setState({ value: '' }); this.props.changeTerm(''); }}/>
             </Link>
             <h4 className="welcome-name">Welcome! </h4> <p>{ profileName }</p>
             <Button
@@ -70,7 +71,8 @@ export class Header extends Component {
                   type="text"
                   value={ this.state.value }
                   placeholder="Search..."
-                  onChange={ this.handleChange }/>
+                  onChange={ this.handleChange }
+                  onClick={() => {}}/>
               </FormGroup>
             </form>
           </Col>
