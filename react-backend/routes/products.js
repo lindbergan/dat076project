@@ -50,7 +50,7 @@ router.put('/', (req, res, next) => {
             product_id: req.body.product_id,
         }
     }).then(respons => {
-        res.send("Product updated");
+        res.status(200).send("Product updated");
     })
     .catch(err => {
         res.status(400).send("Unable to update product!");
@@ -65,7 +65,7 @@ router.delete('/:product_id', (req, res, next) => {
             product_id: req.params.product_id,
         }
     }).then(respons => {
-        res.send("Product deleted");
+        res.status(200).send("Product deleted");
     })
     .catch(err => {
         res.status(400).send("Unable to delete product");
@@ -282,7 +282,7 @@ router.post('/:product_id/reviews', (req, res, next) => { //req = body of the ne
 
     var newReview = new Reviews(req.body);
     newReview.save(req.body).then(respons => {
-        res.send("Review for product saved");
+        res.status(200).send("Review for product saved");
     })
     .catch(err => {
         res.status(400).send("Unable to save review");
@@ -298,7 +298,7 @@ router.put('/:product_id/reviews', (req, res, next) => {
             product_id: req.params.product_id
         }
     }).then(respons => {
-        res.send("Review updated");
+        res.status(200).send("Review updated");
     })
     .catch(err => {
         res.status(400).send("Unable to update review");

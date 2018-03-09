@@ -25,9 +25,10 @@ router.get('/:user_id', (req, res, next) => {
             return res.status(404).send({message: 'User Not Found'});
         }
         return res.status(200).send(user);
-        })
-        .catch(error => {res.status(400).send(error)
-        });
+    })
+    .catch(error => {
+        res.status(400).send(error)
+    });
 });
 
 /* ADD USER */
@@ -35,7 +36,7 @@ router.post('/', (req, res, next) => {
 
     var newUser = new Users(req.body);
     newUser.save(req.body).then(respons => {
-        res.send("user saved to database");
+        res.status(200).send("user saved to database");
     })
     .catch(err => {
         res.status(400).send("unable to save user");
@@ -49,7 +50,7 @@ router.delete('/:user_id', (req, res, next) => {
             user_id: req.params.user_id,
         }
     }).then(respons => {
-        res.send("User deleted");
+        res.status(200).send("User deleted");
     })
     .catch(err => {
         res.status(400).send("Unable to delete users");
@@ -64,7 +65,7 @@ router.put('/', (req, res, next) => {
             user_id: req.body.user_id,
         }
     }).then(respons => {
-        res.send("User updated!");
+        res.status(200).send("User updated!");
     })
     .catch(err => {
         res.status(400).send("unable to updates user's settings!");
