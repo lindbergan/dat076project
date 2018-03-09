@@ -84,7 +84,9 @@ export class Header extends Component {
           </Row>
           <style jsx="true">{`
             #header {
-              background-color: #6D69A6;
+              background: #16222a; /* fallback for old browsers */
+              background: -webkit-linear-gradient(to right, #243C48, #3a6073); /* Chrome 10-25, Safari 5.1-6 */
+              background: linear-gradient(to right, #243C48, #3a6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             }
             .webshop-title {
               color: white;
@@ -100,13 +102,14 @@ export class Header extends Component {
               margin: 10px;
             }
             .header-profile{
-              padding: 10px;
+              padding: 20px 10px 10px 10px;
+              color: white;
             }
             .header-main{
-
+              padding-top: 10px;
             }
             .header-cart{
-              padding: 10px;
+              padding: 20px 10px 10px 10px;
             }
           `}</style>
         </Grid>

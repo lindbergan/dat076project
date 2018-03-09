@@ -60,32 +60,38 @@ export class Product extends Component {
             </div>
           </Row>
           <Row>
-            <Button className="buy-button button-product"
-                    bsStyle="success"
-                    bsSize="large"
-                    onClick={this.handleClick}>Add to cart</Button>
+            <div className="buy-button button-product"
+                    onClick={this.handleClick}><MaterialIcon icon="add_shopping_cart" invert={true} size={35}/></div>
           </Row>
 
           <style jsx="true">{`
           .product-container {
-            background-color: #F5FFE1;
+            background-color: #EAF4E5;
             margin: 10px;
-            cursor: pointer;
             max-width: 350px;
             margin-bottom: 40px;
           }
           .grid-img{
             background: white;
+            cursor: pointer;
           }
           .img-container{
             background-color: #ccc;
-            margin-top: 15px;
+            margin: 15px 15px 0 15px;
+            cursor: pointer;
           }
           .grid-info{
             font-size:10px;
           }
           .button-product {
-            margin-bottom: 15px;
+            background: #56ab2f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #56ab2f, #6BB549); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #56ab2f, #6BB549); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            height: 50px;
+            color: #EAF4E5;
+            padding-top: 9px;
+            margin-top:20px;
+            cursor:pointer;
           }
           `}</style>
         </Grid>

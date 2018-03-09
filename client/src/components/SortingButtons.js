@@ -43,7 +43,9 @@ export class SortingButtons extends React.Component {
                 } }>Most expensive</Button>
         <style jsx="true">{`
           .filter-row {
-              background-color: #6D69A6;
+            background: #16222a; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #243C48, #3a6073); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #243C48, #3a6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           }
           .grid {
             padding: 0;
