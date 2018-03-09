@@ -16,7 +16,8 @@ const Layout = props => (
     }
 
     .grid-main{
-      background-color: #f3efe7;
+      background-color: #E9E9E9;
+      height: 100%;
     }
   `}</style>
 </Grid>

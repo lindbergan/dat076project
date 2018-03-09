@@ -13,7 +13,7 @@ export class SortingButtons extends React.Component {
   buttonClassNames = (name) => {
     return classNames({
       "btn": true,
-      "btn-primary": true,
+      "btn-secondary": true,
       "active": name === this.state.activeButton
     });
   };
@@ -43,7 +43,7 @@ export class SortingButtons extends React.Component {
                 } }>Most expensive</Button>
         <style jsx="true">{`
           .filter-row {
-            background: white;
+              background-color: #6D69A6;
           }
           .grid {
             padding: 0;

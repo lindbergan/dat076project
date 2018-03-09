@@ -39,7 +39,8 @@ export class Header extends Component {
       return (
         <Grid id="header" fluid={true}>
           <Row>
-            <Col md={ 4 } sm={3} lg={ 2 }>
+
+            <Col className="header-profile" md={ 4 } sm={3} lg={ 2 }>
               <Link to="/">
                 <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
               </Link>
@@ -50,7 +51,8 @@ export class Header extends Component {
                 active
               >Logout</Button>
             </Col>
-            <Col xs={12} sm={6} md={4} lg={6}>
+
+            <Col className="header-main" xs={12} sm={6} md={4} lg={8}>
               <h2 className="webshop-title">
                 Amazing Products Webshop
               </h2>
@@ -70,15 +72,19 @@ export class Header extends Component {
                 </FormGroup>
               </form>
             </Col>
+
             <Col sm={3} lg={2}/>
-            <Col xs={12} sm={6} md={4} lg={2}>
+
+            <Col className="header-cart" xs={12} sm={6} md={4} lg={2}>
               <Cart cartContent={this.props.cartContent}/>
             </Col>
+
             <Col sm={3}/>
+
           </Row>
           <style jsx="true">{`
             #header {
-              background-color: #B5C7CB;
+              background-color: #6D69A6;
             }
             .webshop-title {
               color: white;
@@ -92,6 +98,15 @@ export class Header extends Component {
             .profilePic {
               max-width: 50px;
               margin: 10px;
+            }
+            .header-profile{
+              padding: 10px;
+            }
+            .header-main{
+
+            }
+            .header-cart{
+              padding: 10px;
             }
           `}</style>
         </Grid>

@@ -8,7 +8,7 @@ const Layout = props => (
   <Row>
     <Header logOut={ props.logOut } changeTerm={ props.changeTerm } loggedInProfile={ props.profile } cartContent={props.cartContent}/>
   </Row>
-  <SortingButtons sortAscending={props.sortAscending}
+  <SortingButtons className="sort-buttons" sortAscending={props.sortAscending}
                   sortDescending={props.sortDescending}
                   sortCheapest={props.sortCheapest}
                   sortMostExpensive={props.sortMostExpensive}/>
@@ -19,9 +19,8 @@ const Layout = props => (
     .grid-sidebar{
       background-color: #EAEAEA;
     }
-
     .grid-main{
-      background-color: #f3efe7;
+      background-color: #E9E9E9;
     }
   `}</style>
 </Grid>

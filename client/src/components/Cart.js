@@ -46,7 +46,7 @@ export class Cart extends Component{
       <style jsx="true">{`
         .cart-container {
           color: white;
-          background-color: steelblue;
+          background-color: #6D69A6;
         }
         .grid-icon{
         }

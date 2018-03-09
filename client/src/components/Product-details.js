@@ -74,15 +74,18 @@ render(){
   if(product && reviews){
 
   return(
+    <div className="prod-details-wrapper">
     <Grid className="prod-details-container" fluid={true}>
-      <Row>
-        <Col md={4} lg={4}>
+      <Row className="info-row">
+        <Col className="img-container" md={4} lg={4}>
           <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
         </Col>
-        <Col md={8} lg={8}>
-          <h1>{this.state.product.name}</h1>
-          <h3>Price: {this.state.product.price}</h3>
-          <p>{this.state.product.description}</p>
+        <Col className="info-container" md={8} lg={8}>
+
+          <div className="info-prod-name"><h1 className="prod-header">{this.state.product.name}</h1></div>
+          <div className="info-prod-description">{this.state.product.description}</div>
+          <div className="info-prod-price">Price: {this.state.product.price}</div>
+
         </Col>
       </Row>
       <Row>
@@ -117,14 +120,61 @@ render(){
           >Submit</Button></Row>
         </Col>
       </Row>
+      </Grid>
       <style jsx="true">{`
-        .prod-details-container{
+        .prod-details-wrapper{
           width:100%;
-          height100%;
+          height:100%;
+          background: blue;
+        }
+        .prod-header{
+          margin: auto 0;
+          font-size: 2vw;
+        }
+        .prod-details-container{
           background: #F7F7F7;
         }
+        .info-row{
+          height: 250px;
+          background: #DFDFDF;
+          padding: 20px 0;
+        }
+        .img-container{
+          background: red;
+          height: 100%;
+        }
+        .info-container{
+          text-align:left;
+          display: grid;
+          grid-template-rows: 25% 60% 15%;
+          grid-template-areas:
+            "info-prod-name"
+            "info-prod-description"
+            "info-prod-price";
+          height: 100%;
+          background: steelblue;
+        }
+        .info-prod-name{
+
+          display:grid;
+          grid-area: info-prod-name;
+        }
+        .info-prod-description{
+          display:grid;
+          grid-area: info-prod-description;
+          text-align: justify;
+          width: 70%;
+          font-size: 1.2vw;
+          padding: auto 0px;
+        }
+        .info-prod-price{
+          display:grid;
+          grid-area: info-prod-price;
+          font-size: 1.7vw;
+          padding: auto 0px;
+        }
       `}</style>
-    </Grid>
+    </div>
   );}else{
     return(
       <div>Review not found...</div>
