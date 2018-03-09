@@ -83,6 +83,7 @@ class App extends Component {
     this.setState({
       profile: profileObject
     });
+    this.updateCart();
   }
 
   changeSearchTerm(newTerm) {
