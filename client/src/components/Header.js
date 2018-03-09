@@ -16,6 +16,7 @@ export class Header extends Component {
     }
 
     handleChange(e) {
+      if (e.target.value.length > 50) return;
       this.setState({ value: e.target.value });
       this.props.changeTerm(e.target.value);
     }
@@ -29,8 +30,8 @@ export class Header extends Component {
         }).length !== 0) {
         return 'error';
       }
-      else if (this.state.value.length > 15 && this.state.value.length <= 25) return 'warning';
-      else if (this.state.value.length > 25) return 'error';
+      else if (this.state.value.length > 35 && this.state.value.length <= 48) return 'warning';
+      else if (this.state.value.length > 49) return 'error';
       return 'success';
     }
 
