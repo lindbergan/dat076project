@@ -29,11 +29,19 @@
   to { transform: rotate(360deg); }
 }
 
-.headertest {
-  background-color: green;
-  text-align: center;
+@media (min-width: 1200px) {
+  .cart-col {
+    padding: 0;
+    background-color: #ccc;
+    position: absolute;
+    right: 0;
+    height: 100%;
+  }
 }
 
-.headerlogo {
-
+@media (max-width: 1200px) {
+  .cart-col {
+    padding: 0;
+    background-color: #ccc;
+  }
 }

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
-import MaterialIcon, {colorPallet} from 'material-icons-react';
-
-  function handleClick(e){
-  }
+import MaterialIcon from 'material-icons-react';
 
 export class Product extends Component {
-  constructor() {
-    super();
-    this.state = {};
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      product: '',
+      user_id: sessionStorage.getItem('userId'),
+    };
   }
 
   async componentDidMount() {
@@ -18,71 +20,98 @@ export class Product extends Component {
     this.setState({ product });
   }
 
-  render(){
+  handleClick(e){
+    const user_id = this.state.user_id;
+    const { product_id } = this.state.product;
+    fetch(`/carts/${user_id}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              product_id: product_id,
+              user_id: user_id.toString(),
+              amount: '1',
+            })
+        })
+      .then(res => {
+        if (!res.ok) {
+          fetch(`/carts/${user_id}/`)
+            .then(res => res.json())
+            .then(res => {
+              const productThatExist = res.find(el => el.product_id === product_id);
+              if (productThatExist !== undefined) {
+                return fetch(`/carts/${user_id}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    product_id: product_id,
+                    user_id: user_id.toString(),
+                    amount: productThatExist.amount + 1
+                  })
+                });
+              } else {
+                console.log("Product doesn't exist but there was still an error.");
+              }
+            })
+            .catch(ex => console.log(ex));
+        }
+      });
+    this.props.updateCart();
+  }
+
+  render() {
     const { product } = this.state;
+
     if(product !== undefined) {
       return(
-        <div className="product-container effect1">
-
-            <div className="grid-img">
-            <Link to={"/product/" + product.id}>
-              <div className="img-container">
-                <MaterialIcon icon="insert_photo" size={175} />
-              </div>
+        <Grid className="product-container effect1" fluid={true}>
+          <Row>
+              <Link to={"/product/" + product.product_id}>
+                <div className="img-container">
+                  <MaterialIcon icon="insert_photo" size={100} />
+                </div>
               </Link>
+          </Row>
+          <Row>
+            <div className="info-container">
+              <h3>{product.name}</h3>
+              <h4>Price: {product.price} kr</h4>
             </div>
-
-            <div className="grid-info">
-              <div className="info-container">
-                { product.name } <br/>
-                { product.id }<br/>
-                { product.price }<br/>
-              </div>
-            </div>
-
-            <div className="grid-button">
-              <Button className="buy-button"
-                      bsStyle="success"
-                      bsSize="xsmall"
-                      onClick={handleClick}>Add to cart</Button>
-            </div>
+          </Row>
+          <Row>
+            <Button className="buy-button button-product"
+                    bsStyle="success"
+                    bsSize="large"
+                    onClick={this.handleClick}>Add to cart</Button>
+          </Row>
 
           <style jsx="true">{`
           .product-container {
-            width: 200px;
-            height: 275px;
             background-color: #F5FFE1;
-            float: left;
             margin: 10px;
             cursor: pointer;
-            display: grid;
-            grid-template-rows: 200px 75px;
-            grid-template-columns: 50% 50%;
-            grid-template-areas:
-              "grid-img grid-img"
-              "grid-info grid-button"
+            max-width: 350px;
           }
           .grid-img{
-            display: grid;
-            grid-area: grid-img;
-            padding: 20px;
             background: white;
           }
           .img-container{
-            background-color: white;
+            background-color: #ccc;
+            margin-top: 15px;
           }
           .grid-info{
-            display: grid;
-            grid-area: grid-info;
             font-size:10px;
           }
-          .grid-button{
-            display: grid;
-            grid-area: grid-button;
-            padding: 10px;
+          .button-product {
+            margin-bottom: 15px;
           }
           `}</style>
-        </div>
+        </Grid>
       )
     } else {
       return(
