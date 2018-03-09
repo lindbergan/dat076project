@@ -1,8 +1,5 @@
 //The definition of a shoppingCart in the db
-//(USER_ID, PRODUCT_ID) ... don't think it should hold amount. Should rather be calculated in front-end
-var dummyCarts = require('../dummyData/dummyCarts');
 const models = require('path');
-
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -40,12 +37,5 @@ module.exports = (sequelize, DataTypes) => {
             });
         };
 
-/************************************************************/
-    cart.sync({force: true}).then(function (err) { //Now forces re-creation of tables
-
-        cart.bulkCreate(dummyCarts, {validate: true, ignoreDuplicates: true}).then(task => {});
-
-  });
-  /************************************************************/
   return cart;
 };

@@ -1,8 +1,5 @@
 //The definition of a review in the db
-//(text, USER_ID, PRODUCT_ID, rating)
-var dummyReviews = require('../dummyData/dummyReviews');
 const models = require('path');
-
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -42,12 +39,5 @@ module.exports = (sequelize, DataTypes) => {
             });
         };
 
-/************************************************************/
-  review.sync({force: true}).then(function (err) { //Now forces re-creation of tables
-
-    review.bulkCreate(dummyReviews, {validate: true, ignoreDuplicates: true}).then(task => {});
-
-  });
-  /************************************************************/
   return review;
 };

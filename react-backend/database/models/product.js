@@ -1,7 +1,4 @@
 //The definition of a product in the db
-//(ID, price, description, product_pic, ... ) //maybe more attributes later on
-
-var dummyProducts = require('../dummyData/dummyProducts');
 const models = require('path');
 
 'use strict';
@@ -40,13 +37,5 @@ module.exports = (sequelize, DataTypes) => {
         });
     };
 
-
-/************************************************************/
-  product.sync({force: true}).then(function (err) { //Now forces re-creation of tables
-
-    product.bulkCreate(dummyProducts, {validate: true}).then(task => {});
-
-  });
-  /************************************************************/
   return product;
 };
