@@ -46,15 +46,18 @@ export class Cart extends Component{
       <style jsx="true">{`
         .cart-container {
           color: white;
-          
+
         }
         .grid-icon{
         }
         .cart-icon{
           font-size:4em;
           color:white;
+          text-align: left;
         }
         .grid-cart-info{
+          font-family: 'Hind Siliguri', sans-serif;
+          text-align: left;
         }
         .purchase-btn a{
           color: white;

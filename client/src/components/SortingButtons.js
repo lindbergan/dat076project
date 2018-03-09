@@ -1,5 +1,6 @@
 import { Button, Grid, Row } from 'react-bootstrap';
 import React from 'react';
+import MaterialIcon from "material-icons-react";
 const classNames = require('classnames');
 
 export class SortingButtons extends React.Component {
@@ -21,31 +22,34 @@ export class SortingButtons extends React.Component {
   render() {
     return (<Grid fluid={true} className="grid">
       <Row className="filter-row">
-        <Button className={this.buttonClassNames('ascending')}
+        <Button className={[this.buttonClassNames('ascending'), "btn-custom"].join(' ')}
                 onClick={() => {
                   this.setState({ activeButton: 'ascending'});
                   this.props.sortAscending();
-                } }>Ascending</Button>
-        <Button className={this.buttonClassNames('descending')}
+                } }>A-Z</Button>
+        <Button className={[this.buttonClassNames('descending'), "btn-custom"].join(' ')}
                 onClick={() => {
                   this.setState({ activeButton: 'descending' });
                   this.props.sortDescending();
-                }}>Descending</Button>
-        <Button className={this.buttonClassNames('cheapest')}
+                }}>Z-A</Button>
+        <Button className={[this.buttonClassNames('cheapest'), "btn-custom"].join(' ')}
                 onClick={() => {
                   this.setState({ activeButton: 'cheapest' });
                   this.props.sortCheapest()
-                } }>Cheapest</Button>
-        <Button className={this.buttonClassNames('mostExpensive')}
+                } }>Price <i className="fas fa-arrow-up"></i></Button>
+        <Button className={[this.buttonClassNames('mostExpensive'), "btn-custom"].join(' ')}
                 onClick={() => {
                   this.setState({ activeButton: 'mostExpensive' });
                   this.props.sortMostExpensive()
-                } }>Most expensive</Button>
+                } }>Price <i className="fas fa-arrow-down"></i></Button>
         <style jsx="true">{`
           .filter-row {
-            background: #16222a; /* fallback for old browsers */
-            background: -webkit-linear-gradient(to right, #243C48, #3a6073); /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to right, #243C48, #3a6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            width: 100%;
+            margin: 0;
+          }
+          .btn-custom{
+            width: 25%;
+            border-radius: 0;
           }
           .grid {
             padding: 0;

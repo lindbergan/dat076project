@@ -56,7 +56,7 @@ export class Product extends Component {
           <Row>
             <div className="info-container">
               <h3>{product.name}</h3>
-              <h4>Price: {product.price} kr</h4>
+              <h4 className="info-price">Price: {product.price} kr</h4>
             </div>
           </Row>
           <Row>
@@ -79,10 +79,18 @@ export class Product extends Component {
             background-color: #ccc;
             margin: 15px 15px 0 15px;
             cursor: pointer;
+            
           }
-          .grid-info{
-            font-size:10px;
+          .info-container{
+            font-family: 'Hind Siliguri', sans-serif;
+            text-align: left;
+            margin-left: 15px;
           }
+          .info-price{
+            font-size: 16px;
+            margin-top: 50px;
+          }
+
           .button-product {
             background: #56ab2f; /* fallback for old browsers */
             background: -webkit-linear-gradient(to right, #56ab2f, #6BB549); /* Chrome 10-25, Safari 5.1-6 */
@@ -90,7 +98,7 @@ export class Product extends Component {
             height: 50px;
             color: #EAF4E5;
             padding-top: 9px;
-            margin-top:20px;
+            margin-top:0;
             cursor:pointer;
           }
           `}</style>

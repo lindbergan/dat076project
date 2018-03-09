@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
 import { Link } from "react-router-dom";
+import { SortingButtons } from "../components/SortingButtons";
 
 export class Header extends Component {
 
@@ -56,8 +57,10 @@ export class Header extends Component {
               <h2 className="webshop-title">
                 Amazing Products Webshop
               </h2>
+              <div className="search-field-group-cont">
               <form>
                 <FormGroup
+                  className="search-field-group"
                   controlId="formBasicText"
                   validationState={ this.getValidationState() }
                 >
@@ -71,6 +74,12 @@ export class Header extends Component {
                   <FormControl.Feedback />
                 </FormGroup>
               </form>
+              <SortingButtons className="sort-buttons" sortAscending={this.props.sortAscending}
+                              sortDescending={this.props.sortDescending}
+                              sortCheapest={this.props.sortCheapest}
+                              sortMostExpensive={this.props.sortMostExpensive}/>
+
+              </div>
             </Col>
 
             <Col sm={3} lg={2}/>
@@ -90,12 +99,31 @@ export class Header extends Component {
             }
             .webshop-title {
               color: white;
+              margin: 15px auto;
+              font-size: 45px;
+              font-family: 'Lobster', cursive;
+              text-shadow: 3px 2px 0px #16222a, 4px 3px 0px rgba(0,0,0,0.15);
+
+            }
+            .search-field-group{
+              margin-bottom: 0;
+
+            }
+            .search-field-group-cont{
+              width: 50%;
+              margin: 0 auto;
             }
             .search-field{
               width: 100%;
               max-width: 450px;
               margin: 0 auto;
               display: block;
+              border-radius: 0;
+            }
+            .sort-buttons{
+              width: 100%;
+              margin: 0 auto;
+
             }
             .profilePic {
               max-width: 50px;
@@ -104,6 +132,7 @@ export class Header extends Component {
             .header-profile{
               padding: 20px 10px 10px 10px;
               color: white;
+              font-family: 'Hind Siliguri', sans-serif;
             }
             .header-main{
               padding-top: 10px;
