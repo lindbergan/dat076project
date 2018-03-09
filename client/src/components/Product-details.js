@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {Review} from './Review.js';
+import { Review } from './Review.js';
 import { Button, Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
-
-
+import ReactLoading from 'react-loading';
 
 export class ProductDetails extends Component{
 
@@ -11,8 +10,6 @@ constructor(props){
   super(props);
   this.product_id = props.product_id;
   this.state = {
-    product: '',
-    reviews: '',
     tempReviewRating: 0,
     tempReviewComment: ''
   }
@@ -62,74 +59,80 @@ createReview() {
     .then(_ => {
       fetch(`/products/${this.props.match.params.product_id}/reviews`)
         .then(res => res.json())
-        .then(reviews => this.setState({ reviews}))
+        .then(reviews => { this.setState({ reviews : undefined }); this.setState({ reviews: reviews }) })
     });
 }
 
 render(){
 
-  const { product } = this.state;
-  const { reviews } = this.state;
+  const product = this.state.product !== undefined ? this.state.product : '';
+  const reviews = this.state.reviews !== undefined ? this.state.reviews : '';
 
-  if(product && reviews){
-
-  return(
-    <Grid className="prod-details-container" fluid={true}>
-      <Row>
-        <Col md={4} lg={4}>
-          <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
-        </Col>
-        <Col md={8} lg={8}>
-          <h1>{this.state.product.name}</h1>
-          <h3>Price: {this.state.product.price}</h3>
-          <p>{this.state.product.description}</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={6} lg={6}>
-          {this.state.reviews.map( review => (
-              <Review key={`${review.user_id}${review.product_id}`} review={review} />
-            )
-          )}
-        </Col>
-        <Col md={6} lg={6}>
-          <Row>Enter message: <input promt="Message..."
-                                     value={this.state.tempReviewComment}
-                                     onChange={(e) => {
-                                       this.setState({tempReviewComment : e.target.value });
-                                     }}
-          /></Row>
-          <Row>Enter rating: <select value={this.state.tempReviewRating}
-                                    onChange={(e) => {
-                                      this.setState({tempReviewRating : e.target.value});
-                                    }}
-          >
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select></Row>
-          <Row><Button className="btn btn-success"
-                       bsSize="large"
-                       onClick={(e) => { e.preventDefault(); this.createReview() }}
-          >Submit</Button></Row>
-        </Col>
-      </Row>
-      <style jsx="true">{`
-        .prod-details-container{
-          width:100%;
-          height100%;
-          background: #F7F7F7;
-        }
-      `}</style>
-    </Grid>
-  );}else{
+  if(product !== '' && reviews !== '') {
     return(
-      <div>Review not found...</div>
-    );
-  }
+      <Grid className="prod-details-container" fluid={true}>
+        <Row>
+          <Col md={4} lg={4}>
+            <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
+          </Col>
+          <Col md={8} lg={8}>
+            <h1>{product.name}</h1>
+            <h3>Price: {product.price}</h3>
+            <p>{product.description}</p>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} lg={6}>
+            {
+              reviews.map( review =>
+                (<Review key={`${review.user_id}${review.product_id}`} review={review} />)
+              )
+            }
+          </Col>
+          <Col md={6} lg={6}>
+            <Row>Enter message: <input promt="Message..."
+                                       value={this.state.tempReviewComment}
+                                       onChange={(e) => {
+                                         this.setState({tempReviewComment : e.target.value });
+                                       }}
+            /></Row>
+            <Row>Enter rating: <select value={this.state.tempReviewRating}
+                                      onChange={(e) => {
+                                        this.setState({tempReviewRating : e.target.value});
+                                      }}>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select></Row>
+            <Row><Button className="btn btn-success"
+                         bsSize="large"
+                         onClick={ this.createReview.bind(this) }
+            >Submit</Button></Row>
+          </Col>
+        </Row>
+        <style jsx="true">{`
+          .prod-details-container{
+            width:100%;
+            height100%;
+            background: #F7F7F7;
+          }
+        `}</style>
+      </Grid>
+    );} else { return(<Grid fluid={true}>
+    <Row>
+      <ReactLoading className="center" type='balls' width='100px' height='100px' color="grey"/>
+    </Row>
+    <style jsx="true">
+      {`
+          .center {
+            display: block;
+            margin: 0 auto;
+          }
+        `}
+    </style>
+  </Grid>) }
 }
-
 };
