@@ -72,6 +72,7 @@ export class Product extends Component {
             margin: 10px;
             cursor: pointer;
             max-width: 350px;
+            margin-bottom: 40px;
           }
           .grid-img{
             background: white;
