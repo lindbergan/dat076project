@@ -18,4 +18,3 @@ for (var i = 1; i <= amount; i++) {
 
 module.exports = dummyCarts;
 
-//{ user_id: 2, product_id: 1, amount: 5}

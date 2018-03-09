@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     description:  DataTypes.TEXT,
     prodimgurl:   DataTypes.STRING, //we save a generic dummy image in the folder "images" and just save the link to that folder
   }, {
-    //here you can define certain table criteria, like disableing the time stamps
+    //here one can define certain table criteria, like disableing the time stamps
     timestamps:   false
   });
 

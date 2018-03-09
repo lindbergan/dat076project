@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     userimgurl:       DataTypes.STRING
   }, {
-    //here you can define certain table criteria, like disableing the time stamps
+    //here one can define certain table criteria, like disableing the time stamps
     timestamps:       false
   });
 

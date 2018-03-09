@@ -20,4 +20,3 @@ for (var i = 1; i <= amount; i++) {
 
 module.exports = dummyReviews;
 
-//{comment: 'The product lived up to the expectations', user_id: 1, product_id: 1, rating: 3.0};

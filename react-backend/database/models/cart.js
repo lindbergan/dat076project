@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     amount:             DataTypes.INTEGER
   }, {
-    //here you can define certain table criteria, like disableing the time stamps
+    //here one can define certain table criteria, like disableing the time stamps
     timestamps:         false,
   });
 

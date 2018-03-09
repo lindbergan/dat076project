@@ -2,42 +2,52 @@ const express = require('express');
 const router = express.Router();
 var models = require('../database/models');
 var Carts = models.cart;
+var Products = models.product;
 
-/* GET USERS CART (including, total_amount, total_price and the products name and price) */
+/* GET USERS CART (including total_amount of products and information about the different products) */
 router.get('/:user_id', (req, res, next) => {
 
     return Carts.findAll({
         where: {
             user_id: req.params.user_id
-        },    /* include: {
+        },     include: {
             model: models.product,
-            where: {
-                user_id: {$col: 'Carts.user_id'}
-            }
-        }*/
+            required: true,
+        }
     }).then(cart => {
 
         if (!cart) {
-    return res.status(404).send({
-        message: 'User has no cart',
+            return res.status(404).send({
+                message: 'User has no cart',
+            });
+        };
+
+        //GET TOTAL #ITEMS IN CART
+        Carts.sum('amount', {
+            where: {
+                user_id: req.params.user_id,
+            }}).then(total_amount => {
+                return res.status(200).send({cart, total_amount: total_amount});
+                }).catch(error => {
+                    res.status(400).send(error)
+                });
+        })
+    .catch(error => {
+        res.status(400).send(error);
     });
-    };
-    //Else - sum total_amount and total
-return res.status(200).send(cart);
-})
-.catch(error => res.status(400).send(error));
 });
+
 
 /* ADD PRODUCT TO USERS CART */
 router.post('/:user_id', (req, res, next) => {
 
     var newCart = new Carts(req.body);
     newCart.save(req.body).then(respons => {
-    res.send("item saved to cart");
+        res.send("Item saved to cart");
     })
-.catch(err => {
-    res.status(400).send("unable to save product to users cart");
-});
+    .catch(err => {
+        res.status(400).send("Unable to save product to user's cart");
+    });
 });
 
 /* REMOVE PRODUCT FROM CART */
@@ -48,25 +58,25 @@ router.delete('/:user_id/:product_id', (req, res, next) => {
             product_id: req.params.product_id
         }
     }).then(respons => {
-    res.send("product deleted from users cart");
-})
-.catch(err => {
-    res.status(400).send("unable to delete product to users cart");
-});
+        res.send("Product deleted from user's cart");
+    })
+    .catch(err => {
+    res.status(400).send("Unable to delete product to user's cart");
+    });
 });
 
 /* CLEAR ENTIRE CART */
 router.delete('/:user_id', (req, res, next) => {
     Carts.destroy({
-    where: {
-        user_id: req.params.user_id,
-    }
-}).then(respons => {
-    res.send("products deleted from users cart");
-})
-.catch(err => {
-    res.status(400).send("unable to delete product to users cart");
-});
+        where: {
+            user_id: req.params.user_id,
+        }
+    }).then(respons => {
+        res.send("Products deleted from user's cart");
+    })
+    .catch(err => {
+        res.status(400).send("Unable to delete user's cart");
+    });
 });
 
 /* UPDATE PRODUCT AMOUNT IN USERS CART */
@@ -77,12 +87,12 @@ router.put('/:user_id/', (req, res, next) => {
             user_id: req.params.user_id,
             product_id: req.body.product_id
         }
-}).then(respons => {
-    res.send("cart updated!");
-})
-.catch(err => {
-    res.status(400).send("unable to save product to users cart");
+    }).then(respons => {
+        res.send("Cart updated!");
+    })
+    .catch(err => {
+        res.status(400).send("Unable to update user's cart");
+    });
 });
-})
 
 module.exports = router;
