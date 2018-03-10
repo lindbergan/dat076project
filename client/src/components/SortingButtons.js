@@ -23,19 +23,25 @@ export class SortingButtons extends React.Component {
     });
   };
 
-  handleChange(e){
+  handleChange(e) {
+    if (e.target.value.length > 50) return;
     this.setState({ value: e.target.value });
-    this.props.changeTerm(e.target.value);
+    this.props.changeTerm(e.target.value.toLowerCase().toString());
   }
 
-
-      getValidationState() {
-      const length = this.state.value.length;
-      if (length > 10) return 'success';
-      else if (length > 5) return 'warning';
-      else if (length > 0) return 'error';
-      return null;
+  getValidationState() {
+    if (this.state.value.length === 0) return null;
+    const valueCart = this.state.value.split("");
+    const dangerousCharacters = ['<', '>', '\\', '/', '!', ";", '#'];
+    if (dangerousCharacters.filter(function(n) {
+        return valueCart.indexOf(n) !== -1;
+      }).length !== 0) {
+      return 'error';
     }
+    else if (this.state.value.length > 35 && this.state.value.length <= 48) return 'warning';
+    else if (this.state.value.length > 49) return 'error';
+    return 'success';
+  }
 
   render() {
     return (<Grid fluid={true} className="grid">

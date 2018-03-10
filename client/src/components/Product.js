@@ -22,8 +22,7 @@ export class Product extends Component {
 
   handleClick(e){
     const user_id = this.state.user_id;
-    const product_id = this.state.product.product_id;
-
+    const { product_id } = this.state.product;
     fetch(`/carts/${user_id}`, {
             method: 'POST',
             headers: {
@@ -35,10 +34,36 @@ export class Product extends Component {
               user_id: user_id.toString(),
               amount: '1',
             })
-        }); //end fetch
-
+        })
+      .then(res => {
+        if (!res.ok) {
+          fetch(`/carts/${user_id}/`)
+            .then(res => res.json())
+            .then(res => {
+              const productThatExist = res.cart.find(el => el.product_id === product_id);
+              if (productThatExist !== undefined) {
+                fetch(`/carts/${user_id}`, {
+                  method: 'PUT',
+                  headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    product_id: product_id,
+                    user_id: user_id.toString(),
+                    amount: productThatExist.amount + 1
+                  })
+                });
+                this.props.updateCart();
+              } else {
+                console.log("Product doesn't exist but there was still an error.");
+              }
+            })
+            .catch(ex => console.log(ex));
+        }
+      });
     this.props.updateCart();
-      }
+  }
 
   render() {
     const { product } = this.state;
@@ -99,6 +124,17 @@ export class Product extends Component {
             background: #56ab2f; /* fallback for old browsers */
             background: -webkit-linear-gradient(to right, #56ab2f, #6BB549); /* Chrome 10-25, Safari 5.1-6 */
             background: linear-gradient(to right, #56ab2f, #6BB549); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            height: 50px;
+            color: #EAF4E5;
+            padding-top: 9px;
+            margin:0;
+            cursor:pointer;
+          }
+
+          .button-product:hover {
+            background: #56ab2f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b771f, #4b653f); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b771f, #4b653f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             height: 50px;
             color: #EAF4E5;
             padding-top: 9px;

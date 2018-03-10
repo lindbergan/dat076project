@@ -9,10 +9,7 @@ export class ProductCO extends Component {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
-    this.state = {
-      name: '',
-      price: -1
-    };
+    this.state = {};
   }
 
   async componentDidMount() {
@@ -45,14 +42,14 @@ export class ProductCO extends Component {
     const { product_id } = this.state.product;
     const { amount } = this.state.product;
 
-    if(amount === 1){
-    fetch(`/carts/${user_id}/${product_id}` , {
+    if(amount === 1) {
+      fetch(`/carts/${user_id}/${product_id}`, {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
       ); //end fetch DELETE
-
-    }else{
+    }
+    else{
       let new_amount = amount - 1;
       fetch(`/carts/${user_id}`, {
               method: 'PUT',
@@ -74,7 +71,6 @@ export class ProductCO extends Component {
     fetch(`/products/${product.product_id}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         this.setState({
           name: res.product.name,
           price: res.product.price
@@ -87,7 +83,7 @@ export class ProductCO extends Component {
     const { product } = this.state;
 
     if(product !== undefined) {
-      if (this.state.name === '' && this.state.price === -1) {
+      if (this.state.name === undefined && this.state.price === undefined) {
         this.getProduct(product);
       }
       return(
@@ -177,6 +173,17 @@ export class ProductCO extends Component {
             background: #56ab2f; /* fallback for old browsers */
             background: -webkit-linear-gradient(to right, #56ab2f, #6BB549); /* Chrome 10-25, Safari 5.1-6 */
             background: linear-gradient(to right, #56ab2f, #6BB549); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          }
+
+          .delete-button:hover {
+            background: #a92b2b; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #a92b2b, #a92b2b); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #a92b2b, #a92b2b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          }
+          .add-button:hover {
+            background: #56ab2f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b771f, #4b653f); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b771f, #4b653f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           }
           `}</style>
         </Grid>

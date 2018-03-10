@@ -9,15 +9,6 @@ export class Review extends Component{
     this.state = {}
   }
 
-  // async componentDidMount() {
-  //   fetch('/products/1/review/1')
-  //     .then(res => res.json())
-  //     .then(review => this.setState({ id: review.user_id,
-  //                                     title:review.title,
-  //                                     rating:review.rating,
-  //                                     comment:review.comment }));
-  // }
-
   render(){
     return(
       <div className="review-container effect1">
@@ -31,7 +22,6 @@ export class Review extends Component{
         <div className="grid-review-comment">
           {this.review.comment}
         </div>
-
 
         <style jsx="true">{`
           .review-container{

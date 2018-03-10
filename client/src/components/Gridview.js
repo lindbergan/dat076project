@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Product } from "./Product";
 import { Col, Grid, Row } from "react-bootstrap";
+import ReactLoading from 'react-loading';
 
 export class GridView extends Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       products: null,
       width: 0,
@@ -53,9 +54,7 @@ export class GridView extends Component {
       sortCheapest === true ? filtered.sort(function(a, b) { return a.price - b.price }) :
         filtered.sort(function(a, b) { return b.price - a.price });
 
-    sortedIfNeeded.forEach(e => console.log(e.price));
-
-    return  [...Array(nrColumns).keys()].map(nr => (
+    const productsShown =  [...Array(nrColumns).keys()].map(nr => (
       <Col xs={12} sm={6} md={4} lg={3} key={nr}>
         {
           sortedIfNeeded
@@ -64,10 +63,19 @@ export class GridView extends Component {
                                      id={ product.product_id }
                                      product={ product }
                                      updateCart ={this.props.updateCart}/>)
-
         }
       </Col>
     ));
+
+    const nrChildren = productsShown.reduce((a, el) => a + el.props.children.length, 0);
+
+    if (nrChildren === 0) {
+      return (<Grid>
+        <Row>
+          <h1>No items match that search.</h1>
+        </Row>
+      </Grid>);
+    } else return productsShown;
   }
 
   render() {
@@ -84,6 +92,18 @@ export class GridView extends Component {
           </Row>
         </Grid>
       )
-    } else { return(<div />) }
+    } else { return(<Grid fluid={true}>
+      <Row>
+        <ReactLoading className="center" type='balls' width='100px' height='100px' color="grey"/>
+      </Row>
+      <style jsx="true">
+        {`
+          .center {
+            display: block;
+            margin: 0 auto;
+          }
+        `}
+      </style>
+    </Grid>) }
   }
 }
