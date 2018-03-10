@@ -112,7 +112,6 @@ class App extends Component {
     fetch(`/carts/${user_id}`)
       .then(res => res.json())
       .then(cart => {
-        this.setState({ cart: undefined, total_amount: undefined });
         this.setState({ cart: cart.cart, total_amount: cart.total_amount });
       });
   }

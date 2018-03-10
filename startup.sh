@@ -9,7 +9,6 @@ BACKEND=$!
 # Starting client
 echo "Starting client!"
 cd ../client
-echo "Press Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 npm start
 
 kill ${BACKEND}
