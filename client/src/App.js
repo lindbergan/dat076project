@@ -111,7 +111,10 @@ class App extends Component {
     const user_id = this.state.userId;
     fetch(`/carts/${user_id}`)
       .then(res => res.json())
-      .then(cart => this.setState({ cart }));
+      .then(cart => {
+        this.setState({ cart: undefined, total_amount: undefined });
+        this.setState({ cart: cart.cart, total_amount: cart.total_amount });
+      });
   }
 
   render() {
@@ -127,14 +130,18 @@ class App extends Component {
               sortDescending={ this.sortDescending.bind(this) }
               sortCheapest={ this.sortCheapest.bind(this) }
               sortMostExpensive={ this.sortMostExpensive.bind(this) }
-              cartContent={ this.state.cart }>
+              cartContent={ this.state.cart }
+              total_amount={this.state.total_amount} >
         <Route path="/" exact component={ () =>
           <GridView searchTerm={ this.state.searchTerm }
                     sortReversingOrder={ this.state.sortReversingOrder }
                     sortCheapest={ this.state.sortCheapest }
                     updateCart={ this.updateCart.bind(this) }/> } />
         <Route path="/checkout" exact component={ () =>
-          <Checkout searchTerm={ this.state.searchTerm } updateCart={ this.updateCart.bind(this) } /> } />
+          <Checkout searchTerm={ this.state.searchTerm }
+                    updateCart={ this.updateCart.bind(this) }
+                    cart={ this.state.cart }
+                    total_amount={this.state.total_amount} /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
       </Layout>
     );

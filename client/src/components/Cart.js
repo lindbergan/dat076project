@@ -11,7 +11,8 @@ export class Cart extends Component{
 
   render() {
     const cart = this.props.cartContent !== undefined ? this.props.cartContent : [];
-    const total_amount = cart.length;
+    const total_amount = this.props.total_amount !== null ? this.props.total_amount: 0;
+    const total_cost = cart.reduce((a, b) => a + b.product.price * b.amount, 0);
     return(
 
       <Grid className="cart-container" fluid={true}>
@@ -27,13 +28,13 @@ export class Cart extends Component{
             <tbody>
               <tr>
                 <td><h5 className="title-row">Number of products:</h5></td>
-                <td><h5 className="title-row">{total_amount}</h5></td>
+                <td><h5 className="title-row">{ total_amount }</h5></td>
               </tr>
             </tbody>
             <tbody>
               <tr>
                 <td><h5 className="title-row">Total cost:</h5></td>
-                <td><h5 className="title-row">{total_amount}</h5></td>
+                <td><h5 className="title-row">{ total_cost }</h5></td>
               </tr>
             </tbody>
           </table>

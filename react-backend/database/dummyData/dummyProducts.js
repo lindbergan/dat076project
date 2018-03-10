@@ -19,4 +19,3 @@ for (var i = 1; i <= amount; i++) {
 
 module.exports = dummyProducts;
 
-//{ product_id: 1, name: 'foo', price: 10.0, description: 'this is a somewhat useful product', prodimgurl: './images/productpic.img'})
