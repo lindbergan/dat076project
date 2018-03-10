@@ -3,6 +3,7 @@ import {Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
 import MaterialIcon from 'material-icons-react';
+import PictureHelper from '../utils/picture-helper'
 
 export class Product extends Component {
 

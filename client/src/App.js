@@ -32,7 +32,6 @@ class App extends Component {
     fetch(`/users/${id}`)
       .then(res => res.json())
       .then(result => {
-        console.log(this.state);
         if (result.hasOwnProperty('message')) {
           return fetch('/users', {
             method: 'POST',

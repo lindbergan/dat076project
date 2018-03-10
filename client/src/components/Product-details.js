@@ -3,6 +3,7 @@ import { Review } from './Review.js';
 import { Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
 import './shadows.css';
+import InputHelper from '../utils/input-helper'
 
 export class ProductDetails extends Component {
   constructor(props){
@@ -38,10 +39,16 @@ export class ProductDetails extends Component {
 
   createReview() {
     if (this.state.tempReviewComment.length === 0) {
-      return this.setState({ showError: true });
-    } else {
-      if (this.state.showError) {
-        this.setState({ showError: false })
+      return this.setState({ showErrorLength: true });
+    } else if (InputHelper.hasDangerousInput(this.state.tempReviewComment)) {
+      return this.setState({ showErrorDangerousInput: true });
+    }
+    else {
+      if (this.state.showErrorLength) {
+        this.setState({ showErrorLength: false })
+      }
+      if (this.state.showErrorDangerousInput) {
+        return this.setState({ showErrorDangerousInput: false });
       }
     }
 
@@ -79,8 +86,10 @@ export class ProductDetails extends Component {
   }
 
   renderError() {
-    if (this.state.showError) {
+    if (this.state.showErrorLength) {
       return (<h4 className="error notification-error">Please enter a review before submitting!</h4>)
+    } else if (this.state.showErrorDangerousInput) {
+      return (<h4 className="error notification-error">Please not that type of input.</h4>)
     }
   }
 
@@ -97,7 +106,7 @@ export class ProductDetails extends Component {
           <Col className="info-container" md={8} lg={8}>
             <div className="info-prod-name"><h1 className="prod-header">{ product.name }</h1></div>
             <div className="info-prod-description">{ product.description }</div>
-            <div className="info-prod-price">Price: { product.price }</div>
+            <div className="info-prod-price">Price: { product.price } kr</div>
           </Col>
         </Row>
         <Row>
@@ -217,7 +226,6 @@ export class ProductDetails extends Component {
           }
           .add-review-container{
             padding-right: 0;
-
           }
           #new-review-rating{
             width: 100%;
@@ -238,7 +246,7 @@ export class ProductDetails extends Component {
             color: white;
             font-size: 20px;
             padding-top: 5px;
-
+            cursor:pointer;
           }
         `}</style>
       </div>

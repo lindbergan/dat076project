@@ -1,6 +1,6 @@
 import { Button, Grid, Row, FormGroup, FormControl, } from 'react-bootstrap';
 import React from 'react';
-
+import InputHelper from '../utils/input-helper'
 
 const classNames = require('classnames');
 
@@ -13,9 +13,7 @@ export class SortingButtons extends React.Component {
       activeButton: 'ascending',
       value: ''
     };
-    this.dangerousCharacters = ['<', '>', '\\', '/', '!', ";", '#', '\'', '\"'];
   }
-
 
   buttonClassNames = (name) => {
     return classNames({
@@ -26,21 +24,14 @@ export class SortingButtons extends React.Component {
   };
 
   handleChange(e) {
-    if (e.target.value.length > 50 || this.hasDangerousInput(e.target.value)) return;
+    if (e.target.value.length > 50 || InputHelper.hasDangerousInput(e.target.value)) return;
     this.setState({ value: e.target.value });
     this.props.changeTerm(e.target.value.toLowerCase().toString());
   }
 
-  hasDangerousInput(input) {
-    const valueCart = input.split("");
-    return this.dangerousCharacters.filter(function (n) {
-      return valueCart.indexOf(n) !== -1;
-    }).length !== 0;
-  }
-
   getValidationState() {
     if (this.state.value.length === 0) return null;
-    if (this.hasDangerousInput(this.state.value)) {
+    if (InputHelper.hasDangerousInput(this.state.value)) {
       return 'error';
     }
     else if (this.state.value.length > 35 && this.state.value.length <= 48) return 'warning';
@@ -88,7 +79,7 @@ export class SortingButtons extends React.Component {
         <Button className={[this.buttonClassNames('mostExpensive'), "btn-custom"].join(' ')}
                 onClick={() => {
                   this.setState({ activeButton: 'mostExpensive' });
-                  this.props.sortMostExpensive()
+                  this.props.sortMostExpensive();
                 } }>Price <i className="fas fa-arrow-down"></i></Button>
         </div>
         <style jsx="true">{`
