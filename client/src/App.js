@@ -32,6 +32,7 @@ class App extends Component {
     fetch(`/users/${id}`)
       .then(res => res.json())
       .then(result => {
+        console.log(this.state);
         if (result.hasOwnProperty('message')) {
           return fetch('/users', {
             method: 'POST',
@@ -41,7 +42,7 @@ class App extends Component {
             },
             body: JSON.stringify({
               user_id: id.toString(),
-              firstName: this.state.profile.firstName,
+              firstName: this.state.profile.givenName,
               lastName: this.state.profile.familyName,
               email: this.state.profile.email,
               role: 'customer',

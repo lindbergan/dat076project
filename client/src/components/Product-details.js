@@ -63,10 +63,16 @@ export class ProductDetails extends Component {
       });
   }
 
+  static renderReviews(reviews) {
+    if (reviews.length === 0) return (<h3>No reviews yet.</h3>);
+    return (reviews.map( review => (
+      <Review key={`${review.user_id}${review.product_id}`} review={review} />
+    )));
+  }
+
   render(){
     const product = this.state.product !== undefined ? this.state.product : '';
     const reviews = this.state.reviews !== undefined ? this.state.reviews : [];
-
     return(
       <div className="prod-details-wrapper">
       <Grid className="prod-details-container" fluid={true}>
@@ -86,12 +92,10 @@ export class ProductDetails extends Component {
           <Col className="reviews-container" md={6} lg={6}>
           <div id="reviews-header">
             <h3>REVIEWS</h3>
-            </div>
+          </div>
             {
-              reviews.map( review => (
-                <Review key={`${review.user_id}${review.product_id}`} review={review} />
-              )
-            )}
+              ProductDetails.renderReviews(reviews)
+            }
           </Col>
           <Col className="add-review-container" md={6} lg={6}>
             <div id="reviews-header">

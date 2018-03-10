@@ -1,23 +1,33 @@
 import React, {Component} from 'react';
 import './shadows.css';
 
-export class Review extends Component{
+export class Review extends Component {
 
   constructor(props){
     super(props);
     this.review = props.review;
-    this.state = {}
+    this.state = {
+      author: ''
+    }
+  }
+
+  componentWillMount() {
+    return fetch(`/users/${this.review.user_id}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({ author: res.firstName + " " + res.lastName});
+      })
+      .catch(ex => console.log(ex));
   }
 
   render(){
     return(
       <div className="review-container effect1">
-
         <div className="grid-review-rating">
           {this.review.rating}
         </div>
         <div className="grid-review-title">
-          HEJ
+          { this.state.author }
         </div>
         <div className="grid-review-comment">
           {this.review.comment}
