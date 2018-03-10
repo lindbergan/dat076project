@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { Review } from './Review.js';
-import { Button, Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
 import './shadows.css';
-import ReactLoading from 'react-loading';
 
 export class ProductDetails extends Component {
   constructor(props){
@@ -28,12 +27,13 @@ export class ProductDetails extends Component {
         .then(reviews => {
           this.setState({ reviews });
           const myReview = reviews.find(r => r.user_id === savedUserId);
-          console.log(myReview);
-          myReview !== undefined ? this.setState({
-            tempReviewRating: myReview.rating,
-            tempReviewComment: myReview.comment
-          }) : '';
-        })
+          if (myReview !== undefined) {
+            this.setState({
+              tempReviewRating: myReview.rating,
+              tempReviewComment: myReview.comment
+            })
+          }
+        });
     }
 
   createReview() {
@@ -42,7 +42,7 @@ export class ProductDetails extends Component {
       .then(res => res.json())
       .then(res => {
         const reqMethod = res.length === 0 ? 'POST' : 'PUT';
-        fetch(`/products/${this.props.match.params.product_id}/reviews`, {
+        return fetch(`/products/${this.props.match.params.product_id}/reviews`, {
           method: reqMethod,
           headers: {
             'Accept': 'application/json',
@@ -55,7 +55,6 @@ export class ProductDetails extends Component {
             comment: this.state.tempReviewComment,
           })
         });
-        return res;
       })
       .then(_ => {
         fetch(`/products/${this.props.match.params.product_id}/reviews`)

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login'
 import { Col, Grid, Row } from "react-bootstrap";
-import ReactLoading from 'react-loading';
 
 export class Authentication extends Component {
 
