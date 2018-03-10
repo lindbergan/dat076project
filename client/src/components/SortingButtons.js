@@ -1,6 +1,5 @@
-import { Button, Grid, Row, Col, FormGroup, FormControl, } from 'react-bootstrap';
+import { Button, Grid, Row, FormGroup, FormControl, } from 'react-bootstrap';
 import React from 'react';
-import MaterialIcon from "material-icons-react";
 
 
 const classNames = require('classnames');

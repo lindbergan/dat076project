@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
 import { Link } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Product } from "./Product";
-import { Button, Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
 
 export class GridView extends Component {
 

@@ -1,6 +1,6 @@
 import React  from 'react';
 import { Header } from '../components/Header.js';
-import { Button, Grid, Row } from "react-bootstrap";
+import { Grid, Row } from "react-bootstrap";
 import { SortingButtons } from "../components/SortingButtons";
 
 
