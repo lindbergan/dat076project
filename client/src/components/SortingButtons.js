@@ -4,8 +4,8 @@ import React from 'react';
 
 const classNames = require('classnames');
 
-
 export class SortingButtons extends React.Component {
+
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -13,7 +13,9 @@ export class SortingButtons extends React.Component {
       activeButton: 'ascending',
       value: ''
     };
+    this.dangerousCharacters = ['<', '>', '\\', '/', '!', ";", '#', '\'', '\"'];
   }
+
 
   buttonClassNames = (name) => {
     return classNames({
@@ -24,18 +26,21 @@ export class SortingButtons extends React.Component {
   };
 
   handleChange(e) {
-    if (e.target.value.length > 50) return;
+    if (e.target.value.length > 50 || this.hasDangerousInput(e.target.value)) return;
     this.setState({ value: e.target.value });
     this.props.changeTerm(e.target.value.toLowerCase().toString());
   }
 
+  hasDangerousInput(input) {
+    const valueCart = input.split("");
+    return this.dangerousCharacters.filter(function (n) {
+      return valueCart.indexOf(n) !== -1;
+    }).length !== 0;
+  }
+
   getValidationState() {
     if (this.state.value.length === 0) return null;
-    const valueCart = this.state.value.split("");
-    const dangerousCharacters = ['<', '>', '\\', '/', '!', ";", '#'];
-    if (dangerousCharacters.filter(function(n) {
-        return valueCart.indexOf(n) !== -1;
-      }).length !== 0) {
+    if (this.hasDangerousInput(this.state.value)) {
       return 'error';
     }
     else if (this.state.value.length > 35 && this.state.value.length <= 48) return 'warning';

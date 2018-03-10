@@ -37,6 +37,14 @@ export class ProductDetails extends Component {
     }
 
   createReview() {
+    if (this.state.tempReviewComment.length === 0) {
+      return this.setState({ showError: true });
+    } else {
+      if (this.state.showError) {
+        this.setState({ showError: false })
+      }
+    }
+
     const savedUserId = sessionStorage.getItem('userId');
     return fetch(`/products/${this.props.match.params.product_id}/reviews/${savedUserId}`)
       .then(res => res.json())
@@ -70,7 +78,13 @@ export class ProductDetails extends Component {
     )));
   }
 
-  render(){
+  renderError() {
+    if (this.state.showError) {
+      return (<h4 className="error notification-error">Please enter a review before submitting!</h4>)
+    }
+  }
+
+  render() {
     const product = this.state.product !== undefined ? this.state.product : '';
     const reviews = this.state.reviews !== undefined ? this.state.reviews : [];
     return(
@@ -81,11 +95,9 @@ export class ProductDetails extends Component {
             <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
           </Col>
           <Col className="info-container" md={8} lg={8}>
-
-            <div className="info-prod-name"><h1 className="prod-header">{product.name}</h1></div>
-            <div className="info-prod-description">{product.description}</div>
-            <div className="info-prod-price">Price: {product.price}</div>
-
+            <div className="info-prod-name"><h1 className="prod-header">{ product.name }</h1></div>
+            <div className="info-prod-description">{ product.description }</div>
+            <div className="info-prod-price">Price: { product.price }</div>
           </Col>
         </Row>
         <Row>
@@ -124,10 +136,14 @@ export class ProductDetails extends Component {
             <Row><div id="new-review-button"
                          onClick={(e) => { e.preventDefault(); this.createReview() }}
             >Submit</div></Row>
+            { this.renderError() }
           </Col>
         </Row>
         </Grid>
         <style jsx="true">{`
+          .error {
+            color: red;
+          }
           .prod-details-wrapper{
             width:100%;
             height:100%;

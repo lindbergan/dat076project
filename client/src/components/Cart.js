@@ -36,8 +36,9 @@ export class Cart extends Component {
         </div>
       </Row>
       <Row className="grid-cart-info">
-        <div>Number of products: {total_amount}</div>
-        <div>Total cost: {total_cost}</div>
+        <div>Nr of products: {total_amount}</div>
+
+        <div>Total cost: {total_cost} kr</div>
         <div className="purchase-btn">
           <Link to="/checkout" >Go to cashier</Link>
         </div>
@@ -46,7 +47,6 @@ export class Cart extends Component {
       <style jsx="true">{`
         .cart-container {
           color: white;
-
         }
         .grid-icon{
         }
@@ -62,6 +62,7 @@ export class Cart extends Component {
         .purchase-btn a{
           color: white;
           cursor: pointer;
+          text-decoration: underline;
         }
       `}</style>
 
