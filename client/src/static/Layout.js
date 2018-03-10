@@ -7,7 +7,11 @@ import { Footer } from "../components/Footer";
 const Layout = props => (
 <Grid className="App" fluid={true}>
   <Row>
-    <Header logOut={ props.logOut } changeTerm={ props.changeTerm } loggedInProfile={ props.profile } cartContent={props.cartContent}/>
+    <Header logOut={ props.logOut }
+            changeTerm={ props.changeTerm }
+            loggedInProfile={ props.profile }
+            cartContent={props.cartContent}
+            total_amount={props.total_amount}/>
   </Row>
   <SortingButtons sortAscending={props.sortAscending}
                   sortDescending={props.sortDescending}

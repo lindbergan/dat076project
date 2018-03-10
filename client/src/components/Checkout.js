@@ -7,7 +7,7 @@ export class Checkout extends Component{
   constructor(props){
     super(props);
     this.state={
-      cart: '',
+      cart: props.cart,
       searchTerm: ''
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -17,7 +17,7 @@ export class Checkout extends Component{
     const user_id = sessionStorage.getItem('userId');
     fetch(`/carts/${user_id}`)
       .then(res => res.json())
-      .then(cart => this.setState({ cart }));
+      .then(cart => this.setState({ cart: cart.cart }));
     window.addEventListener('resize', this.updateWindowDimensions);
     this.updateWindowDimensions();
   }
@@ -58,7 +58,7 @@ export class Checkout extends Component{
   }
 
   render() {
-    const { cart } = this.state;
+    const { cart } = this.props;
     const { searchTerm } = this.props;
     if (cart !== '') {
       const nrColumns = this.getNrColumns();

@@ -78,7 +78,8 @@ export class Header extends Component {
             </form>
           </Col>
           <Col xs={12} sm={12} md={12} lg={2} className="cart-col">
-            <Cart cartContent={this.props.cartContent}/>
+            <Cart cartContent={this.props.cartContent}
+                  total_amount={this.props.total_amount}/>
           </Col>
           <style jsx="true">{`
             .welcome-name {
