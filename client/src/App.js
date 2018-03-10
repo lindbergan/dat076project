@@ -129,13 +129,13 @@ class App extends Component {
               sortDescending={ this.sortDescending.bind(this) }
               sortCheapest={ this.sortCheapest.bind(this) }
               sortMostExpensive={ this.sortMostExpensive.bind(this) }
-              cartContent={ this.state.cart }
-              total_amount={this.state.total_amount} >
+              total_amount={this.state.total_amount}
+              cartContent={this.state.cart}>
         <Route path="/" exact component={ () =>
           <GridView searchTerm={ this.state.searchTerm }
                     sortReversingOrder={ this.state.sortReversingOrder }
                     sortCheapest={ this.state.sortCheapest }
-                    updateCart={ this.updateCart.bind(this) }/> } />
+                    updateCart={this.updateCart.bind(this)}/> } />
         <Route path="/checkout" exact component={ () =>
           <Checkout searchTerm={ this.state.searchTerm }
                     updateCart={ this.updateCart.bind(this) }

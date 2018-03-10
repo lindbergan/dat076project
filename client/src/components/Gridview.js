@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Product } from "./Product";
-import { Button, Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
 import ReactLoading from 'react-loading';
 
 export class GridView extends Component {
@@ -62,8 +62,7 @@ export class GridView extends Component {
             .map(product => <Product key={ product.product_id }
                                      id={ product.product_id }
                                      product={ product }
-                                     updateCart={ this.props.updateCart }/>)
-
+                                     updateCart ={this.props.updateCart}/>)
         }
       </Col>
     ));

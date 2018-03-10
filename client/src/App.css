@@ -1,7 +1,9 @@
 .App {
   text-align: center;
-  background-color: steelblue;
+  background-color: #EFEEDE;
   height: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .App-logo {
@@ -22,6 +24,13 @@
 
 .App-intro {
   font-size: large;
+}
+.row{
+  margin-left:0;
+  margin-right:0;
+}
+.container{
+  padding-top: 15px;
 }
 
 @keyframes App-logo-spin {

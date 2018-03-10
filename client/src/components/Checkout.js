@@ -58,9 +58,9 @@ export class Checkout extends Component{
   }
 
   render() {
-    const { cart } = this.props;
+    const cart  = this.props.cart !== undefined ? this.props.cart : [];
     const { searchTerm } = this.props;
-    if (cart !== '') {
+    if (cart !== []) {
       const nrColumns = this.getNrColumns();
       if (cart.length === 0) {
         return (<Grid>
