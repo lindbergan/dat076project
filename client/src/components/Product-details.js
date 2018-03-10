@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Review} from './review.js';
 import { Button, Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";
+import './shadows.css';
 
 
 
@@ -33,7 +34,7 @@ async componentDidMount() {
         const myReview = reviews.find(r => r.user_id === savedUserId);
         myReview !== undefined ? this.setState({
           tempReviewRating: myReview.rating,
-          tempReviewComment: myReview.comment
+          tempReviewComment: ''
         }) : '';
       })
 }
@@ -76,7 +77,7 @@ render(){
   return(
     <div className="prod-details-wrapper">
     <Grid className="prod-details-container" fluid={true}>
-      <Row className="info-row">
+      <Row className="info-row effect1">
         <Col className="img-container" md={4} lg={4}>
           <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
         </Col>
@@ -89,23 +90,31 @@ render(){
         </Col>
       </Row>
       <Row>
-        <Col md={6} lg={6}>
+        <Col className="reviews-container" md={6} lg={6}>
+        <div id="reviews-header">
+          <h3>REVIEWS</h3>
+          </div>
           {this.state.reviews.map( review => (
               <Review key={`${review.user_id}${review.product_id}`} review={review} />
             )
           )}
         </Col>
-        <Col md={6} lg={6}>
-          <Row>Enter message: <input promt="Message..."
-                                     value={this.state.tempReviewComment}
-                                     onChange={(e) => {
-                                       this.setState({tempReviewComment : e.target.value });
-                                     }}
+        <Col className="add-review-container" md={6} lg={6}>
+          <div id="reviews-header">
+          <h3>ADD REVIEW</h3>
+          </div>
+          <Row><textarea id="new-review-message"
+                         placeholder="Enter your review here"
+                         value={this.state.tempReviewComment}
+                         onChange={(e) => {
+                           this.setState({tempReviewComment : e.target.value });
+                         }}
           /></Row>
-          <Row>Enter rating: <select value={this.state.tempReviewRating}
-                                    onChange={(e) => {
-                                      this.setState({tempReviewRating : e.target.value});
-                                    }}
+          <Row><select id="new-review-rating"
+                       value={this.state.tempReviewRating}
+                       onChange={(e) => {
+                          this.setState({tempReviewRating : e.target.value});
+                          }}
           >
             <option value="0">0</option>
             <option value="1">1</option>
@@ -114,10 +123,9 @@ render(){
             <option value="4">4</option>
             <option value="5">5</option>
           </select></Row>
-          <Row><Button className="btn btn-success"
-                       bsSize="large"
+          <Row><div id="new-review-button"
                        onClick={(e) => { e.preventDefault(); this.createReview() }}
-          >Submit</Button></Row>
+          >Submit</div></Row>
         </Col>
       </Row>
       </Grid>
@@ -125,23 +133,29 @@ render(){
         .prod-details-wrapper{
           width:100%;
           height:100%;
-          background: blue;
+          background: #EFEEDE;
+          font-family: 'Hind Siliguri', sans-serif;
+
         }
         .prod-header{
           margin: auto 0;
           font-size: 2vw;
         }
         .prod-details-container{
-          background: #F7F7F7;
+          background: #EFEEDE;
+          padding-left: 30px;
+          padding-right: 30px;
+          width: 80%;
         }
         .info-row{
-          height: 250px;
-          background: #DFDFDF;
-          padding: 20px 0;
+          height: 350px;
+          background: #EFEEDE;
+          margin: 20px auto;
         }
         .img-container{
-          background: red;
+          background: linear-gradient(#ABB6BA, #abbaab);
           height: 100%;
+
         }
         .info-container{
           text-align:left;
@@ -152,10 +166,11 @@ render(){
             "info-prod-description"
             "info-prod-price";
           height: 100%;
-          background: steelblue;
-        }
-        .info-prod-name{
+          background: white;
 
+        }
+
+        .info-prod-name{
           display:grid;
           grid-area: info-prod-name;
         }
@@ -171,7 +186,46 @@ render(){
           display:grid;
           grid-area: info-prod-price;
           font-size: 1.7vw;
-          padding: auto 0px;
+          padding: auto 0;
+        }
+        .reviews-container{
+          background: #EFEEDE;
+          padding: 0;
+          font-family: 'Hind Siliguri', sans-serif;
+        }
+        #reviews-header{
+          text-align: left;
+        }
+        #new-review-message{
+          width: 100%;
+          height: 160px;
+          resize: none;
+          vertical-align: top;
+        }
+        .add-review-container{
+          padding-right: 0;
+
+        }
+        #new-review-rating{
+          width: 100%;
+          height: 35px;
+          border-radius: 0;
+          -webkit-appearance: none;
+          -webkit-border-radius: 0px;
+          float: left;
+          padding-left:10px;
+        }
+        #new-review-button{
+          overflow: hidden;
+          width: 100%;
+          height: 35px;
+          background: #16222a; /* fallback for old browsers */
+          background: -webkit-linear-gradient(to right, #243C48, #3a6073); /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to right, #243C48, #3a6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          color: white;
+          font-size: 20px;
+          padding-top: 5px;
+
         }
       `}</style>
     </div>

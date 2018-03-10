@@ -20,7 +20,7 @@ export class Review extends Component{
 
   render(){
     return(
-      <div className="review-container effect7">
+      <div className="review-container effect1">
 
         <div className="grid-review-rating">
           {this.review.rating}
@@ -35,7 +35,7 @@ export class Review extends Component{
 
         <style jsx="true">{`
           .review-container{
-            width: 50%;
+            width: 100%;
             display:grid;
             grid-template-rows: 2vw;
             grid-template-columns: 2vw;
@@ -43,7 +43,7 @@ export class Review extends Component{
               "grid-review-rating grid-review-title"
               "grid-review-comment grid-review-comment";
             background: white;
-            margin: 5px;
+            margin: 5px 0 10px 0;
             padding: 1.5vw;
           }
           .grid-review-rating{

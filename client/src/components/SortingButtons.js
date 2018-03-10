@@ -22,6 +22,7 @@ export class SortingButtons extends React.Component {
       "active": name === this.state.activeButton
     });
   };
+
   handleChange(e){
     this.setState({ value: e.target.value });
     this.props.changeTerm(e.target.value);
@@ -99,18 +100,20 @@ export class SortingButtons extends React.Component {
             overflow: hidden;
             padding:10px;
             font-family: 'Hind Siliguri', sans-serif;
-
           }
+
           .grid {
             padding: 0;
             background: #F6F4EC;
           }
+
           .search-container{
             width: 50%;
             float: left;
             margin: 0;
             padding:10px;
           }
+
           .search-field{
             margin:0;
             padding:0;
