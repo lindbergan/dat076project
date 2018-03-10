@@ -40,9 +40,9 @@ export class Product extends Component {
           fetch(`/carts/${user_id}/`)
             .then(res => res.json())
             .then(res => {
-              const productThatExist = res.find(el => el.product_id === product_id);
+              const productThatExist = res.cart.find(el => el.product_id === product_id);
               if (productThatExist !== undefined) {
-                return fetch(`/carts/${user_id}`, {
+                fetch(`/carts/${user_id}`, {
                   method: 'PUT',
                   headers: {
                     'Accept': 'application/json',
@@ -54,6 +54,7 @@ export class Product extends Component {
                     amount: productThatExist.amount + 1
                   })
                 });
+                this.props.updateCart();
               } else {
                 console.log("Product doesn't exist but there was still an error.");
               }

@@ -286,6 +286,7 @@ router.post('/:product_id/reviews', (req, res, next) => { //req = body of the ne
     })
     .catch(err => {
         res.status(400).send("Unable to save review");
+        console.log(err);
     });
 });
 

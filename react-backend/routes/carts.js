@@ -49,6 +49,7 @@ router.post('/:user_id', (req, res, next) => {
         res.status(200).send("Item saved to cart");
     })
     .catch(err => {
+        console.log(err);
         res.status(400).send("Unable to save product to user's cart");
     });
 });
