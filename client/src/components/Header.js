@@ -2,30 +2,17 @@ import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Cart } from './Cart';
 import { Link } from "react-router-dom";
-import { SortingButtons } from "../components/SortingButtons";
+
 
 export class Header extends Component {
 
     constructor(props, context){
       super(props, context);
-      this.handleChange = this.handleChange.bind(this);
-      this.state = {
-        value: ''
-      }
+      this.state = {}
     }
 
-    handleChange(e){
-      this.setState({ value: e.target.value });
-      this.props.changeTerm(e.target.value);
-    }
 
-    getValidationState() {
-    const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-    return null;
-  }
+
 
     render() {
       const savedProfilePicture = sessionStorage.getItem('profilePictureUrl');
@@ -42,9 +29,7 @@ export class Header extends Component {
           <Row>
 
             <Col className="header-profile" md={ 4 } sm={3} lg={ 2 }>
-              <Link to="/">
                 <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
-              </Link>
               <h4>{ profileName }</h4>
               <Button
                 className="btn btn-danger"
@@ -54,32 +39,11 @@ export class Header extends Component {
             </Col>
 
             <Col className="header-main" xs={12} sm={6} md={4} lg={8}>
-              <h2 className="webshop-title">
-                Amazing Products Webshop
-              </h2>
-              <div className="search-field-group-cont">
-              <form>
-                <FormGroup
-                  className="search-field-group"
-                  controlId="formBasicText"
-                  validationState={ this.getValidationState() }
-                >
-                  <FormControl
-                    className="search-field"
-                    type="text"
-                    value={ this.state.value }
-                    placeholder="Search..."
-                    onChange={ this.handleChange }
-                  />
-                  <FormControl.Feedback />
-                </FormGroup>
-              </form>
-              <SortingButtons className="sort-buttons" sortAscending={this.props.sortAscending}
-                              sortDescending={this.props.sortDescending}
-                              sortCheapest={this.props.sortCheapest}
-                              sortMostExpensive={this.props.sortMostExpensive}/>
-
+            <Link to="/">
+              <div className="webshop-title">
+                <h2 id="ws-title">Amazing Products Webshop</h2>
               </div>
+              </Link>
             </Col>
 
             <Col sm={3} lg={2}/>
@@ -98,12 +62,18 @@ export class Header extends Component {
               background: linear-gradient(to right, #243C48, #3a6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             }
             .webshop-title {
+
               color: white;
-              margin: 15px auto;
-              font-size: 45px;
+              margin: auto;
+              padding-top: 35px;
               font-family: 'Lobster', cursive;
               text-shadow: 3px 2px 0px #16222a, 4px 3px 0px rgba(0,0,0,0.15);
-
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+            #ws-title{
+              font-size: 55px;
             }
             .search-field-group{
               margin-bottom: 0;
@@ -120,14 +90,13 @@ export class Header extends Component {
               display: block;
               border-radius: 0;
             }
-            .sort-buttons{
-              width: 100%;
-              margin: 0 auto;
-
-            }
             .profilePic {
               max-width: 50px;
               margin: 10px;
+              border-radius: 0;
+            }
+            .btn-danger{
+              border-radius: 0;
             }
             .header-profile{
               padding: 20px 10px 10px 10px;
@@ -135,7 +104,7 @@ export class Header extends Component {
               font-family: 'Hind Siliguri', sans-serif;
             }
             .header-main{
-              padding-top: 10px;
+              text-align: center;
             }
             .header-cart{
               padding: 20px 10px 10px 10px;

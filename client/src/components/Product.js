@@ -66,20 +66,24 @@ export class Product extends Component {
 
           <style jsx="true">{`
           .product-container {
-            background-color: #EAF4E5;
+            background-color: #ffffff;
             margin: 10px;
+            padding:0;
             max-width: 350px;
             margin-bottom: 40px;
           }
           .grid-img{
             background: white;
             cursor: pointer;
+
+
           }
           .img-container{
             background-color: #ccc;
             margin: 15px 15px 0 15px;
+            padding: 20px 0 20px 0;
             cursor: pointer;
-            
+            background: linear-gradient(#ABB6BA, #abbaab);
           }
           .info-container{
             font-family: 'Hind Siliguri', sans-serif;
@@ -98,7 +102,7 @@ export class Product extends Component {
             height: 50px;
             color: #EAF4E5;
             padding-top: 9px;
-            margin-top:0;
+            margin:0;
             cursor:pointer;
           }
           `}</style>
