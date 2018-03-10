@@ -6,6 +6,7 @@ import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
 import { Checkout } from './components/Checkout.js';
 import { ProductDetails } from './components/Product-details.js';
+import { Payview } from './components/Payview.js';
 
 class App extends Component {
   constructor() {
@@ -138,6 +139,7 @@ class App extends Component {
         <Route path="/checkout" exact component={ () =>
           <Checkout searchTerm={ this.state.searchTerm } updateCart={this.updateCart.bind(this)} /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
+        <Route path="/Payview" exact component={ Payview } />
       </Layout>
     );
   }
