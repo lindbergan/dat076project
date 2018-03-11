@@ -15,26 +15,34 @@ export class ProductDetails extends Component {
     }
   }
 
-  async componentDidMount() {
-    const savedUserId = sessionStorage.getItem('userId');
+  updateProductDetails() {
     const id = this.props.match.params.product_id;
     fetch('/products/' + id)
       .then(res => res.json())
       .then(product => {
-        this.setState({ product: product.product });
-      });
-      fetch(`/products/${id}/reviews`)
-        .then(res => res.json())
-        .then(reviews => {
-          this.setState({ reviews });
-          const myReview = reviews.find(r => r.user_id === savedUserId);
-          if (myReview !== undefined) {
-            this.setState({
-              tempReviewRating: myReview.rating,
-              tempReviewComment: myReview.comment
-            })
-          }
+        this.setState({
+          product: product.product,
+          avg_rating: parseFloat(product.rating[0].avg_rating)
         });
+      });
+  }
+
+  async componentDidMount() {
+    const savedUserId = sessionStorage.getItem('userId');
+    const id = this.props.match.params.product_id;
+    this.updateProductDetails();
+    fetch(`/products/${id}/reviews`)
+      .then(res => res.json())
+      .then(reviews => {
+        this.setState({ reviews });
+        const myReview = reviews.find(r => r.user_id === savedUserId);
+        if (myReview !== undefined) {
+          this.setState({
+            tempReviewRating: myReview.rating,
+            tempReviewComment: myReview.comment
+          })
+        }
+      });
     }
 
   createReview() {
@@ -57,7 +65,7 @@ export class ProductDetails extends Component {
       .then(res => res.json())
       .then(res => {
         const reqMethod = res.length === 0 ? 'POST' : 'PUT';
-        return fetch(`/products/${this.props.match.params.product_id}/reviews`, {
+        fetch(`/products/${this.props.match.params.product_id}/reviews`, {
           method: reqMethod,
           headers: {
             'Accept': 'application/json',
@@ -70,6 +78,7 @@ export class ProductDetails extends Component {
             comment: this.state.tempReviewComment,
           })
         });
+        return this.updateProductDetails();
       })
       .then(_ => {
         fetch(`/products/${this.props.match.params.product_id}/reviews`)
@@ -96,6 +105,7 @@ export class ProductDetails extends Component {
   render() {
     const product = this.state.product !== undefined ? this.state.product : '';
     const reviews = this.state.reviews !== undefined ? this.state.reviews : [];
+    const avg_rating = this.state.avg_rating !== undefined ? this.state.avg_rating : 0;
     return(
       <div className="prod-details-wrapper">
       <Grid className="prod-details-container" fluid={true}>
@@ -106,7 +116,10 @@ export class ProductDetails extends Component {
           <Col className="info-container" md={8} lg={8}>
             <div className="info-prod-name"><h1 className="prod-header">{ product.name }</h1></div>
             <div className="info-prod-description">{ product.description }</div>
-            <div className="info-prod-price">Price: { product.price } kr</div>
+            <div className="info-prod-price">
+              <p>Price: { product.price } kr</p>
+              <p>Average rating: { avg_rating }</p>
+            </div>
           </Col>
         </Row>
         <Row>
@@ -183,7 +196,7 @@ export class ProductDetails extends Component {
           .info-container{
             text-align:left;
             display: grid;
-            grid-template-rows: 25% 60% 15%;
+            grid-template-rows: 25% 50% 25%;
             grid-template-areas:
               "info-prod-name"
               "info-prod-description"
@@ -207,7 +220,7 @@ export class ProductDetails extends Component {
           .info-prod-price{
             display:grid;
             grid-area: info-prod-price;
-            font-size: 1.7vw;
+            font-size: 1.3vw;
             padding: auto 0;
           }
           .reviews-container{
