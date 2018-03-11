@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { ProductCO } from "./Product-co";
 import { Col, Grid, Row } from "react-bootstrap";
 import ReactLoading from 'react-loading';
+import { Link } from 'react-router-dom';
 
 export class Checkout extends Component{
   constructor(props){
@@ -75,6 +76,11 @@ export class Checkout extends Component{
             {
               this.renderColumns(cart, searchTerm, nrColumns)
             }
+            <Link to="/Payview">
+            <div className="to-payment-btn">
+              To payment
+            </div>
+            </Link>
           </Row>
         </Grid>
       )
@@ -87,6 +93,9 @@ export class Checkout extends Component{
           .center {
             display: block;
             margin: 0 auto;
+          }
+          .to-payment-btn{
+            background-color: green;
           }
         `}
       </style>
