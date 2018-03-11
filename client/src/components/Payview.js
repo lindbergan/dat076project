@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 
 export class Payview extends Component{
   constructor(props) {
@@ -75,49 +76,64 @@ export class Payview extends Component{
     event.preventDefault();
   }
 
+  getValidationState() {
+    return 'success';
+  }
+
   render() {
-    const emailRegEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/;
+    const emailRegEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,4}/;
     const creditcardRegEx = /^[0-9]{16}$/;
     const cvvRegEx = /^[0-9]{3}$/;
 
     return(
     <div className="Payview-container">
       Payview
-        <style jsx="true">{`
-          .Payview-container{
-          background-color: green;
-          }
-        `}</style>
+
       <form>
-        <label>
-          First name:
-          <input value={this.state.fname} type="text" name="First name" onChange={this.handleFNameInput}/>
-        </label>
-        <label>
-          Last name:
-          <input  value={this.state.lname} type="text" name="Last name" onChange={this.handleLNameInput}/>
-        </label>
-        <label>
-          Email
-          <input value={this.state.email} type="email" className="form-control" name="email" onChange={(e) => this.handleEmailInput(e, emailRegEx)}/>
-        </label>
-        <label>
-          Credit card
-          <input value={this.state.creditcard} type='text' className="form-control" name='Credit card number' onChange={(e) => this.handleCreditCardInput(e, creditcardRegEx)}/>
-        </label>
-        <label>
-          CVV
-          <input value={this.state.cvv} type='text' className="form-control" name='CVV' onChange={(e) => this.handleCVVInput(e, cvvRegEx)}/>
-        </label>
-        <label>
-          Adress
-          <input type='text' className="form-control" name='Adress'/>
-        </label>
-        <input type="submit" value="Buy" onClick={this.handleSubmit} />
+        <FormGroup
+          className="forms"
+          controlId="formBasicText"
+          validationState={this.getValidationState()}
+        >
+          <label>
+            First name:
+            <FormControl value={this.state.fname} type="text" name="First name" onChange={this.handleFNameInput}/>
+          </label>
+          <label>
+            Last name:
+            <FormControl  value={this.state.lname} type="text" name="Last name" onChange={this.handleLNameInput}/>
+          </label>
+          <label>
+            Email
+            <FormControl className="email-form" value={this.state.email} type="email" className="form-control" name="email" onChange={(e) => this.handleEmailInput(e, emailRegEx)}/>
+          </label>
+          <label>
+            Credit card
+            <FormControl value={this.state.creditcard} type='text' className="form-control" name='Credit card number' onChange={(e) => this.handleCreditCardInput(e, creditcardRegEx)}/>
+          </label>
+          <label>
+            CVV
+            <FormControl value={this.state.cvv} type='text' className="form-control" name='CVV' onChange={(e) => this.handleCVVInput(e, cvvRegEx)}/>
+          </label>
+          <label>
+            Adress
+            <FormControl type='text' className="form-control" name='Adress'/>
+          </label>
+          <FormControl className="buy-button" type="submit" value="Buy" onClick={this.handleSubmit} />
+        </FormGroup>
       </form>
+      <style jsx="true">{`
+          .forms {
+            max-width:500px;
+            margin: 0 auto;
+            padding:10px;
+          }
+          .buy-button {
+            max-width:50px;
+            margin-left: 100%;
+          }
+      `}</style>
     </div>
     )
   }
-
-  }
-1
+}
