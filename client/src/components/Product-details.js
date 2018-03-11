@@ -22,7 +22,7 @@ export class ProductDetails extends Component {
       .then(product => {
         this.setState({
           product: product.product,
-          avg_rating: parseFloat(product.rating[0].avg_rating)
+          avg_rating: product.rating[0].avg_rating
         });
       });
   }
@@ -105,7 +105,9 @@ export class ProductDetails extends Component {
   render() {
     const product = this.state.product !== undefined ? this.state.product : '';
     const reviews = this.state.reviews !== undefined ? this.state.reviews : [];
-    const avg_rating = this.state.avg_rating !== undefined ? this.state.avg_rating : 0;
+    console.log(this.state.avg_rating);
+    const avg_rating = this.state.avg_rating !== undefined && this.state.avg_rating !== null &&
+    this.state.avg_rating !== 'null' ? parseFloat(this.state.avg_rating) : "Not rated yet.";
     return(
       <div className="prod-details-wrapper">
       <Grid className="prod-details-container" fluid={true}>
