@@ -249,6 +249,7 @@ export class ProductDetails extends Component {
           }
           .add-review-container{
             padding-right: 0;
+            padding-bottom: 20px;
           }
           #new-review-rating{
             width: 100%;
