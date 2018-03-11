@@ -40,7 +40,7 @@ export class Cart extends Component {
 
         <div>Total cost: {total_cost} kr</div>
         <div className="purchase-btn">
-          <Link to="/checkout" >Go to cashier</Link>
+          <Link to="/checkout" >Go to checkout</Link>
         </div>
       </Row>
 
