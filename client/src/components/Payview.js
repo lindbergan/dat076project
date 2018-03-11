@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import { Receipt } from './Receipt'
+import { Receipt } from './Receipt';
 import './shadows.css';
 
 export class Payview extends Component{
