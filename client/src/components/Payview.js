@@ -7,17 +7,10 @@ export class Payview extends Component{
   constructor(props) {
       super(props);
       this.state = {
-        fname: 'John',
-        lname: 'Doe',
-        email: 'example@email.com',
-        creditcard:'xxxx xxxx xxxx xxxx',
-        cvv: 'xxx',
-
         validEmail: true,
         validCreditCard: false,
         validCVV: false,
-
-        checkoutComplete: true
+        checkoutComplete: false
       };
 
   this.handleChange = this.handleChange.bind(this);
@@ -34,7 +27,7 @@ async componentDidMount() {
   fetch(`/users/${user_id}`)
     .then(res => res.json())
     .then(res => {
-      this.setState({ fname: res.firstName})
+      this.setState({ fname: res.firstName});
       this.setState({ lname: res.lastName});
       this.setState({ email: res.email});
     });
@@ -53,6 +46,7 @@ async componentDidMount() {
   }
 
   handleEmailInput(event, RegExp){
+    console.log("Email: ");
     console.log(RegExp.test(event.target.value));
     if(RegExp.test(event.target.value)){
       this.setState({validEmail: true});
@@ -63,6 +57,7 @@ async componentDidMount() {
   }
 
   handleCreditCardInput(event, RegExp){
+    console.log("Creditcard: ");
     console.log(RegExp.test(event.target.value));
     if(RegExp.test(event.target.value)){
       this.setState({validCreditCard: true});
@@ -73,6 +68,7 @@ async componentDidMount() {
   }
 
   handleCVVInput(event, RegExp){
+    console.log("Cvv: ");
     console.log(RegExp.test(event.target.value));
     if(RegExp.test(event.target.value)){
       this.setState({validCVV: true});
@@ -128,11 +124,11 @@ async componentDidMount() {
             </label>
             <label>
               Credit card
-              <FormControl value={this.state.creditcard} type='text' className="form-control" name='Credit card number' onChange={(e) => this.handleCreditCardInput(e, creditcardRegEx)}/>
+              <FormControl placeholder="1234123412341234"  value={this.state.creditcard} type='text' className="form-control" name='Credit card number' onChange={(e) => this.handleCreditCardInput(e, creditcardRegEx)}/>
             </label>
             <label>
               CVV
-              <FormControl value={this.state.cvv} type='text' className="form-control" name='CVV' onChange={(e) => this.handleCVVInput(e, cvvRegEx)}/>
+              <FormControl placeholder="123" value={this.state.cvv} type='text' className="form-control" name='CVV' onChange={(e) => this.handleCVVInput(e, cvvRegEx)}/>
             </label>
             <label>
               Adress
