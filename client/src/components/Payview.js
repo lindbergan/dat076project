@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import { Receipt } from './Receipt'
+import './shadows.css';
 
 export class Payview extends Component{
   constructor(props) {
@@ -17,7 +18,7 @@ export class Payview extends Component{
         validCreditCard: false,
         validCVV: false,
 
-        checkoutComplete: true
+        checkoutComplete: false
       };
 
   this.handleChange = this.handleChange.bind(this);
@@ -106,50 +107,173 @@ async componentDidMount() {
       return(
 
       <div className="Payview-container">
-        Payview
-
+        <div>
         <form>
           <FormGroup
-            className="forms"
+            className="forms payview-grid effect1"
             controlId="formBasicText"
             validationState={this.getValidationState()}
           >
+          <div className="forms-fname">
+
             <label>
               First name:
-              <FormControl value={this.state.fname} type="text" name="First name" onChange={this.handleFNameInput}/>
+              <FormControl value={this.state.fname}
+                           className="form-pay"
+                           type="text"
+                           name="First name"
+                           placeholder="First name"
+                           onChange={this.handleFNameInput}/>
             </label>
+            </div>
+            <div className="forms-lname">
             <label>
               Last name:
-              <FormControl  value={this.state.lname} type="text" name="Last name" onChange={this.handleLNameInput}/>
+              <FormControl value={this.state.lname}
+                           className="form-pay"
+                           type="text"
+                           name="Last name"
+                           placeholder="Last name"
+                           onChange={this.handleLNameInput}/>
             </label>
+            </div>
+            <div className="forms-email">
             <label>
               Email
-              <FormControl className="email-form" value={this.state.email} type="email" className="form-control" name="email" onChange={(e) => this.handleEmailInput(e, emailRegEx)}/>
+              <FormControl className="email-form form-control"
+                           className="form-pay"
+                           value={this.state.email}
+                           type="email"
+                           name="email"
+                           placeholder="Email"
+                           onChange={(e) => this.handleEmailInput(e, emailRegEx)}/>
             </label>
+            </div>
+            <div className="forms-card">
             <label>
               Credit card
-              <FormControl value={this.state.creditcard} type='text' className="form-control" name='Credit card number' onChange={(e) => this.handleCreditCardInput(e, creditcardRegEx)}/>
+              <FormControl value={this.state.creditcard}
+                           type='text'
+                           className="form-control form-pay"
+                           name='Credit card number'
+                           placeholder="Credit card number"
+                           onChange={(e) => this.handleCreditCardInput(e, creditcardRegEx)}/>
             </label>
+            </div>
+            <div className="forms-cvv">
             <label>
               CVV
-              <FormControl value={this.state.cvv} type='text' className="form-control" name='CVV' onChange={(e) => this.handleCVVInput(e, cvvRegEx)}/>
+              <FormControl value={this.state.cvv}
+                           type='text'
+                           className="form-control form-pay"
+                           name='CVV'
+                           placeholder="CCV"
+                           onChange={(e) => this.handleCVVInput(e, cvvRegEx)}/>
             </label>
+            </div>
+            <div className="forms-adress">
             <label>
               Adress
-              <FormControl type='text' className="form-control" name='Adress'/>
+              <FormControl type='text'
+                           className="form-control form-pay"
+                           name='Adress'
+                           placeholder="Adress"/>
             </label>
-            <FormControl className="buy-button" type="submit" value="Buy" onClick={this.handleSubmit} />
+            </div>
+            <div className="forms-btn">
+              <FormControl className="buy-button"
+                           type="submit"
+                           value="Confirm payment"
+                           onClick={this.handleSubmit} />
+            </div>
           </FormGroup>
+
         </form>
+        </div>
         <style jsx="true">{`
+
+            .Payview-container{
+              margin-top: 20px;
+              font-family: 'Hind Siliguri', sans-serif;
+            }
+            .payview-grid{
+              background: white;
+              display: grid;
+              grid-template-rows: 30% 30% 30% auto;
+              grid-template-columns: 50% 50%;
+              grid-template-areas:
+                "forms-fname forms-lname"
+                "forms-email forms-adress"
+                "forms-card forms-cvv"
+                "forms-btn forms-btn";
+            }
+            .form-pay{
+              text-align: left;
+              width: 100%;
+              border-radius: 0;
+              -webkit-appearance: none;
+              -webkit-border-radius: 0px;
+              padding-left: 8px;
+            }
             .forms {
-              max-width:500px;
+              width: 50%;
+              height: 350px;
               margin: 0 auto;
-              padding:10px;
+              padding:0;
+              background: white;
+            }
+            .forms-fname{
+              display:grid;
+              grid-area: forms-fname;
+              padding: 10px;
+            }
+            .forms-lname{
+              display:grid;
+              grid-area: forms-lname;
+              padding: 10px;
+            }
+            .forms-email{
+              display:grid;
+              grid-area: forms-email;
+              padding: 10px;
+            }
+            .forms-adress{
+              display:grid;
+              grid-area: forms-adress;
+              padding: 10px;
+            }
+            .forms-card{
+              display:grid;
+              grid-area: forms-card;
+              padding: 10px;
+            }
+            .forms-cvv{
+              display:grid;
+              grid-area: forms-cvv;
+              padding: 10px;
+            }
+            .forms-btn{
+              display:grid;
+              grid-area: forms-btn;
+              background: grey;
             }
             .buy-button {
-              max-width:50px;
-              margin-left: 100%;
+              border-style:none;
+              color: white;
+              width:100%;
+              border-radius: 0;
+              background: #56ab2f; /* fallback for old browsers */
+              background: -webkit-linear-gradient(to right, #56ab2f, #6BB549); /* Chrome 10-25, Safari 5.1-6 */
+              background: linear-gradient(to right, #56ab2f, #6BB549); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+            }
+            .buy-button:hover {
+              width:100%;
+              border-radius: 0;
+              background: #56ab2f; /* fallback for old browsers */
+              background: -webkit-linear-gradient(to right, #3b771f, #4b653f); /* Chrome 10-25, Safari 5.1-6 */
+              background: linear-gradient(to right, #3b771f, #4b653f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
             }
         `}</style>
       </div>
