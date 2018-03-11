@@ -1,6 +1,8 @@
 Web programming project
 =====
 
+
+
 **Webshop made with:** React, ExpressJS, NodeJS, Sequelize.
 
 ```
@@ -26,11 +28,19 @@ Folder: [react-backend](react-backend/)
   Port is set to 3000.
 ```
 
+### Rapport:
+Folder: [rapport](rapport/)
+```
+  Report in PDF-format
+```
+
+
 ### Screenshots:
 ![Starview](screenshots/startview.png)
 ![Detailview](screenshots/detailview.png)
 ![Checkoutview](screenshots/checkoutview.png)
 ![Zoomedincart](screenshots/zoomedincart.png)
+
 
 
 ### Authors:
