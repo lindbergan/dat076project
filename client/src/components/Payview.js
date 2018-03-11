@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import { FormGroup, FormControl, Grid, Row, Col } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { FormGroup, FormControl } from 'react-bootstrap';
 import { Receipt } from './Receipt';
 import './shadows.css';
 
@@ -140,8 +139,7 @@ async componentDidMount() {
             <div className="forms-email">
             <label>
               Email
-              <FormControl className="email-form form-control"
-                           className="form-pay"
+              <FormControl className="email-form form-control form-pay"
                            value={this.state.email}
                            type="email"
                            name="email"
