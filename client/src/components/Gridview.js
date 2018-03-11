@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Product } from "./Product";
-import { Button, Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row } from "react-bootstrap";
+import ReactLoading from 'react-loading';
 
 export class GridView extends Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       products: null,
       width: 0,
@@ -62,7 +63,6 @@ export class GridView extends Component {
                                      id={ product.product_id }
                                      product={ product }
                                      updateCart ={this.props.updateCart}/>)
-
         }
       </Col>
     ));
@@ -92,6 +92,18 @@ export class GridView extends Component {
           </Row>
         </Grid>
       )
-    } else { return(<div />) }
+    } else { return(<Grid fluid={true}>
+      <Row>
+        <ReactLoading className="center" type='balls' width='100px' height='100px' color="grey"/>
+      </Row>
+      <style jsx="true">
+        {`
+          .center {
+            display: block;
+            margin: 0 auto;
+          }
+        `}
+      </style>
+    </Grid>) }
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Col, Grid, Row } from 'react-bootstrap';
+import {Col, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './shadows.css';
 import MaterialIcon from 'material-icons-react';
@@ -9,10 +9,7 @@ export class ProductCO extends Component {
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
-    this.state = {
-      name: '',
-      price: -1
-    };
+    this.state = {};
   }
 
   async componentDidMount() {
@@ -45,14 +42,14 @@ export class ProductCO extends Component {
     const { product_id } = this.state.product;
     const { amount } = this.state.product;
 
-    if(amount === 1){
-    fetch(`/carts/${user_id}/${product_id}` , {
+    if(amount === 1) {
+      fetch(`/carts/${user_id}/${product_id}`, {
         method: 'delete'
       }).then(response =>
         console.log("ok" + response),
       ); //end fetch DELETE
-
-    }else{
+    }
+    else{
       let new_amount = amount - 1;
       fetch(`/carts/${user_id}`, {
               method: 'PUT',
@@ -74,7 +71,6 @@ export class ProductCO extends Component {
     fetch(`/products/${product.product_id}`)
       .then(res => res.json())
       .then(res => {
-        console.log(res);
         this.setState({
           name: res.product.name,
           price: res.product.price
@@ -87,7 +83,7 @@ export class ProductCO extends Component {
     const { product } = this.state;
 
     if(product !== undefined) {
-      if (this.state.name === '' && this.state.price === -1) {
+      if (this.state.name === undefined && this.state.price === undefined) {
         this.getProduct(product);
       }
       return(
@@ -102,47 +98,92 @@ export class ProductCO extends Component {
           <Row>
             <div className="info-container">
               <h3>{this.state.name}</h3>
-              <h4>Amount: {product.amount}</h4>
-              <h4>Price: {this.state.price} kr</h4>
+              <h4 className="info-price">Amount: {product.amount}</h4>
+              <h4 className="info-price">Price: {this.state.price} kr</h4>
             </div>
           </Row>
           <Row>
-            <Col md={6}>
-              <Button className="add-button co-button"
-                      bsStyle="success"
-                      bsSize="large"
-                      onClick={this.handleAdd}>+</Button>
+            <Col className="co-buttons-container" md={6}>
+            <div className="delete-button co-button"
+                 onClick={this.handleDelete}>
+                    <i className="fas fa-minus"></i>
+            </div>
             </Col>
-            <Col md={6}>
-              <Button className="delete-button co-button"
-                      bsStyle="danger"
-                      bsSize="large"
-                      onClick={this.handleDelete}>-</Button>
+            <Col className="co-buttons-container" md={6}>
+
+              <div className="add-button co-button"
+                   onClick={this.handleAdd}>
+                      <i className="fas fa-plus"></i>
+              </div>
             </Col>
           </Row>
 
           <style jsx="true">{`
           .product-container {
-            background-color: #F5FFE1;
+            background-color: #ffffff;
             margin: 10px;
-            cursor: pointer;
             max-width: 350px;
+            margin-bottom: 40px;
+            padding:0;
           }
           .grid-img{
             background: white;
+            cursor: pointer;
           }
+          .info-price{
+            font-size: 16px;
+          }
+
           .img-container{
             background-color: #ccc;
-            margin-top: 15px;
+            margin: 15px 15px 0 15px;
+            padding: 20px 0 20px 0;
+            cursor: pointer;
+            background: linear-gradient(#ABB6BA, #abbaab);
           }
-          .grid-info{
-            font-size:10px;
+
+          .info-container{
+            font-family: 'Hind Siliguri', sans-serif;
+            text-align: left;
+            margin-left: 15px;
           }
+
           .button-product {
             margin-bottom: 15px;
           }
+          .co-buttons-container{
+            padding:0;
+          }
+
           .co-button {
-            margin-bottom: 15px;
+            width: 100%;
+            height: 50px;
+            color: white;
+            padding-top: 12px;
+            margin:0;
+            font-size: 20px;
+            cursor:pointer;
+          }
+          .delete-button{
+            background: #56ab2f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #EC4141, #CD3636); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #EC4141, #CD3636); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          }
+          .add-button{
+            background: #56ab2f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #56ab2f, #6BB549); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #56ab2f, #6BB549); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          }
+
+          .delete-button:hover {
+            background: #a92b2b; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #a92b2b, #a92b2b); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #a92b2b, #a92b2b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          }
+          .add-button:hover {
+            background: #56ab2f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3b771f, #4b653f); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3b771f, #4b653f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           }
           `}</style>
         </Grid>

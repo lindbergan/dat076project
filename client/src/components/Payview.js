@@ -11,9 +11,9 @@ export class Payview extends Component{
         creditcard:'xxxx xxxx xxxx xxxx',
         cvv: 'xxx',
 
-        validEmail: 'false',
-        validCreditCard: 'false',
-        validCVV: 'false'
+        validEmail: true,
+        validCreditCard: false,
+        validCVV: false
       };
 
   this.handleChange = this.handleChange.bind(this);
@@ -68,7 +68,7 @@ export class Payview extends Component{
   }
 
   handleSubmit(event) {
-    if(this.state.validEmail && this.state.validCVV){
+    if(this.state.validEmail && this.state.validCVV) {
        alert('An purchase was made: ' + this.state.fname);
     } else {
       alert('Check that all your fields are valid');

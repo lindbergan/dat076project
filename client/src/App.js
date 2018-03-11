@@ -9,8 +9,8 @@ import { ProductDetails } from './components/Product-details.js';
 import { Payview } from './components/Payview.js';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const savedUserId = sessionStorage.getItem('userId');
     const savedAuthenticated = sessionStorage.getItem('authenticated');
@@ -24,8 +24,8 @@ class App extends Component {
       profile: null,
       sortCheapest: false,
       sortReversingOrder: false,
-      cart: '',
     };
+    this.updateCart();
   }
 
   createUser() {
@@ -42,7 +42,7 @@ class App extends Component {
             },
             body: JSON.stringify({
               user_id: id.toString(),
-              firstName: this.state.profile.firstName,
+              firstName: this.state.profile.givenName,
               lastName: this.state.profile.familyName,
               email: this.state.profile.email,
               role: 'customer',
@@ -84,6 +84,7 @@ class App extends Component {
     this.setState({
       profile: profileObject
     });
+    this.updateCart();
   }
 
   changeSearchTerm(newTerm) {
@@ -107,15 +108,14 @@ class App extends Component {
   sortMostExpensive() {
     this.setState({ sortCheapest: false, sortReversingOrder: null });
 }
-  updateCart(){
+  updateCart() {
     const user_id = this.state.userId;
     fetch(`/carts/${user_id}`)
       .then(res => res.json())
-      .then(cart => this.setState({ cart }));
-
+      .then(cart => {
+        this.setState({ cart: cart.cart, total_amount: cart.total_amount });
+      });
   }
-
-  async componentDidMount() {}
 
   render() {
     if (!this.state.authenticated || this.state.authenticated === 'false') {
@@ -130,14 +130,18 @@ class App extends Component {
               sortDescending={ this.sortDescending.bind(this) }
               sortCheapest={ this.sortCheapest.bind(this) }
               sortMostExpensive={ this.sortMostExpensive.bind(this) }
+              total_amount={this.state.total_amount}
               cartContent={this.state.cart}>
         <Route path="/" exact component={ () =>
           <GridView searchTerm={ this.state.searchTerm }
                     sortReversingOrder={ this.state.sortReversingOrder }
                     sortCheapest={ this.state.sortCheapest }
-                    updateCart={this.updateCart.bind(this)}/> } />
+                    updateCart={ this.updateCart.bind(this) }/> } />
         <Route path="/checkout" exact component={ () =>
-          <Checkout searchTerm={ this.state.searchTerm } updateCart={this.updateCart.bind(this)} /> } />
+          <Checkout searchTerm={ this.state.searchTerm }
+                    updateCart={ this.updateCart.bind(this) }
+                    cart={ this.state.cart }
+                    total_amount={this.state.total_amount} /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
         <Route path="/Payview" exact component={ Payview } />
       </Layout>

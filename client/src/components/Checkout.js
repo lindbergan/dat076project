@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import { ProductCO } from "./Product-co";
 import { Col, Grid, Row } from "react-bootstrap";
-
+import ReactLoading from 'react-loading';
 
 export class Checkout extends Component{
   constructor(props){
     super(props);
     this.state={
-      cart: '',
+      cart: props.cart,
       searchTerm: ''
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -17,7 +17,7 @@ export class Checkout extends Component{
     const user_id = sessionStorage.getItem('userId');
     fetch(`/carts/${user_id}`)
       .then(res => res.json())
-      .then(cart => this.setState({ cart }));
+      .then(cart => this.setState({ cart: cart.cart }));
     window.addEventListener('resize', this.updateWindowDimensions);
     this.updateWindowDimensions();
   }
@@ -58,10 +58,17 @@ export class Checkout extends Component{
   }
 
   render() {
-    const { cart } = this.state;
+    const cart  = this.props.cart !== undefined ? this.props.cart : [];
     const { searchTerm } = this.props;
-    if (cart !== '') {
+    if (cart !== []) {
       const nrColumns = this.getNrColumns();
+      if (cart.length === 0) {
+        return (<Grid>
+          <Row>
+            <h1>No items in checkout.</h1>
+          </Row>
+        </Grid>)
+      }
       return(
         <Grid>
           <Row>
@@ -71,6 +78,18 @@ export class Checkout extends Component{
           </Row>
         </Grid>
       )
-    } else { return(<div />) }
+    } else { return(<Grid fluid={true}>
+      <Row>
+        <ReactLoading className="center" type='balls' width='100px' height='100px' color="grey"/>
+      </Row>
+      <style jsx="true">
+        {`
+          .center {
+            display: block;
+            margin: 0 auto;
+          }
+        `}
+      </style>
+    </Grid>) }
   }
 }
