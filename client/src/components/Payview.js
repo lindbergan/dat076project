@@ -156,7 +156,7 @@ async componentDidMount() {
       )
     } else {
       return(
-        <Receipt/>
+        <Receipt updateCart={this.props.updateCart}/>
       )
     }
   }

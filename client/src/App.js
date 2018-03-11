@@ -143,7 +143,7 @@ class App extends Component {
                     cart={ this.state.cart }
                     total_amount={this.state.total_amount} /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
-        <Route path="/Payview" exact component={ Payview } />
+        <Route path="/payview" exact component={ () => <Payview updateCart={this.updateCart.bind(this)}/> } />
       </Layout>
     );
   }

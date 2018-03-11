@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 export class Receipt extends Component{
   constructor(props){
     super(props);
@@ -24,13 +25,22 @@ export class Receipt extends Component{
           <tr>
             <td> {product.product.name} </td>
             <td> {product.amount} </td>
-            <td> {product.product.price}</td>
+            <td> {product.product.price} kr</td>
             <hr />
           </tr>
         )
       });
     }
   }
+
+  clearCart() {
+    const user_id = sessionStorage.getItem('userId');
+    return fetch(`/carts/${user_id}`, {
+      method: 'delete'
+    }).then(res => console.log(res))
+      .catch(ex => console.log(ex));
+  }
+
   render(){
     const total_price = this.state.total_price !== undefined ? this.state.total_price : 0;
     return(
@@ -47,11 +57,11 @@ export class Receipt extends Component{
             this.renderReceipt()
           }
         </table>
-        <h5>Total: {total_price}</h5>
-        <Link to="/">
-          <div>
-            Return to mainpage
-          </div>
+        <h5>Total: {total_price} kr</h5>
+        <Link to="/" onClick={() => { this.clearCart(); this.props.updateCart(); }}>
+          <Button
+            className="btn btn-secondary"
+          >Return to shopping view</Button>
         </Link>
         <style jsx="true"> {`
           table {
