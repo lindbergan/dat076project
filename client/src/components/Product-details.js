@@ -110,15 +110,17 @@ export class ProductDetails extends Component {
       <div className="prod-details-wrapper">
       <Grid className="prod-details-container" fluid={true}>
         <Row className="info-row effect1">
-          <Col className="img-container" md={4} lg={4}>
+          <Col className="img-container" sm={12} md={4} lg={4}>
             <MaterialIcon icon="insert_photo" size={100} className="icon-details"/>
           </Col>
-          <Col className="info-container" md={8} lg={8}>
+          <Col className="info-container" sm={12} md={8} lg={8}>
             <div className="info-prod-name"><h1 className="prod-header">{ product.name }</h1></div>
             <div className="info-prod-description">{ product.description }</div>
+            <div className="info-prod-rating">
+              <p>Average rating: { avg_rating }</p>
+            </div>
             <div className="info-prod-price">
               <p>Price: { product.price } kr</p>
-              <p>Average rating: { avg_rating }</p>
             </div>
           </Col>
         </Row>
@@ -175,7 +177,6 @@ export class ProductDetails extends Component {
           }
           .prod-header{
             margin: auto 0;
-            font-size: 2vw;
           }
           .prod-details-container{
             background: #EFEEDE;
@@ -196,10 +197,11 @@ export class ProductDetails extends Component {
           .info-container{
             text-align:left;
             display: grid;
-            grid-template-rows: 25% 50% 25%;
+            grid-template-rows: 25% 50% 15% 10%;
             grid-template-areas:
               "info-prod-name"
               "info-prod-description"
+              "info-prod-rating"
               "info-prod-price";
             height: 100%;
             background: white;
@@ -214,14 +216,20 @@ export class ProductDetails extends Component {
             grid-area: info-prod-description;
             text-align: justify;
             width: 70%;
-            font-size: 1.0vw;
+            font-size: 16px;
             padding: auto 0px;
           }
           .info-prod-price{
             display:grid;
             grid-area: info-prod-price;
-            font-size: 1.3vw;
+            font-size: 20px;
             padding: auto 0;
+          }
+          .info-prod-rating{
+            display:grid;
+            display-area: info-prod-rating;
+            font-size: 12px;
+            margin-top: 5px;
           }
           .reviews-container{
             background: #EFEEDE;
@@ -261,6 +269,18 @@ export class ProductDetails extends Component {
             padding-top: 5px;
             cursor:pointer;
           }
+          @media (max-width: 992px) {
+            .info-row {
+              height: 100%;
+            }
+
+        }
+        @media (max-width: 1188px){
+          .info-prod-rating{
+
+            margin-top: 15px;
+          }
+        }
         `}</style>
       </div>
     )
