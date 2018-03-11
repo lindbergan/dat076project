@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Review } from './Review.js';
 import { Col, Grid, Row } from "react-bootstrap";
 import MaterialIcon from "material-icons-react";

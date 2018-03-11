@@ -6,6 +6,7 @@ import { Authentication } from "./components/Authentication-view";
 import { Route } from 'react-router-dom';
 import { Checkout } from './components/Checkout.js';
 import { ProductDetails } from './components/Product-details.js';
+import { Payview } from './components/Payview.js';
 
 class App extends Component {
   constructor(props) {
@@ -142,6 +143,7 @@ class App extends Component {
                     cart={ this.state.cart }
                     total_amount={this.state.total_amount} /> } />
         <Route path="/product/:product_id" exact component={ ProductDetails } />
+        <Route path="/payview" exact component={ () => <Payview updateCart={this.updateCart.bind(this)}/> } />
       </Layout>
     );
   }
