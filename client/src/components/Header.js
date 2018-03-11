@@ -25,7 +25,7 @@ export class Header extends Component {
       <Grid id="header" fluid={true}>
         <Row>
 
-          <Col className="header-profile" md={ 4 } sm={3} lg={ 2 }>
+          <Col className="header-profile" xs={12} sm={4} md={ 4 } lg={ 2 }>
             <img src={ profilePicture } className="img-thumbnail rounded mx-auto d-block profilePic" alt="Profile"/>
             <h4>{ profileName }</h4>
             <Button
@@ -35,7 +35,7 @@ export class Header extends Component {
             >Logout</Button>
           </Col>
 
-          <Col className="header-main" xs={12} sm={6} md={4} lg={8}>
+          <Col className="header-main" xs={12} sm={4} md={4} lg={8}>
             <Link to="/">
               <div className="webshop-title">
                 <h2 id="ws-title">Amazing Products Webshop</h2>
@@ -43,13 +43,10 @@ export class Header extends Component {
             </Link>
           </Col>
 
-          <Col sm={3} lg={2}/>
-
-          <Col className="header-cart" xs={12} sm={6} md={4} lg={2}>
+          <Col className="header-cart" xs={12} sm={4} md={4} lg={2}>
             <Cart cartContent={this.props.cartContent} total_amount={this.props.total_amount}/>
           </Col>
 
-          <Col sm={3}/>
 
         </Row>
         <style jsx="true">{`

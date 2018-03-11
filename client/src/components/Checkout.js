@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { ProductCO } from "./Product-co";
-import { Col, Grid, Row } from "react-bootstrap";
+import { Col, Grid, Row, Button } from "react-bootstrap";
 import ReactLoading from 'react-loading';
+import { Link } from 'react-router-dom';
 
 export class Checkout extends Component{
   constructor(props){
@@ -75,7 +76,13 @@ export class Checkout extends Component{
             {
               this.renderColumns(cart, searchTerm, nrColumns)
             }
+
           </Row>
+          <Link to="/payview">
+            <Button
+              className="to-payment-btn"
+            >To payment</Button>
+          </Link>
         </Grid>
       )
     } else { return(<Grid fluid={true}>
@@ -87,6 +94,11 @@ export class Checkout extends Component{
           .center {
             display: block;
             margin: 0 auto;
+          }
+          .to-payment-btn{
+            border-radius: 0;
+            width: 50%;
+            color: white;
           }
         `}
       </style>
